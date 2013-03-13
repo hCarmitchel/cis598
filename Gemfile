@@ -28,7 +28,6 @@ end
 gem 'jquery-rails', '2.0.2'
 gem 'bootstrap-sass'
 gem 'simple_form'
-gem 'unicorn'
 
 
 
