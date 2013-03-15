@@ -1,21 +1,25 @@
-<%= link_to "Home", root_path, :class => 'brand' %>
+<%= link_to "Aggregate Media Ratings", root_path, :class => 'brand' %>
 <ul class="nav">
-  <% if user_signed_in? %>
-    <li>
-    <%= link_to('Logout', destroy_user_session_path, :method=>'delete') %>
-    </li>
-  <% else %>
-    <li>
-    <%= link_to('Login', new_user_session_path)  %>
-    </li>
-  <% end %>
-  <% if user_signed_in? %>
-    <li>
-    <%= link_to('Edit account', edit_user_registration_path) %>
-    </li>
-  <% else %>
-    <li>
-    <%= link_to('Sign up', new_user_registration_path)  %>
-    </li>
-  <% end %>
+  <li><a href="../welcome/about">About</a></li>
+  <li><a href="../welcome/import">Import</a></li>
+  <li><a href="../welcome/stats">Stats</a></li>
+  <li><a href="#">Random</a></li>
+   <li class="dropdown">
+<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+Edit
+<b class="caret"></b>
+</a>
+<ul class="dropdown-menu">
+  <li><%= link_to "Shows", tv_shows_path %></li>
+  <li><%= link_to "Seasons", tv_seasons_path %></li>
+  <li><%= link_to "Episodes", tv_episodes_path %></li>
+  <li><%= link_to "Genres", genres_path %></li>
+  <li><%= link_to "Ratings", ratings_path %></li>
+</ul>
+</li>
+  <li>
+  <form class="navbar-search pull-right">
+    <input type="text" class="search-query" placeholder="Search">
+  </form>
+</li>
 </ul>

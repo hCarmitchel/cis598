@@ -1,0 +1,35 @@
+<% content_for :javascript do %>
+<script>
+</script>
+<% end %>
+
+<h1>TV season index</h1>
+
+<table  id="myTable" class="tablesorter-blue">
+<thead>
+  <tr>
+    <th>ID</th>
+    <th>Number</th>
+    <th>Show_Id</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+</thead>
+<tbody>
+<% @tv_seasons.each do |tv_season| %>
+  <tr>    
+    <td><%= tv_season.id %></td>
+    <td><%= tv_season.number %></td>
+    <td><%= tv_season.show_id %></td>
+    <td><%= link_to 'Show', tv_season %></td>
+    <td><%= link_to 'Edit', edit_tv_season_path(tv_season) %></td>
+    <td><%= link_to 'Destroy', tv_season, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</tbody>
+</table>
+
+<br />
+
+<%= button_to "Add TV season", new_tv_season_path, :method => "get", :class=> "btn btn-primary"%>

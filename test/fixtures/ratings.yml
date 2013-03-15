@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  votes: 1
+  total_rating: 9.99
+  rating_website: MyString
+  type: 
+  item_id: 1
+
+two:
+  votes: 1
+  total_rating: 9.99
+  rating_website: MyString
+  type: 
+  item_id: 1

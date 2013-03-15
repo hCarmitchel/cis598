@@ -1,3 +1,32 @@
+@import url(http://fonts.googleapis.com/css?family=Tauri);
 @import "bootstrap";
-body { padding-top: 60px; }
+body { 
+  background-image: url('/assets/bg.png');
+  padding-top: 40px; 
+}
 @import "bootstrap-responsive";
+
+// Use for vertical flexslider
+/*.flex-viewport {width:77.5% !important;float:left;}
+.flex-control-thumbs {width:22% !important;float:right;margin:0 !important;}
+.flex-control-thumbs li {width:auto !important;}*/
+
+.flex-caption { 
+background-color: white;
+border: solid 1px #ddd;
+border-left: none;
+border-radius: 0 0 9px 0;
+border-top: none;
+box-shadow: 0px 0px 0px 1px #fff;  
+color: #222;
+display: inline;
+height: 20px;
+padding: 10px 10px 7px 10px;
+position: relative;
+top: -336px;
+width: 230px;
+-webkit-box-shadow: 0px 0px 0px 1px #fff;
+}
+.flex-viewport { height:335px; }
+.brand, .flex-caption, .navbar .nav > li > a, h4 { font-family: Tauri; }
+hr { margin-top:-5px; }

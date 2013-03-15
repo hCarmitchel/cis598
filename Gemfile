@@ -18,10 +18,15 @@ group :assets do
 end
 
 gem 'pg'
+gem 'activerecord-postgresql-adapter'
+
 gem 'jquery-rails', '2.0.2'
 gem 'bootstrap-sass'
 gem 'simple_form'
 
+gem 'flexslider', :git => 'https://github.com/constantm/Flexslider-2-Rails-Gem.git'
+gem 'jquery-tablesorter'
+gem 'jquery-datatables-rails'
 
 
 # To use ActiveModel has_secure_password

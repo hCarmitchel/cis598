@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby.exe
+require 'pg'
+conn = PGconn.open(:dbname => 'development')
+res = conn.exec('select title from tv_shows')
+
+res.each do |row|
+  row.each do |column|
+   puts column
+  end
+end
+
+
+File.open('db/movies.list', 'r') do |f|
+  while f 
+	  if /\d{4,}\-\d{4,5}\Z/ =~ f.readline || /\d{4,}\-\?{4}\Z/ =~ f.readline
+	  	puts f.readline
+	  	puts "\nend"
+	  end
+  end 
+end 
+
+puts "end!"

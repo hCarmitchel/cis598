@@ -1,0 +1,39 @@
+<% content_for :javascript do %>
+<script>
+</script>
+<% end %>
+
+<h4>Rating Index</h4>
+
+<table  id="myTable" class="tablesorter-blue">
+<thead>
+  <tr>
+    <th>Votes</th>
+    <th>Total Rating</th>
+    <th>Rating website</th>
+    <th>Type</th>
+    <th>Item_ID</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+</thead>
+<tbody>
+<% @ratings.each do |rating| %>
+  <tr>    
+    <td><%= rating.votes %></td>
+    <td><%= rating.total_rating %></td>
+    <td><%= rating.rating_website %></td>
+    <td><%= rating.type %></td>
+    <td><%= rating.item_id %></td>
+    <td><%= link_to 'Show', rating %></td>
+    <td><%= link_to 'Edit', edit_rating_path(rating) %></td>
+    <td><%= link_to 'Destroy', rating, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</tbody>
+</table>
+
+<br />
+
+<%= button_to "Add Rating", new_rating_path, :method => "get", :class=> "btn btn-primary"%>
