@@ -35,11 +35,16 @@
     </div> <!--! end of #main -->
     <%= yield :javascript %>
     <script>
-        $(".tablesorter-blue").tablesorter(); 
-        $('.datatable').dataTable({
+        /*$('.datatable').dataTable({
           "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
-          "sPaginationType": "bootstrap"
-        });
+          "sPaginationType": "bootstrap",
+          "bSortClasses": false,
+        });*/
+        $('.nav-tabs a').click(function (e) {
+          alert('d');
+          $(this).tab('show');
+          alert('33');
+        })
     </script>
   </body>
 </html>

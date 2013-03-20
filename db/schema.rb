@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(:version => 20130313202008) do
 
   create_table "genres", :force => true do |t|
     t.string   "name"
-    t.integer  "show_id"
+    t.integer  "tv_show_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -24,35 +24,29 @@ ActiveRecord::Schema.define(:version => 20130313202008) do
     t.integer  "votes"
     t.decimal  "total_rating"
     t.string   "rating_website"
-    t.string   "type"
-    t.integer  "item_id"
+    t.integer  "rateable_id"
+    t.string   "rateable_type"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
   end
 
   create_table "tv_episodes", :force => true do |t|
-    t.integer  "number"
-    t.integer  "season_id"
-    t.integer  "show_id"
-    t.date     "date"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer "number"
+    t.string  "title"
+    t.integer "tv_season_id"
+    t.date    "air_date"
   end
 
   create_table "tv_seasons", :force => true do |t|
-    t.integer  "show_id"
-    t.integer  "number"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer "tv_show_id"
+    t.integer "number"
   end
 
   create_table "tv_shows", :force => true do |t|
-    t.string   "title"
-    t.date     "year_released"
-    t.date     "year_ended"
-    t.text     "description"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.string "title"
+    t.date   "year_released"
+    t.date   "year_ended"
+    t.text   "description"
   end
 
 end

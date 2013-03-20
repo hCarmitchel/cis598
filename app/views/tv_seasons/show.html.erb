@@ -1,19 +1,35 @@
 <p id="notice"><%= notice %></p>
 
+<ul class="nav nav-tabs" id="myTab">
+<li class="active"><a href="#about">About</a></li>
+<li><a href="#profile">Stats</a></li>
+</ul>
+ 
+<div class="tab-content">
+<div class="tab-pane active" id="about">
 <p>
   <b>ID:</b>
-  <%= @tv_season.id %>
+  <%= link_to @tv_season.id, @tv_season, :method => "get" %>
 </p>
-
+<p>
+  <b>Tv Show:</b>
+  <%= link_to @tv_season.tv_show.title, @tv_season.tv_show, :method => "get" %>
+</p>
 <p>
   <b>Number:</b>
-  <%= @tv_season.number %>
+  <%= link_to @tv_season.number, @tv_season, :method => "get" %>
 </p>
-
 <p>
-  <b>Show:</b>
-  <%= @tv_season.show_id %>
+  <b>Episodes:</b>
+<% @tv_season.tv_episodes.each do |tv_episode| %>
+      <%= link_to tv_episode.number, tv_episode, :method => "get" %> 
+      <% end %>
 </p>
+</div>
+<div class="tab-pane" id="stats">...</div>
+</div>
+
+<br>
 
 
 <%= link_to 'Edit', edit_tv_season_path(@tv_season) %> |

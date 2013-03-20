@@ -6,7 +6,6 @@ class CreateTvShows < ActiveRecord::Migration
       t.date :year_ended
       t.text :description
 
-      t.timestamps
     end
   end
 end

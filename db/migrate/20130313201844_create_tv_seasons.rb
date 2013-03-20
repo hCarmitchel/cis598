@@ -4,7 +4,6 @@ class CreateTvSeasons < ActiveRecord::Migration
       t.integer :tv_show_id
       t.integer :number
 
-      t.timestamps
     end
   end
 end

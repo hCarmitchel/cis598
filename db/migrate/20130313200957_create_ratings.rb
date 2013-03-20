@@ -4,8 +4,7 @@ class CreateRatings < ActiveRecord::Migration
       t.integer :votes 
       t.decimal :total_rating
       t.string :rating_website
-      t.string :type
-      t.integer :item_id
+      t.references :rateable, :polymorphic => true
 
       t.timestamps
     end

@@ -1,7 +1,9 @@
 #!/usr/bin/env ruby.exe
 require 'pg'
+require 'date'
 conn = PGconn.open(:dbname => 'development')
 res = conn.exec('select title from tv_shows')
+
 
 res.each do |row|
   row.each do |column|
@@ -11,12 +13,38 @@ end
 
 
 File.open('db/movies.list', 'r') do |f|
-  while f 
-	  if /\d{4,}\-\d{4,5}\Z/ =~ f.readline || /\d{4,}\-\?{4}\Z/ =~ f.readline
-	  	puts f.readline
-	  	puts "\nend"
+  while (not f.eof?)
+  	a = f.readline
+	if /\d{4,}\-\d{4,5}$/ =~ a || /\d{4,}\-\?{4,5}$/ =~ a
+	  	tString = /^".{1,}"/.match(a)[0]
+	  	t = tString[1,tString.length-2].gsub("'","''")
+	    valid_title = t.unpack('C*').pack('U*')
+
+
+	  	#puts "new title: "+t
+	    #puts "new year_released: "+y1
+	    #puts "new year_ended: "+y2
+
+	    query = ''
+
+	    if /\d{4,}\-\d{4,5}$/ =~ a
+	    	y1 = Date::strptime(/\d{4,}\-\d{4,5}$/.match(a)[0].split("-").first, "%Y").to_s
+	    	y2 = Date::strptime(/\d{4,}\-\d{4,5}$/.match(a)[0].split("-").last, "%Y").to_s
+		    query = 'INSERT INTO tv_shows (id, title,year_released,year_ended) VALUES 
+		    		(DEFAULT,\''+valid_title+'\',\''+y1+'\',\''+y2+'\');'
+	    else
+	    	y1 = Date::strptime(/\d{4,}\-\S{4,5}$/.match(a)[0].split("-").first, "%Y").to_s
+	   		query = 'INSERT INTO tv_shows (id, title, year_released) VALUES (DEFAULT,\''+valid_title+'\',\''+y1+'\');'
+	    end
+
+	    puts query
+	    res = conn.exec(query)
 	  end
   end 
 end 
+
+conn.close()
+
+
 
 puts "end!"

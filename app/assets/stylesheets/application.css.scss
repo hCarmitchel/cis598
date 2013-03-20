@@ -11,14 +11,12 @@
  *= require_self
  *= require_tree .
  *= require flexslider.css
- *= require jquery-tablesorter/theme.blue
  *= require dataTables/jquery.dataTables.bootstrap
-
 */
 
 .content {
   background-image: url('/assets/bg.png');
-  padding: 50px 45px; 
+  padding: 20px 45px; 
   margin: 0 -45px; /* negative indent the amount of the padding to maintain the grid system */
 }
 
@@ -30,9 +28,26 @@ a:hover {
   color:#049cdb !important;
 }
 
-h4 { text-align:center; text-shadow:1px 2px 0 white; font-weight:normal !important; }
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus, .dropdown-submenu:hover > a, .dropdown-submenu:focus > a {
+  color: white !important;
+}
+
+h4,h3 { text-align:center; text-shadow:1px 2px 0 white; font-weight:normal !important; }
+
+h3 { margin:0; }
 
 .tablesorter-bootstrap .tablesorter-header, .tablesorter-bootstrap tfoot th, .tablesorter-bootstrap tfoot td {
   padding:0 !important; 
 }
 
+.actions { width: 70px; }
+
+.help-block {
+	color: #777;
+	display: inline !important;
+}
+
+abbr[title], abbr[data-original-title] {
+	border: none !important;
+	color: #9d261d;
+}

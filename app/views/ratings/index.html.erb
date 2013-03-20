@@ -5,17 +5,14 @@
 
 <h4>Rating Index</h4>
 
-<table  id="myTable" class="tablesorter-blue">
+<table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
 <thead>
   <tr>
     <th>Votes</th>
     <th>Total Rating</th>
     <th>Rating website</th>
-    <th>Type</th>
-    <th>Item_ID</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>Item</th>
+    <th>Actions</th>
   </tr>
 </thead>
 <tbody>
@@ -24,11 +21,16 @@
     <td><%= rating.votes %></td>
     <td><%= rating.total_rating %></td>
     <td><%= rating.rating_website %></td>
-    <td><%= rating.type %></td>
-    <td><%= rating.item_id %></td>
-    <td><%= link_to 'Show', rating %></td>
-    <td><%= link_to 'Edit', edit_rating_path(rating) %></td>
-    <td><%= link_to 'Destroy', rating, confirm: 'Are you sure?', method: :delete %></td>
+    <td>
+      <%if rating.rateable_type.eql? 'TvShow' %><%= link_to rating.rateable.title, rating, :method => "get" %>
+      <%elsif rating.rateable_type.eql? 'TvSeason' %><%= rating.rateable.tv_show.title %> S<%= rating.rateable.number %> 
+      <%elsif rating.rateable_type.eql? 'TvEpisode' %><%= rating.rateable.tv_season.tv_show.title %> S<%= rating.rateable.tv_season.number %>xE<%= rating.rateable.number %><% end %>
+    </td>
+    <td class="actions">
+      <%= icon_link_to(rating,{:icon => "eye-open",:enlarge => false},{ :method => :get }) %>
+      <%= icon_link_to(edit_rating_path(:id => rating.id),{:icon => "pencil",:enlarge => false},{ :method => :get }) %>
+      <%= icon_link_to(rating,{:icon => "trash",:enlarge => false},{ confirm: 'Are you sure?',:method => :delete }) %>
+    </td>
   </tr>
 <% end %>
 </tbody>

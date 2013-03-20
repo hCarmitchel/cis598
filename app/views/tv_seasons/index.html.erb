@@ -3,28 +3,33 @@
 </script>
 <% end %>
 
-<h1>TV season index</h1>
+<h4>TV Season index</h4>
 
-<table  id="myTable" class="tablesorter-blue">
+<table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
 <thead>
   <tr>
     <th>ID</th>
     <th>Number</th>
-    <th>Show_Id</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>TV Show</th>
+    <th>Episodes</th>
+    <th>Actions</th>
   </tr>
 </thead>
 <tbody>
 <% @tv_seasons.each do |tv_season| %>
   <tr>    
     <td><%= tv_season.id %></td>
-    <td><%= tv_season.number %></td>
-    <td><%= tv_season.show_id %></td>
-    <td><%= link_to 'Show', tv_season %></td>
-    <td><%= link_to 'Edit', edit_tv_season_path(tv_season) %></td>
-    <td><%= link_to 'Destroy', tv_season, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= link_to tv_season.number, tv_season, :method => "get" %></td>
+    <td><%= link_to tv_season.tv_show.title, tv_season.tv_show, :method => "get" %></td>
+    <td><% tv_season.tv_episodes.each do |tv_episode| %>
+      <%= link_to tv_episode.number, tv_episode, :method => "get" %> 
+      <% end %>
+    </td>
+    <td class="actions">
+      <%= icon_link_to(tv_season,{:icon => "eye-open",:enlarge => false},{ :method => :get }) %>
+      <%= icon_link_to(edit_tv_season_path(tv_season),{:icon => "pencil",:enlarge => false},{ :method => :get }) %>
+      <%= icon_link_to(tv_season,{:icon =>"trash",:enlarge => false},{confirm: 'Are you sure?',:method => :delete}) %>
+    </td>
   </tr>
 <% end %>
 </tbody>

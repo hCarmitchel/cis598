@@ -1,4 +1,6 @@
 RailsinstallerDemo::Application.routes.draw do
+
+  
   resources :tv_episodes
 
   resources :tv_seasons

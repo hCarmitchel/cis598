@@ -12,6 +12,7 @@ group :assets do
   gem 'sass-rails',   '3.2.5'
   gem 'coffee-rails', '3.2.2'
   gem 'uglifier', '1.2.3'
+  gem 'jquery-datatables-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer'
@@ -25,8 +26,7 @@ gem 'bootstrap-sass'
 gem 'simple_form'
 
 gem 'flexslider', :git => 'https://github.com/constantm/Flexslider-2-Rails-Gem.git'
-gem 'jquery-tablesorter'
-gem 'jquery-datatables-rails'
+gem 'will_paginate'
 
 
 # To use ActiveModel has_secure_password

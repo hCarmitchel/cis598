@@ -1,7 +1,10 @@
 class TvSeason < ActiveRecord::Base
-	has_many :ratings, :as => :rateable, :foreign_key => "item_id"
-	has_many :tvEpisodes
-	has_many :genres, :through => :tvShows
+	has_many :ratings, :as => :rateable, :dependent => :destroy
+	has_many :tv_episodes, :dependent => :destroy
+	has_many :genres, :through => :tv_show, :dependent => :destroy
+
+	belongs_to :tv_show
 	
-	validates :show_id, :number, :presence => true
+	validates :tv_show_id, :number, :presence => { :message => "This field is required."}
+	validates :number, :numericality => { :only_integer => true, :message => "Number must be an integer."}
 end

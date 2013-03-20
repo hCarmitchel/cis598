@@ -4,12 +4,12 @@ one:
   votes: 1
   total_rating: 9.99
   rating_website: MyString
-  type: 
-  item_id: 1
+  rateable_type: 
+  rateable_id: 1
 
 two:
   votes: 1
   total_rating: 9.99
   rating_website: MyString
-  type: 
-  item_id: 1
+  rateable_type: 
+  rateable_id: 1

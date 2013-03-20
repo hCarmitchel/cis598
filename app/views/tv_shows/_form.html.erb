@@ -3,12 +3,17 @@
 
   <div class="form-inputs">
     <%= f.input :title %>
-    <%= f.input :year_released %>
-    <%= f.input :year_ended %>
-    <%= f.input :description %>
+    <%= f.input :year_released, as: :date, start_year: Date.today.year,
+                              end_year: Date.today.year-100, discard_day:true, discard_month:true,
+                              order: [:year] %>
+    <%= f.input :year_ended, as: :date, start_year: Date.today.year,
+                              end_year: Date.today.year-100, discard_day:true, discard_month:true,
+                              order: [:year], :include_blank => "Has not ended", :priority => "Has not ended",
+                              hint: '(Leave blank if show has not ended)'  %>
+    <%= f.input :description, :input_html => {:rows => 5, :class => "span6"} %>
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= f.button :submit, 'Save', class: "btn btn-primary" %>
   </div>
 <% end %>

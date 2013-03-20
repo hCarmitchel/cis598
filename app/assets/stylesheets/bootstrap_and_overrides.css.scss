@@ -28,5 +28,7 @@ width: 230px;
 -webkit-box-shadow: 0px 0px 0px 1px #fff;
 }
 .flex-viewport { height:335px; }
-.brand, .flex-caption, .navbar .nav > li > a, h4 { font-family: Tauri; }
+.brand, .flex-caption, .navbar .nav > li > a, h4, h3 { font-family: Tauri; }
 hr { margin-top:-5px; }
+.table th, .table td { padding: 5px 10px !important; }
+

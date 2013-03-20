@@ -15,6 +15,5 @@
 //= require_tree .
 //= require bootstrap
 //= require flexslider 
-//= require jquery-tablesorter
 //= require dataTables/jquery.dataTables
 //= require dataTables/jquery.dataTables.bootstrap

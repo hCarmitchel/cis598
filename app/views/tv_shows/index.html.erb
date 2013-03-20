@@ -3,34 +3,18 @@
 </script>
 <% end %>
 
-<h4>TV Show Index</h4>
+<h3>TV Show Index</h3>
 
-<table  id="myTable" class="tablesorter-blue">
+<table cellpadding="0" cellspacing="0" border="0" id="tvshows" class="datatable table table-striped table-bordered" data-source="<%= tv_shows_url(format: "json") %>">
 <thead>
   <tr>
-    <th>ID</th>
     <th>Title</th>
-    <th>Year released</th>
-    <th>Year ended</th>
     <th>Description</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>Year Released</th>
+    <th>Year Ended</th>
   </tr>
 </thead>
 <tbody>
-<% @tv_shows.each do |tv_show| %>
-  <tr>    
-    <td><%= tv_show.id %></td>
-    <td><%= tv_show.title %></td>
-    <td><%= tv_show.year_released %></td>
-    <td><%= tv_show.year_ended %></td>
-    <td><%= tv_show.description %></td>
-    <td><%= link_to 'Show', tv_show %></td>
-    <td><%= link_to 'Edit', edit_tv_show_path(tv_show) %></td>
-    <td><%= link_to 'Destroy', tv_show, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
 </tbody>
 </table>
 

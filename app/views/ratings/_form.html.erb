@@ -4,12 +4,12 @@
   <div class="form-inputs">
     <%= f.input :votes %>
     <%= f.input :total_rating %>
-    <%= f.input :rating_website %>
-    <%= f.input :type %>
-    <%= f.input :item_id %>
+    <%= f.input :rating_website, collection: [ "IMDB", "Metacritic", "Netflix"], :include_blank => false %>
+    <%= f.input :rateable_type, collection: ["TvShow", "TvSeason", "TvEpisode"], :include_blank => false %>
+    <%= f.input :rateable_id %>
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= f.button :submit, 'Save', class: "btn btn-primary" %>
   </div>
 <% end %>
