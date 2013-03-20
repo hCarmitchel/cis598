@@ -2,49 +2,86 @@
 require 'pg'
 require 'date'
 conn = PGconn.open(:dbname => 'development')
-res = conn.exec('select title from tv_shows')
 
-
-res.each do |row|
-  row.each do |column|
-   puts column
-  end
-end
-
-
-File.open('db/movies.list', 'r') do |f|
+File.open('db/sample_movies.list', 'r') do |f|
   while (not f.eof?)
   	a = f.readline
-	if /\d{4,}\-\d{4,5}$/ =~ a || /\d{4,}\-\?{4,5}$/ =~ a
+	if /\d{4,}\-\d{4,5}$/ =~ a || /\d{4,}\-\?{4,5}$/ =~ a #if matches tv show
 	  	tString = /^".{1,}"/.match(a)[0]
-	  	t = tString[1,tString.length-2].gsub("'","''")
-	    valid_title = t.unpack('C*').pack('U*')
+	  	valid_title = (tString[1,tString.length-2].gsub("'","''")).unpack('C*').pack('U*')
 
-
-	  	#puts "new title: "+t
-	    #puts "new year_released: "+y1
-	    #puts "new year_ended: "+y2
-
-	    query = ''
+	    query,y1,y2 = ''
+	    y1 = Date::strptime(/\d{4,}\-\S{4,5}$/.match(a)[0].split("-").first, "%Y").to_s
 
 	    if /\d{4,}\-\d{4,5}$/ =~ a
-	    	y1 = Date::strptime(/\d{4,}\-\d{4,5}$/.match(a)[0].split("-").first, "%Y").to_s
 	    	y2 = Date::strptime(/\d{4,}\-\d{4,5}$/.match(a)[0].split("-").last, "%Y").to_s
-		    query = 'INSERT INTO tv_shows (id, title,year_released,year_ended) VALUES 
-		    		(DEFAULT,\''+valid_title+'\',\''+y1+'\',\''+y2+'\');'
+		   # conn.exec('INSERT INTO tv_shows (id,title,year_released,year_ended) VALUES (DEFAULT,$1,$2)',[y1,y2])
 	    else
-	    	y1 = Date::strptime(/\d{4,}\-\S{4,5}$/.match(a)[0].split("-").first, "%Y").to_s
-	   		query = 'INSERT INTO tv_shows (id, title, year_released) VALUES (DEFAULT,\''+valid_title+'\',\''+y1+'\');'
+		   # conn.exec('INSERT INTO tv_shows (id,title,year_released) VALUES (DEFAULT,$1)',[y1])
 	    end
+	    puts "title:"+valid_title+" year_released: "+y1
 
-	    puts query
-	    res = conn.exec(query)
+    	while (not f.eof) #now loop through episodes
+	    	e = f.readline
+	    	puts "Line to parse: "+e
+	    	if /{.{1,}(#.{1,})}/ =~ e
+	    		puts "is an episode"
+	    	else
+	    		break
+	    	end
+		  	tvString = /^".{1,}"/.match(e)[0]
+		  	valid_tv_title = (tvString[1,tvString.length-2].gsub("'","''")).unpack('C*').pack('U*')
+
+	    	epTitleString = /{.{1,}(#)/.match(e)[0]
+	    	if epTitleString.length > 4
+	    		valid_ep_title = (epTitleString[1,epTitleString.length-4].gsub("'","''")).unpack('C*').pack('U*')
+	    	else 
+	    		valid_ep_title = nil
+	    	end
+
+	    	epSeason = /\d{1,}\.\d{1,}/.match(e)[0].split(".").first
+	    	epNumber = /\d{1,}\.\d{1,}/.match(e)[0].split(".").last
+
+	    	tvYearMatch = /\((\d{1,})\)/.match(e)[0]
+	    	tvYear = Date::strptime(tvYearMatch[1,tvYearMatch.length-2], "%Y").to_s
+
+	    	puts "valid_tv_title: "+valid_tv_title
+	    	puts "valid_ep_title: "+valid_ep_title
+	    	puts "epSeason: "+epSeason
+	    	puts "epNumber: "+epNumber
+	    	puts "tvYear: "+tvYear
+
+		    tvshowID = conn.exec('SELECT * FROM tv_shows where title = $1 and year_released = $2',[valid_tv_title,tvYear])[0]["id"]
+		    puts tvshowID
+
+		    tvseason = conn.exec('SELECT id from tv_seasons where tv_show_id = $1 and number = $2',[tvshowID,epSeason])
+
+			if tvseason == nil or tvseason == 0 or tvseason.num_tuples.zero? #season does not exist so create season
+			    conn.exec('INSERT INTO tv_seasons (id,tv_show_id,number) VALUES  
+		    			(DEFAULT,$1,$2);',[tvshowID,epSeason])
+			end
+			tvseasonID = conn.exec('SELECT id from tv_seasons where tv_show_id = $1 and number = $2',[tvshowID,epSeason]).getvalue(0,0) 
+
+	    	if (/\((\d{1,})\)/) =~ e #ep has year
+		    	epYear = Date::strptime(/\d{4,5}$/.match(e)[0], "%Y").to_s
+		    	puts "epYear: "+epYear
+		    	conn.exec('INSERT INTO tv_episodes (id,number,title,tv_season_id,air_date) VALUES 
+	    			(DEFAULT,$1,$2,$3,$4)',[epNumber,valid_ep_title,tvseasonID,epYear])
+		    else #ep has no year
+		    	conn.exec('INSERT INTO tv_episodes (id,number,title,tv_season_id) VALUES 
+	    			(DEFAULT,$1,$2,$3)',[valid_ep_title,tvseasonID])
+		    end
+		    res = conn.exec(query)
+	    end
 	  end
   end 
 end 
 
+#res.each do |row|
+ # row.each do |column|
+ #  puts column
+ # end
+#end
+
 conn.close()
-
-
-
-puts "end!"
+puts "end of file!"
