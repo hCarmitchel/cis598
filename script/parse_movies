@@ -3,44 +3,68 @@ require 'pg'
 require 'date'
 conn = PGconn.open(:dbname => 'development')
 
+isTVshow = false
+e = ''
+
+
 File.open('db/sample_movies.list', 'r') do |f|
   while (not f.eof?)
-  	a = f.readline
+  	if isTVshow
+  		a = e
+  	else
+  		a = f.readline
+  	end
+  	puts "Reading from start "+a
 	if /\d{4,}\-\d{4,5}$/ =~ a || /\d{4,}\-\?{4,5}$/ =~ a #if matches tv show
 	  	tString = /^".{1,}"/.match(a)[0]
 	  	valid_title = (tString[1,tString.length-2].gsub("'","''")).unpack('C*').pack('U*')
 
 	    query,y1,y2 = ''
 	    y1 = Date::strptime(/\d{4,}\-\S{4,5}$/.match(a)[0].split("-").first, "%Y").to_s
+	    puts "TV SHOW: "+a
 
 	    if /\d{4,}\-\d{4,5}$/ =~ a
 	    	y2 = Date::strptime(/\d{4,}\-\d{4,5}$/.match(a)[0].split("-").last, "%Y").to_s
+	    	puts "inserting date"
 		   # conn.exec('INSERT INTO tv_shows (id,title,year_released,year_ended) VALUES (DEFAULT,$1,$2)',[y1,y2])
 	    else
+	    	puts "inserting no date"
 		   # conn.exec('INSERT INTO tv_shows (id,title,year_released) VALUES (DEFAULT,$1)',[y1])
 	    end
-	    puts "title:"+valid_title+" year_released: "+y1
 
     	while (not f.eof) #now loop through episodes
 	    	e = f.readline
 	    	puts "Line to parse: "+e
-	    	if /{.{1,}(#.{1,})}/ =~ e
+	    	if /{.{1,}}/ =~ e
 	    		puts "is an episode"
+	    		isTVshow = false
 	    	else
+	    		puts "breaking out of "+e
+	    		isTVshow = true
 	    		break
 	    	end
 		  	tvString = /^".{1,}"/.match(e)[0]
 		  	valid_tv_title = (tvString[1,tvString.length-2].gsub("'","''")).unpack('C*').pack('U*')
 
-	    	epTitleString = /{.{1,}(#)/.match(e)[0]
-	    	if epTitleString.length > 4
-	    		valid_ep_title = (epTitleString[1,epTitleString.length-4].gsub("'","''")).unpack('C*').pack('U*')
-	    	else 
-	    		valid_ep_title = nil
-	    	end
-
-	    	epSeason = /\d{1,}\.\d{1,}/.match(e)[0].split(".").first
-	    	epNumber = /\d{1,}\.\d{1,}/.match(e)[0].split(".").last
+	    	if /{.{1,}(#.{1,})}/ =~ e
+		    	epSeason = /\d{1,}\.\d{1,}/.match(e)[0].split(".").first
+		    	epNumber = /\d{1,}\.\d{1,}/.match(e)[0].split(".").last
+		    	epTitleString = /{.{1,}(#)/.match(e)[0]
+		    	if epTitleString.length > 4
+		    		valid_ep_title = (epTitleString[1,epTitleString.length-4].gsub("'","''")).unpack('C*').pack('U*')
+		    	else 
+		    		valid_ep_title = ''
+		    	end
+	   		else
+	   			epSeason = '0'
+	   			epNumber = '0'
+	   			epTitleString = /{.{1,}}/.match(e)[0]
+	   			if epTitleString.length > 4
+		    		valid_ep_title = (epTitleString[1,epTitleString.length-2].gsub("'","''")).unpack('C*').pack('U*')
+		    	else 
+		    		valid_ep_title = ''
+		    	end
+	   		end
 
 	    	tvYearMatch = /\((\d{1,})\)/.match(e)[0]
 	    	tvYear = Date::strptime(tvYearMatch[1,tvYearMatch.length-2], "%Y").to_s
@@ -62,14 +86,14 @@ File.open('db/sample_movies.list', 'r') do |f|
 			end
 			tvseasonID = conn.exec('SELECT id from tv_seasons where tv_show_id = $1 and number = $2',[tvshowID,epSeason]).getvalue(0,0) 
 
-	    	if (/\((\d{1,})\)/) =~ e #ep has year
+	    	if (/\d{4,5}$/) =~ e #ep has year
 		    	epYear = Date::strptime(/\d{4,5}$/.match(e)[0], "%Y").to_s
 		    	puts "epYear: "+epYear
 		    	conn.exec('INSERT INTO tv_episodes (id,number,title,tv_season_id,air_date) VALUES 
 	    			(DEFAULT,$1,$2,$3,$4)',[epNumber,valid_ep_title,tvseasonID,epYear])
 		    else #ep has no year
 		    	conn.exec('INSERT INTO tv_episodes (id,number,title,tv_season_id) VALUES 
-	    			(DEFAULT,$1,$2,$3)',[valid_ep_title,tvseasonID])
+	    			(DEFAULT,$1,$2,$3)',[epNumber,valid_ep_title,tvseasonID])
 		    end
 		    res = conn.exec(query)
 	    end
