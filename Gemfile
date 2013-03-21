@@ -2,6 +2,9 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.1'
 
+gem 'pg'
+gem 'activerecord-postgresql-adapter'
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
@@ -18,8 +21,9 @@ group :assets do
   # gem 'therubyracer'
 end
 
-gem 'pg'
-gem 'activerecord-postgresql-adapter'
+group :development do
+  gem "rails-erd"
+end
 
 gem 'jquery-rails', '2.0.2'
 gem 'bootstrap-sass'

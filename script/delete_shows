@@ -1,5 +1,8 @@
 #!/usr/bin/env ruby.exe
 require 'pg'
 conn = PGconn.open(:dbname => 'development')
-res = conn.exec('delete from tv_shows')
+conn.exec('delete from tv_shows')
+conn.exec('delete from tv_seasons')
+conn.exec('delete from tv_episodes')
+
 conn.close()

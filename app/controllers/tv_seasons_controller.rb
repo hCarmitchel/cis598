@@ -6,7 +6,7 @@ class TvSeasonsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @tv_seasons }
+      format.json { render json: TVSeasonsDatatable.new(view_context)  }
     end
   end
 

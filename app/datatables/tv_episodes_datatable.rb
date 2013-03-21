@@ -1,5 +1,8 @@
 class TVEpisodesDatatable
-  delegate  :params, :h, :link_to, to: :@view, :icon_link_to
+  delegate  :params, :h, :link_to, to: :@view
+  include ApplicationHelper
+  include ActionView::Helpers::TagHelper
+  include ActionView::Context 
 
   def initialize(view)
     @view = view
@@ -22,7 +25,8 @@ private
         link_to(tvepisode.title, tvepisode),
         link_to(tvepisode.tv_season.number, tvepisode.tv_season),
         link_to(tvepisode.number, tvepisode),
-        icon_link_to(tv_season,{:icon => "eye-open",:enlarge => false},{ :method => :get })
+        h(tvepisode.air_date),
+        icon_link_to(tvepisode,{:icon => "eye-open",:enlarge => false},{ :method => :get })+icon_link_to("/tv_episodes/"+tvepisode.id.to_s+"/edit",{:icon =>"pencil",:enlarge => false},{:action => :edit})+icon_link_to(tvepisode,{:icon =>"trash",:enlarge => false},{confirm: 'Are you sure?',:method => :delete})
       ]
     end
   end
@@ -49,7 +53,7 @@ private
   end
 
   def sort_column
-    columns = %w[title season number actions]
+    columns = %w[title season number air_date actions]
     columns[params[:iSortCol_0].to_i]
   end
 

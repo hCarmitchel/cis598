@@ -7,17 +7,18 @@ isTVshow = false
 e = ''
 
 
-File.open('db/sample_movies.list', 'r') do |f|
+File.open('db/movies.list', 'r') do |f|
   while (not f.eof?)
   	if isTVshow
   		a = e
   	else
   		a = f.readline
   	end
-  	puts "Reading from start "+a
+  	#puts "Reading from start "+a
 	if /\d{4,}\-\d{4,5}$/ =~ a || /\d{4,}\-\?{4,5}$/ =~ a #if matches tv show
 	  	tString = /^".{1,}"/.match(a)[0]
-	  	valid_title = (tString[1,tString.length-2].gsub("'","''")).unpack('C*').pack('U*')
+	  	title = (tString[1,tString.length-2].gsub("'","''"))
+	  	valid_title = title.unpack('C*').pack('U*')
 
 	    query,y1,y2 = ''
 	    y1 = Date::strptime(/\d{4,}\-\S{4,5}$/.match(a)[0].split("-").first, "%Y").to_s
@@ -25,18 +26,18 @@ File.open('db/sample_movies.list', 'r') do |f|
 
 	    if /\d{4,}\-\d{4,5}$/ =~ a
 	    	y2 = Date::strptime(/\d{4,}\-\d{4,5}$/.match(a)[0].split("-").last, "%Y").to_s
-	    	puts "inserting date"
-		   # conn.exec('INSERT INTO tv_shows (id,title,year_released,year_ended) VALUES (DEFAULT,$1,$2)',[y1,y2])
+	    	#puts "inserting date"
+		    conn.exec('INSERT INTO tv_shows (id,title,year_released,year_ended) VALUES (DEFAULT,$1,$2,$3)',[valid_title,y1,y2])
 	    else
-	    	puts "inserting no date"
-		   # conn.exec('INSERT INTO tv_shows (id,title,year_released) VALUES (DEFAULT,$1)',[y1])
+	    	#puts "inserting no date"
+		    conn.exec('INSERT INTO tv_shows (id,title,year_released) VALUES (DEFAULT,$1,$2)',[valid_title,y1])
 	    end
 
     	while (not f.eof) #now loop through episodes
+    		break
 	    	e = f.readline
-	    	puts "Line to parse: "+e
 	    	if /{.{1,}}/ =~ e
-	    		puts "is an episode"
+	    		puts "EPISODE: "+e
 	    		isTVshow = false
 	    	else
 	    		puts "breaking out of "+e
@@ -75,7 +76,10 @@ File.open('db/sample_movies.list', 'r') do |f|
 	    	puts "epNumber: "+epNumber
 	    	puts "tvYear: "+tvYear
 
-		    tvshowID = conn.exec('SELECT * FROM tv_shows where title = $1 and year_released = $2',[valid_tv_title,tvYear])[0]["id"]
+	    	query = 'SELECT * FROM tv_shows where title = \''+valid_tv_title+'\' and year_released = \''+tvYear+'\';'
+	    	puts "QUERY: "+query
+	    	tvshowID = conn.exec(query)[0]["id"]
+		    #tvshowID = conn.exec('SELECT * FROM tv_shows where title = $1 and year_released = $2',[valid_tv_title,tvYear])[0]["id"]
 		    puts tvshowID
 
 		    tvseason = conn.exec('SELECT id from tv_seasons where tv_show_id = $1 and number = $2',[tvshowID,epSeason])
@@ -95,7 +99,6 @@ File.open('db/sample_movies.list', 'r') do |f|
 		    	conn.exec('INSERT INTO tv_episodes (id,number,title,tv_season_id) VALUES 
 	    			(DEFAULT,$1,$2,$3)',[epNumber,valid_ep_title,tvseasonID])
 		    end
-		    res = conn.exec(query)
 	    end
 	  end
   end 

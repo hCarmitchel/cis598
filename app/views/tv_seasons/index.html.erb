@@ -5,33 +5,15 @@
 
 <h4>TV Season index</h4>
 
-<table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
+<table cellpadding="0" cellspacing="0" border="0" id="tvseasons" class="datatable table table-striped table-bordered" data-source="<%= tv_seasons_url(format: "json") %>">
 <thead>
   <tr>
-    <th>ID</th>
-    <th>Number</th>
     <th>TV Show</th>
-    <th>Episodes</th>
-    <th>Actions</th>
+    <th>Number</th>
+    <th class="actions">Actions</th>
   </tr>
 </thead>
 <tbody>
-<% @tv_seasons.each do |tv_season| %>
-  <tr>    
-    <td><%= tv_season.id %></td>
-    <td><%= link_to tv_season.number, tv_season, :method => "get" %></td>
-    <td><%= link_to tv_season.tv_show.title, tv_season.tv_show, :method => "get" %></td>
-    <td><% tv_season.tv_episodes.each do |tv_episode| %>
-      <%= link_to tv_episode.number, tv_episode, :method => "get" %> 
-      <% end %>
-    </td>
-    <td class="actions">
-      <%= icon_link_to(tv_season,{:icon => "eye-open",:enlarge => false},{ :method => :get }) %>
-      <%= icon_link_to(edit_tv_season_path(tv_season),{:icon => "pencil",:enlarge => false},{ :method => :get }) %>
-      <%= icon_link_to(tv_season,{:icon =>"trash",:enlarge => false},{confirm: 'Are you sure?',:method => :delete}) %>
-    </td>
-  </tr>
-<% end %>
 </tbody>
 </table>
 

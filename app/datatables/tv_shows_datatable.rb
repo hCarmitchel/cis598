@@ -1,5 +1,8 @@
 class TVShowsDatatable
   delegate  :params, :h, :link_to, to: :@view
+  include ApplicationHelper
+  include ActionView::Helpers::TagHelper
+  include ActionView::Context 
 
   def initialize(view)
     @view = view
@@ -22,7 +25,8 @@ private
         link_to(tvshow.title, tvshow),
         tvshow.description,
         tvshow.year_released.strftime("%Y"),
-        h(tvshow.year_ended)
+        tvshow.year_ended,
+        icon_link_to(tvshow,{:icon => "eye-open",:enlarge => false},{ :method => :get })+icon_link_to("/tv_shows/"+tvshow.id.to_s+"/edit",{:icon =>"pencil",:enlarge => false},{:action => :edit})+icon_link_to(tvshow,{:icon =>"trash",:enlarge => false},{confirm: 'Are you sure?',:method => :delete})
       ]
     end
   end
@@ -49,7 +53,7 @@ private
   end
 
   def sort_column
-    columns = %w[title description year_released year_ended]
+    columns = %w[title description year_released year_ended actions]
     columns[params[:iSortCol_0].to_i]
   end
 
