@@ -23,6 +23,7 @@ private
     tvepisodes.map do |tvepisode|
       [
         link_to(tvepisode.title, tvepisode),
+        link_to(tvepisode.tv_season.tv_show.title, tvepisode.tv_season.tv_show),
         link_to(tvepisode.tv_season.number, tvepisode.tv_season),
         link_to(tvepisode.number, tvepisode),
         h(tvepisode.air_date),
@@ -39,7 +40,7 @@ private
     tvepisodes = TvEpisode.order("#{sort_column} #{sort_direction}")
     tvepisodes = tvepisodes.page(page).per_page(per_page)
     if params[:sSearch].present?
-      tvepisodes = tvepisodes.where("title like :search or number like :search", search: "%#{params[:sSearch]}%")
+      tvepisodes = tvepisodes.where("title like :search or number like :search or season like :search or air_date like :search", search: "%#{params[:sSearch]}%")
     end
     tvepisodes
   end
@@ -53,7 +54,7 @@ private
   end
 
   def sort_column
-    columns = %w[title season number air_date actions]
+    columns = %w[title season show number air_date actions]
     columns[params[:iSortCol_0].to_i]
   end
 

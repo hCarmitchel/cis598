@@ -21,6 +21,17 @@ class TvShowsController < ApplicationController
     end
   end
 
+  # GET /tv_shows/Archer
+  # GET /tv_shows/Archer.json
+  def showByTitle
+    @tv_show = TvShow.find(params[:title])
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @tv_show }
+    end
+  end
+
   # GET /tv_shows/new
   # GET /tv_shows/new.json
   def new

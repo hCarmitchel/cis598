@@ -6,7 +6,7 @@ class GenresController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @genres }
+      format.json { render json: GenresDatatable.new(view_context) }
     end
   end
 

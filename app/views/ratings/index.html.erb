@@ -5,34 +5,17 @@
 
 <h4>Rating Index</h4>
 
-<table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
+<table cellpadding="0" cellspacing="0" border="0" id="ratings" class="datatable table table-striped table-bordered" data-source="<%= ratings_url(format: "json") %>">
 <thead>
   <tr>
     <th>Votes</th>
     <th>Total Rating</th>
-    <th>Rating website</th>
-    <th>Item</th>
+    <th>Rating Website</th>
+    <th>Rating Type</th>
     <th>Actions</th>
   </tr>
 </thead>
 <tbody>
-<% @ratings.each do |rating| %>
-  <tr>    
-    <td><%= rating.votes %></td>
-    <td><%= rating.total_rating %></td>
-    <td><%= rating.rating_website %></td>
-    <td>
-      <%if rating.rateable_type.eql? 'TvShow' %><%= link_to rating.rateable.title, rating, :method => "get" %>
-      <%elsif rating.rateable_type.eql? 'TvSeason' %><%= rating.rateable.tv_show.title %> S<%= rating.rateable.number %> 
-      <%elsif rating.rateable_type.eql? 'TvEpisode' %><%= rating.rateable.tv_season.tv_show.title %> S<%= rating.rateable.tv_season.number %>xE<%= rating.rateable.number %><% end %>
-    </td>
-    <td class="actions">
-      <%= icon_link_to(rating,{:icon => "eye-open",:enlarge => false},{ :method => :get }) %>
-      <%= icon_link_to(edit_rating_path(:id => rating.id),{:icon => "pencil",:enlarge => false},{ :method => :get }) %>
-      <%= icon_link_to(rating,{:icon => "trash",:enlarge => false},{ confirm: 'Are you sure?',:method => :delete }) %>
-    </td>
-  </tr>
-<% end %>
 </tbody>
 </table>
 

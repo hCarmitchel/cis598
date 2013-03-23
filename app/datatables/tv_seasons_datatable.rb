@@ -22,7 +22,7 @@ private
   def data
     tvseasons.map do |tvseason|
       [
-        link_to(tvseason.tv_show.id, tvseason.tv_show),
+        link_to(tvseason.tv_show.title, tvseason.tv_show),
         link_to(tvseason.number, tvseason),
         icon_link_to(tvseason,{:icon => "eye-open",:enlarge => false},{ :method => :get })+icon_link_to("/tv_seasons/"+tvseason.id.to_s+"/edit",{:icon =>"pencil",:enlarge => false},{:action => :edit})+icon_link_to(tvseason,{:icon =>"trash",:enlarge => false},{confirm: 'Are you sure?',:method => :delete})
       ]

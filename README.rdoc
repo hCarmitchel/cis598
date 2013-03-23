@@ -1,7 +1,14 @@
 Aggregate Media Ratings web app
 --------------------------------
 
-This is a web application for a senior design project, and it isn't nearly complete yet. 
-The goal of this project is to aggregate ratings to television shows (later maybe movies) and show statistics and graphics to help visualize ratings over time, ratings of different genres, etc.
 
+This is a web application for a senior design project, and it isn't nearly complete yet. 
+The goal of this project is to aggregate ratings to television shows (later maybe movies) and show statistics and graphics to help visualize ratings over time, ratings of different genres, etc. You may view my <a href="people.cis.ksu.edu/~h17/cis598" target="_blank">website</a> for more information about this project.
+
+
+--------------------------------
+
+In order to run locally, Ruby, Rails, and PostgreSQL must be installed. I suggest using the RailsInstaller here: http://railsinstaller.org/ and getting PostgreSQL from here: http://www.postgresql.org/download/.
+
+--------------------------------
 This project was created by Heather Carmitchel.

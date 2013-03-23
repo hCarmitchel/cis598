@@ -19,6 +19,8 @@ RailsinstallerDemo::Application.routes.draw do
 
   get "welcome/stats"
 
+  match "/welcome/:title" => "welcome#showByTitle"
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

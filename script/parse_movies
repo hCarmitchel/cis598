@@ -17,12 +17,12 @@ File.open('db/movies.list', 'r') do |f|
   	#puts "Reading from start "+a
 	if /\d{4,}\-\d{4,5}$/ =~ a || /\d{4,}\-\?{4,5}$/ =~ a #if matches tv show
 	  	tString = /^".{1,}"/.match(a)[0]
-	  	title = (tString[1,tString.length-2].gsub("'","''"))
+	  	title = (tString[1,tString.length-2].gsub("'","\'"))
 	  	valid_title = title.unpack('C*').pack('U*')
 
 	    query,y1,y2 = ''
 	    y1 = Date::strptime(/\d{4,}\-\S{4,5}$/.match(a)[0].split("-").first, "%Y").to_s
-	    puts "TV SHOW: "+a
+	    puts "TV SHOW: "+valid_title+" y1:"+y1
 
 	    if /\d{4,}\-\d{4,5}$/ =~ a
 	    	y2 = Date::strptime(/\d{4,}\-\d{4,5}$/.match(a)[0].split("-").last, "%Y").to_s
@@ -34,25 +34,24 @@ File.open('db/movies.list', 'r') do |f|
 	    end
 
     	while (not f.eof) #now loop through episodes
-    		break
 	    	e = f.readline
 	    	if /{.{1,}}/ =~ e
-	    		puts "EPISODE: "+e
-	    		isTVshow = false
+				puts "EPISODE: "+e
+				isTVshow = false
 	    	else
 	    		puts "breaking out of "+e
 	    		isTVshow = true
 	    		break
 	    	end
 		  	tvString = /^".{1,}"/.match(e)[0]
-		  	valid_tv_title = (tvString[1,tvString.length-2].gsub("'","''")).unpack('C*').pack('U*')
+		  	valid_tv_title = (tvString[1,tvString.length-2].gsub("'","\'\'")).unpack('C*').pack('U*')
 
 	    	if /{.{1,}(#.{1,})}/ =~ e
 		    	epSeason = /\d{1,}\.\d{1,}/.match(e)[0].split(".").first
 		    	epNumber = /\d{1,}\.\d{1,}/.match(e)[0].split(".").last
 		    	epTitleString = /{.{1,}(#)/.match(e)[0]
 		    	if epTitleString.length > 4
-		    		valid_ep_title = (epTitleString[1,epTitleString.length-4].gsub("'","''")).unpack('C*').pack('U*')
+		    		valid_ep_title = (epTitleString[1,epTitleString.length-4].gsub("'","\'")).unpack('C*').pack('U*')
 		    	else 
 		    		valid_ep_title = ''
 		    	end
@@ -61,7 +60,7 @@ File.open('db/movies.list', 'r') do |f|
 	   			epNumber = '0'
 	   			epTitleString = /{.{1,}}/.match(e)[0]
 	   			if epTitleString.length > 4
-		    		valid_ep_title = (epTitleString[1,epTitleString.length-2].gsub("'","''")).unpack('C*').pack('U*')
+		    		valid_ep_title = (epTitleString[1,epTitleString.length-2].gsub("'","\'")).unpack('C*').pack('U*')
 		    	else 
 		    		valid_ep_title = ''
 		    	end
@@ -76,11 +75,15 @@ File.open('db/movies.list', 'r') do |f|
 	    	puts "epNumber: "+epNumber
 	    	puts "tvYear: "+tvYear
 
-	    	query = 'SELECT * FROM tv_shows where title = \''+valid_tv_title+'\' and year_released = \''+tvYear+'\';'
+	    	query = 'SELECT id FROM tv_shows where title = \''+valid_tv_title+'\' and year_released = \''+tvYear+'\';'
 	    	puts "QUERY: "+query
-	    	tvshowID = conn.exec(query)[0]["id"]
-		    #tvshowID = conn.exec('SELECT * FROM tv_shows where title = $1 and year_released = $2',[valid_tv_title,tvYear])[0]["id"]
+	    	tvshows = conn.exec(query)
+	    	puts tvshows.num_tuples
+	    	puts tvshows
+	    	tvshowID = conn.exec('SELECT id FROM tv_shows where title = $1 and year_released = $2',[valid_tv_title,tvYear]).getvalue(0,0)
 		    puts tvshowID
+
+
 
 		    tvseason = conn.exec('SELECT id from tv_seasons where tv_show_id = $1 and number = $2',[tvshowID,epSeason])
 

@@ -6,7 +6,7 @@ class RatingsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @ratings }
+      format.json { render json: RatingsDatatable.new(view_context) }
     end
   end
 

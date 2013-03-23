@@ -6,3 +6,4 @@ conn.exec('delete from tv_seasons')
 conn.exec('delete from tv_episodes')
 
 conn.close()
+
