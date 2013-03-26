@@ -13,7 +13,7 @@ class TvShowsController < ApplicationController
   # GET /tv_shows/1
   # GET /tv_shows/1.json
   def show
-    @tv_show = TvShow.find(params[:id])
+    @tv_show = TvShow.find_by_title!(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb

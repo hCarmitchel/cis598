@@ -1,4 +1,3 @@
-
 <% content_for :javascript do %>
 <script>
   $('.flexslider').flexslider({
@@ -13,24 +12,20 @@
 <div class="flexslider" style="margin-bottom:20px;" class="clearfix">
   <ul class="slides">
     <li data-thumb="/assets/breaking_bad.jpg">
-      <img src="/assets/archer.png" style="position:relative"/>
-
-            <p class="flex-caption">Featured Show: Breaking Bad</p>
+     <%= link_to image_tag("/assets/breaking_bad.jpg", :style => "position:relative"), tv_show_path("Breaking Bad") %>
+        <p class="flex-caption">Featured Show: Breaking Bad</p>
     </li>
     <li data-thumb="/assets/archer.png">
-      <img src="/assets/archer.png" style="position:relative"/>
-            <p class="flex-caption">Featured Show: Archer</p>
-
+     <%= link_to image_tag("/assets/archer.png", :style => "position:relative"), tv_show_path("Archer") %>
+        <p class="flex-caption">Featured Show: Archer</p>
     </li>   
     <li data-thumb="/assets/game_of_thrones.png">
-      <img src="/assets/game_of_thrones.png" style="position:relative"/>
-            <p class="flex-caption">Featured Show: Game of Thrones</p>
-
+     <%= link_to image_tag("/assets/game_of_thrones.png", :style => "position:relative"), tv_show_path("Game of Thrones") %>
+         <p class="flex-caption">Featured Show: Game of Thrones</p>
     </li>  
     <li data-thumb="/assets/the_americans.png">
-      <img src="/assets/the_americans.png" style="position:relative"/>
-            <p class="flex-caption">Featured Show: The Americans</p>
-
+     <%= link_to image_tag("/assets/the_americans.png", :style => "position:relative"), tv_show_path("The Americans") %>
+         <p class="flex-caption">Featured Show: The Americans</p>
     </li>
   </ul>
 </div>
@@ -95,3 +90,4 @@ This was definitely Jim Beaver's episode. As the awesome Drew Thompson reaching 
   <hr>
   </div>
 </div>
+

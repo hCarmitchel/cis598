@@ -9,9 +9,10 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require_tree .
  *= require flexslider.css
  *= require dataTables/jquery.dataTables.bootstrap
+ *= require morris
+ *= require_tree .
 */
 
 .content {

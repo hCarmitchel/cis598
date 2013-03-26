@@ -16,8 +16,6 @@ ActiveRecord::Schema.define(:version => 20130313202008) do
   create_table "genres", :force => true do |t|
     t.string   "name"
     t.integer  "tv_show_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
   end
 
   create_table "ratings", :force => true do |t|

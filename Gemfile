@@ -20,6 +20,8 @@ gem 'simple_form'
 gem 'flexslider', :git => 'https://github.com/constantm/Flexslider-2-Rails-Gem.git'
 gem 'will_paginate'
 gem 'jquery-datatables-rails'
+gem 'raphael-rails'
+gem 'morrisjs-rails'
 
 gem 'bundler', '~> 1.3.2' 
 

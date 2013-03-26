@@ -1,12 +1,21 @@
 <%= link_to "Aggregate Media Ratings", root_path, :class => 'brand' %>
 <ul class="nav">
-  <li><a href="../welcome/about">About</a></li>
-  <li><a href="../welcome/import">Import</a></li>
-  <li><a href="../welcome/stats">Stats</a></li>
-  <li><a href="#">Random</a></li>
+  <li><a href="../about">About</a></li>
+  <li><a href="../import">Import</a></li>
+     <li class="dropdown">
+<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+Stats
+<b class="caret"></b>
+</a>
+<ul class="dropdown-menu">
+  <li><%= link_to "Overall stats", "../stats" %></li>
+  <li><%= link_to "Counts", "../count_by_year"%></li>  
+  <li><%= link_to "Genres", "../genre_stats"%></li>
+</ul>
+</li>
    <li class="dropdown">
 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-Listings
+Lists
 <b class="caret"></b>
 </a>
 <ul class="dropdown-menu">

@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby.exe
+require 'pg'
+conn = PGconn.open(:dbname => 'development')
+conn.exec('delete from genres')
+
+conn.close()
+

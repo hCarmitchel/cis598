@@ -1,0 +1,17 @@
+<div class="row-fluid">
+<div class="span12">
+<h3>TV Shows By Year Released</h3>
+<%= content_tag :div, "", id: "tv_shows_chart", style: "height:540px", data: {tv_shows: tv_shows_chart_data} %>
+</div>
+</div>
+<div class="row-fluid">
+<div class="span4">
+<h3>Genres</h3>
+<%= content_tag :div, "", id: "genres_pie_chart", style: "height:540px", data: {genres: genres_pie_data} %>
+</div>
+<div class="span8">
+<h3>Genres</h3>
+<%= content_tag :div, "", id: "genres_chart", style: "height:540px", data: {genres: genres_chart_data} %>
+</div>
+</div>
+

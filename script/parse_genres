@@ -1,0 +1,39 @@
+#!/usr/bin/env ruby.exe
+require 'pg'
+require 'date'
+conn = PGconn.open(:dbname => 'development')
+
+File.open('db/genres.list', 'r') do |f|
+  while (not f.eof?)
+  		a = f.readline
+	if !(/{.{1,}/ =~ a) && /^".{1,}".(.{1,})\s{1,}.{1,}$/ =~ a #if not an episode
+		#puts "NOT EPISODE"
+		#puts a
+		#get tv title
+	  	tString = /^".{1,}"/.match(a)[0]
+	  	valid_title = (tString[1,tString.length-2].gsub("'","\'\'")).unpack('C*').pack('U*')
+
+	    query,tvYear = ''
+
+   		if (/\((\d{1,})\)/) =~ a #has tv year 
+	    	tvYearMatch = /\((\d{1,})\)/.match(a)[0]
+	    	tvYear = Date::strptime(tvYearMatch[1,tvYearMatch.length-2], "%Y").to_s
+
+			genre = /\S{1,}$/.match(a)[0]
+			#puts "Genre "+genre
+
+	    	query = 'SELECT id FROM tv_shows where title = \''+valid_title+'\' and year_released = \''+tvYear+'\';'
+	    	puts "A: "+genre+" QUERY: "+valid_title 
+	    	tvshows = conn.exec(query)
+
+		    if tvshows.num_tuples > 0
+			    tvshowID = tvshows.getvalue(0,0)
+		    	conn.exec('INSERT INTO genres (id,name,tv_show_id) VALUES (DEFAULT,$1,$2)',[genre,tvshowID])
+			end
+	    end
+	  end
+  end 
+end 
+
+conn.close()
+puts "end of file!"

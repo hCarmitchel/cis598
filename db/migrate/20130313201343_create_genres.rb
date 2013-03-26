@@ -4,7 +4,6 @@ class CreateGenres < ActiveRecord::Migration
       t.string :name
       t.integer :tv_show_id
 
-      t.timestamps
     end
   end
 end

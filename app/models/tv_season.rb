@@ -1,4 +1,6 @@
 class TvSeason < ActiveRecord::Base
+	attr_accessible :tv_show_id, :number
+
 	has_many :ratings, :as => :rateable, :dependent => :destroy
 	has_many :tv_episodes, :dependent => :destroy
 	has_many :genres, :through => :tv_show

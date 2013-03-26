@@ -1,14 +1,12 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  show_id: 
   title: MyString
   year_released: 2013-03-13
   year_ended: 2013-03-13
   description: MyText
 
 two:
-  show_id: 
   title: MyString
   year_released: 2013-03-13
   year_ended: 2013-03-13
