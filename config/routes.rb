@@ -7,8 +7,9 @@ RailsinstallerDemo::Application.routes.draw do
   match "about" => "welcome#about"
   match "index" => "welcome#index"
   match "stats" => "welcome#stats"
+  match "import" => "welcome#import"
+  match "import" => "welcome#upload"
   match "count_by_year" => "welcome#count_by_year"
-  match "genre_stats" => "welcome#genre_stats"
 
 
   # The priority is based upon order of creation:

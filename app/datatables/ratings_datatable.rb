@@ -25,7 +25,7 @@ private
         link_to(rating.votes, rating),
         link_to(rating.total_rating, rating),
         rating.rating_website,
-        rating.rating_type,
+        rating.rateable_type,
         icon_link_to(rating,{:icon => "eye-open",:enlarge => false},{ :method => :get })+icon_link_to("/ratings/"+rating.id.to_s+"/edit",{:icon =>"pencil",:enlarge => false},{:action => :edit})+icon_link_to(rating,{:icon =>"trash",:enlarge => false},{confirm: 'Are you sure?',:method => :delete})
       ]
     end
@@ -39,7 +39,7 @@ private
     ratings = Rating.order("#{sort_column} #{sort_direction}")
     ratings = ratings.page(page).per_page(per_page)
     if params[:sSearch].present?
-      ratings = ratings.where("votes like :search or total like :search or website like :search or type like :search", search: "%#{params[:sSearch]}%")
+      ratings = ratings.where("rating_website like :search or rateable_type like :search", search: "%#{params[:sSearch]}%")
     end
     ratings
   end

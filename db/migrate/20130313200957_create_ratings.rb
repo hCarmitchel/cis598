@@ -6,7 +6,6 @@ class CreateRatings < ActiveRecord::Migration
       t.string :rating_website
       t.references :rateable, :polymorphic => true
 
-      t.timestamps
     end
   end
 end

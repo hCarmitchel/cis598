@@ -24,8 +24,6 @@ ActiveRecord::Schema.define(:version => 20130313202008) do
     t.string   "rating_website"
     t.integer  "rateable_id"
     t.string   "rateable_type"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
   end
 
   create_table "tv_episodes", :force => true do |t|

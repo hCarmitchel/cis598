@@ -39,4 +39,14 @@ module WelcomeHelper
       }
     end
   end
+  def ratings_chart_data
+    ratings_by_day = Rating.total_grouped_by_day
+
+    (1940..2013).map do |date|
+      {
+        year_released: Date.new(date,1,1),
+        count: ratings_by_day[date.to_s] || 0
+      }
+    end
+  end
 end

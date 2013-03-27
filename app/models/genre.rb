@@ -14,8 +14,7 @@ class Genre < ActiveRecord::Base
     end
     def self.comedy_grouped_by_day
     	genres = unscoped.where('name = \'Comedy\'')
-	    genres = genres.joins('LEFT JOIN tv_shows
-							   ON genres.tv_show_id=tv_shows.id')
+	    genres = genres.joins('LEFT JOIN tv_shows ON genres.tv_show_id=tv_shows.id')
 	    genres = genres.group("date(year_released), genres.name")
 	    genres = genres.order("date(year_released)")
 	    genres = genres.select("name, date(year_released) as year_released, count(*) as count")
@@ -25,8 +24,7 @@ class Genre < ActiveRecord::Base
   	end
   	def self.drama_grouped_by_day
     	genres = unscoped.where('name = \'Drama\'')
-	    genres = genres.joins('LEFT JOIN tv_shows
-							   ON genres.tv_show_id=tv_shows.id')
+	    genres = genres.joins('LEFT JOIN tv_shows ON genres.tv_show_id=tv_shows.id')
 	    genres = genres.group("date(year_released), genres.name")
 	    genres = genres.order("date(year_released)")
 	    genres = genres.select("name, date(year_released) as year_released, count(*) as count")
@@ -36,8 +34,7 @@ class Genre < ActiveRecord::Base
   	end
   	def self.documentary_grouped_by_day
     	genres = unscoped.where('name = \'Documentary\'')
-	    genres = genres.joins('LEFT JOIN tv_shows
-							   ON genres.tv_show_id=tv_shows.id')
+	    genres = genres.joins('LEFT JOIN tv_shows ON genres.tv_show_id=tv_shows.id')
 	    genres = genres.group("date(year_released), genres.name")
 	    genres = genres.order("date(year_released)")
 	    genres = genres.select("name, date(year_released) as year_released, count(*) as count")
@@ -47,8 +44,7 @@ class Genre < ActiveRecord::Base
   	end
   	  	def self.realitytv_grouped_by_day
     	genres = unscoped.where('name = \'Reality-TV\'')
-	    genres = genres.joins('LEFT JOIN tv_shows
-							   ON genres.tv_show_id=tv_shows.id')
+	    genres = genres.joins('LEFT JOIN tv_shows ON genres.tv_show_id=tv_shows.id')
 	    genres = genres.group("date(year_released), genres.name")
 	    genres = genres.order("date(year_released)")
 	    genres = genres.select("name, date(year_released) as year_released, count(*) as count")
@@ -58,8 +54,7 @@ class Genre < ActiveRecord::Base
   	end
   	def self.animation_grouped_by_day
     	genres = unscoped.where('name = \'Animation\'')
-	    genres = genres.joins('LEFT JOIN tv_shows
-							   ON genres.tv_show_id=tv_shows.id')
+	    genres = genres.joins('LEFT JOIN tv_shows  ON genres.tv_show_id=tv_shows.id')
 	    genres = genres.group("date(year_released), genres.name")
 	    genres = genres.order("date(year_released)")
 	    genres = genres.select("name, date(year_released) as year_released, count(*) as count")

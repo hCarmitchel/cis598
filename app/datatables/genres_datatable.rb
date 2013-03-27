@@ -37,7 +37,7 @@ private
     genres = Genre.order("#{sort_column} #{sort_direction}")
     genres = genres.page(page).per_page(per_page)
     if params[:sSearch].present?
-      genres = genres.where("name like :search or show like :search", search: "%#{params[:sSearch]}%")
+      genres = genres.where("name like :search", search: "%#{params[:sSearch]}%")
     end
     genres
   end

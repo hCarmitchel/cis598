@@ -27,3 +27,12 @@ jQuery ->
       labels: ['Comedy','Drama','Documentary','Animation','Reality TV']
       });
 
+jQuery ->
+      Morris.Area({
+      element: 'ratings_chart'
+      data: $('#ratings_chart').data('ratings')
+      xkey: 'year_released'
+      ykeys: ['count']
+      labels: ['count']
+      });
+

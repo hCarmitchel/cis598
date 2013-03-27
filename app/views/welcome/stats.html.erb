@@ -1,6 +1,6 @@
 <h3>Statistics</h3>
 <div class="row-fluid">
-<div class="span12">
+<div class="span3">
 	<ul>
 		<li>TV show count: <%= TvShow.count %></li>
 		<li>TV season count: <%= TvSeason.count %></li>
@@ -8,5 +8,14 @@
 		<li>Genre count: <%= Genre.count %></li>
 		<li>Rating count: <%= Rating.count %></li>
 	</ul>
+	<br>
+	Genres
+	<% @genres.each do |genre| %>
+  <ul>
+    <li><%= genre[0] %>:<%= genre[1] %></li>
+  </ul>
+<% end %>
+</div>
+<div class="span3">
 </div>
 </div>
