@@ -1,18 +1,17 @@
 <%= link_to "Aggregate Media Ratings", root_path, :class => 'brand' %>
 <ul class="nav">
   <li><a href="../about">About</a></li>
-  <li><a href="../import">Import</a></li>
      <li class="dropdown">
 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
 Stats
 <b class="caret"></b>
 </a>
 <ul class="dropdown-menu">
-  <li><%= link_to "Overall stats", "../stats" %></li>
-  <li><%= link_to "Graphs", "../count_by_year"%></li>  
+  <li><%= link_to "Overall", "../stats" %></li>
+  <li><%= link_to "Graphs", "../graphs"%></li>  
 </ul>
 </li>
-   <li class="dropdown">
+<li class="dropdown">
 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
 Lists
 <b class="caret"></b>
@@ -25,7 +24,16 @@ Lists
   <li><%= link_to "Ratings", ratings_path %></li>
 </ul>
 </li>
-  <li>
-
+<li class="dropdown">
+<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+Advanced Search
+<b class="caret"></b>
+</a>
+<ul class="dropdown-menu">
+  <li><a href="../tv_show_search">TV shows</a></li>
+  <li><a href="../tv_episode_search">TV episodes</a></li>
+</ul>
+</li>
+<li>
 </li>
 </ul>

@@ -9,13 +9,19 @@
 		<li>Rating count: <%= Rating.count %></li>
 	</ul>
 	<br>
+</div>
+<div class="span3">
 	Genres
 	<% @genres.each do |genre| %>
   <ul>
-    <li><%= genre[0] %>:<%= genre[1] %></li>
+    <li><%= genre[0] %>: <%= genre[1] %></li>
   </ul>
 <% end %>
 </div>
 <div class="span3">
+	Ratings
+	<ul>
+		<li>Average Rating: <%= @average_rating %></li>
+	</ul>
 </div>
 </div>

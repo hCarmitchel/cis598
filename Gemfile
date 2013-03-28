@@ -23,6 +23,8 @@ gem 'jquery-datatables-rails'
 gem 'raphael-rails'
 gem 'morrisjs-rails'
 
+gem "ransack", :git => "git://github.com/ernie/ransack.git"
+
 gem 'bundler', '~> 1.3.2' 
 
 group :development do

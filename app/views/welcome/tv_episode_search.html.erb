@@ -1,0 +1,66 @@
+<% content_for :javascript do %>
+<script>
+  $('#tvepisodesearch').dataTable({    
+  	"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
+    "sPaginationType": "bootstrap",
+    "bFilter": false
+  });
+</script>
+<% end %>
+
+<h3>TV Episode Advanced Search</h3>
+<%= search_form_for  @q, class: 'form-inline', url: tv_episode_search_path do |f|%>
+  <div class="field">
+    <%= f.label :title_cont, "Episode title contains" %>
+    <%= f.text_field :title_cont %>
+  </div>
+  <div class="field">
+    <%= f.label :tv_season_tv_show_title_cont, "Show title contains" %>
+    <%= f.text_field :tv_season_tv_show_title_cont %>
+  </div>
+  <div class="field">
+    <%= f.label :id_eq, "ID equals" %>
+    <%= f.text_field :id_eq %>
+  </div>
+  <div class="field">
+    <%= f.label :air_date_gteq, "Air date between" %>
+    <%= f.text_field :air_date_gteq %>
+    <%= f.label :air_date_lteq, "and" %>
+    <%= f.text_field :air_date_lteq %>    
+  </div>
+  <div class="field">
+    <%= f.label :tv_season_number_gteq, "Season # between" %>
+    <%= f.text_field :tv_season_number_gteq %>
+    <%= f.label :tv_season_number_lteq, "and" %>
+    <%= f.text_field :tv_season_number_lteq %>    
+  </div>
+  <div class="field">
+    <%= f.label :number_gteq, "Episode # between" %>
+    <%= f.text_field :number_gteq %>
+    <%= f.label :number_lteq, "and" %>
+    <%= f.text_field :number_lteq %>    
+  </div>
+  <%= f.submit 'Search', :class => 'btn btn-primary'%>
+<% end %>
+<table cellpadding="0" cellspacing="0" border="0" id="tvepisodesearch" class="datatable table table-striped table-bordered">
+<thead>
+  <tr>
+    <th>Title</th>
+    <th>TV Show</th>
+    <th class="year">Season #</th>
+    <th class="year">Episode #</th>
+    <th>Air Date</th>
+  </tr>
+</thead>
+<tbody>
+  <% @tv_episodes_result.each do |tv_episode| %>
+    <tr>
+      <td><%= link_to(tv_episode.title, tv_episode) %></td>
+      <td><%= link_to(tv_episode.tv_season.tv_show.title, tv_show_path(tv_episode.tv_season.tv_show.title)) %></td>
+      <td><%= link_to(tv_episode.tv_season.number, tv_episode.tv_season) %></td>
+      <td><%= link_to(tv_episode.number, tv_episode) %></td>
+      <td><%= tv_episode.air_date %></td>
+    </tr>
+  <% end %>
+</tbody>
+</table>

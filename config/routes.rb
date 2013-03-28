@@ -3,13 +3,15 @@ RailsinstallerDemo::Application.routes.draw do
   
   resources :tv_episodes, :tv_seasons, :genres, :ratings, :tv_shows
 
+  get "welcome/graphs"
 
   match "about" => "welcome#about"
   match "index" => "welcome#index"
   match "stats" => "welcome#stats"
-  match "import" => "welcome#import"
-  match "import" => "welcome#upload"
-  match "count_by_year" => "welcome#count_by_year"
+  match "tv_show_search" => "welcome#tv_show_search"
+  match "tv_episode_search" => "welcome#tv_episode_search"
+  match "search_results" => "welcome#search_results"
+  match "graphs" => "welcome#graphs"
 
 
   # The priority is based upon order of creation:

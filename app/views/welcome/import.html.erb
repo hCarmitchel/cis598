@@ -1,7 +1,0 @@
-<h3>Import IMDB User Ratings</h3>
-<p>This page lets you upload your .csv ratings from IMDB to generate a report about your viewing habits</p>
-<br>
-
-<%= form_tag({:action => :upload}, :multipart => true) do %>
-  <%= file_field_tag 'import', class: => 'btn' %>
-<% end %>

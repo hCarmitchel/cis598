@@ -1,4 +1,13 @@
 GIT
+  remote: git://github.com/ernie/ransack.git
+  revision: 45617b650471f8316453096db61faa01d2a2ca6f
+  specs:
+    ransack (0.7.3)
+      actionpack (~> 3.0)
+      activerecord (~> 3.0)
+      polyamorous (~> 0.5.0)
+
+GIT
   remote: https://github.com/constantm/Flexslider-2-Rails-Gem.git
   revision: 68e604abbc5461015ac67edc6e2e93af4e2f058e
   specs:
@@ -67,9 +76,11 @@ GEM
     mime-types (1.21)
     morrisjs-rails (0.4.1)
       railties (~> 3.1)
-    multi_json (1.7.1)
-    pg (0.14.1)
-    pg (0.14.1-x86-mingw32)
+    multi_json (1.7.2)
+    pg (0.15.0)
+    pg (0.15.0-x86-mingw32)
+    polyamorous (0.5.0)
+      activerecord (~> 3.0)
     polyglot (0.3.3)
     rack (1.4.5)
     rack-cache (1.2)
@@ -98,7 +109,7 @@ GEM
       rake (>= 0.8.7)
       rdoc (~> 3.4)
       thor (~> 0.14.6)
-    rake (10.0.3)
+    rake (10.0.4)
     raphael-rails (2.1.1)
     rdoc (3.12.2)
       json (~> 1.4)
@@ -142,6 +153,7 @@ DEPENDENCIES
   pg
   rails (= 3.2.1)
   rails-erd
+  ransack!
   raphael-rails
   sass-rails (= 3.2.5)
   simple_form

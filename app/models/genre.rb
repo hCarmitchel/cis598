@@ -12,51 +12,9 @@ class Genre < ActiveRecord::Base
 		    counts[genre.name] = genre.count
 		end
     end
-    def self.comedy_grouped_by_day
-    	genres = unscoped.where('name = \'Comedy\'')
-	    genres = genres.joins('LEFT JOIN tv_shows ON genres.tv_show_id=tv_shows.id')
+    def self.genres_grouped_by_day(genre)
+    	genres = unscoped.where('name = \''+genre+'\'').joins('LEFT JOIN tv_shows ON genres.tv_show_id=tv_shows.id')
 	    genres = genres.group("date(year_released), genres.name")
-	    genres = genres.order("date(year_released)")
-	    genres = genres.select("name, date(year_released) as year_released, count(*) as count")
-		genres.each_with_object({}) do |genre, comedies|
-		    comedies[genre.year_released.to_date.strftime("%Y")] = genre.count
-		end
-  	end
-  	def self.drama_grouped_by_day
-    	genres = unscoped.where('name = \'Drama\'')
-	    genres = genres.joins('LEFT JOIN tv_shows ON genres.tv_show_id=tv_shows.id')
-	    genres = genres.group("date(year_released), genres.name")
-	    genres = genres.order("date(year_released)")
-	    genres = genres.select("name, date(year_released) as year_released, count(*) as count")
-		genres.each_with_object({}) do |genre, comedies|
-		    comedies[genre.year_released.to_date.strftime("%Y")] = genre.count
-		end
-  	end
-  	def self.documentary_grouped_by_day
-    	genres = unscoped.where('name = \'Documentary\'')
-	    genres = genres.joins('LEFT JOIN tv_shows ON genres.tv_show_id=tv_shows.id')
-	    genres = genres.group("date(year_released), genres.name")
-	    genres = genres.order("date(year_released)")
-	    genres = genres.select("name, date(year_released) as year_released, count(*) as count")
-		genres.each_with_object({}) do |genre, comedies|
-		    comedies[genre.year_released.to_date.strftime("%Y")] = genre.count
-		end
-  	end
-  	  	def self.realitytv_grouped_by_day
-    	genres = unscoped.where('name = \'Reality-TV\'')
-	    genres = genres.joins('LEFT JOIN tv_shows ON genres.tv_show_id=tv_shows.id')
-	    genres = genres.group("date(year_released), genres.name")
-	    genres = genres.order("date(year_released)")
-	    genres = genres.select("name, date(year_released) as year_released, count(*) as count")
-		genres.each_with_object({}) do |genre, comedies|
-		    comedies[genre.year_released.to_date.strftime("%Y")] = genre.count
-		end
-  	end
-  	def self.animation_grouped_by_day
-    	genres = unscoped.where('name = \'Animation\'')
-	    genres = genres.joins('LEFT JOIN tv_shows  ON genres.tv_show_id=tv_shows.id')
-	    genres = genres.group("date(year_released), genres.name")
-	    genres = genres.order("date(year_released)")
 	    genres = genres.select("name, date(year_released) as year_released, count(*) as count")
 		genres.each_with_object({}) do |genre, comedies|
 		    comedies[genre.year_released.to_date.strftime("%Y")] = genre.count

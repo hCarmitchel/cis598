@@ -1,0 +1,58 @@
+<% content_for :javascript do %>
+<script>
+  $('#tvshowsearch').dataTable({    
+  	"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
+    "sPaginationType": "bootstrap",
+    "bFilter": false
+  });
+</script>
+<% end %>
+
+<h3>TV Show Advanced Search</h3>
+<%= search_form_for  @q, class: 'form-inline', url: tv_show_search_path do |f|%>
+  <div class="field">
+    <%= f.label :title_cont, "Title contains" %>
+    <%= f.text_field :title_cont %>
+  </div>
+  <div class="field">
+    <%= f.label :description_cont, "Description contains" %>
+    <%= f.text_field :description_cont %>
+  </div>
+  <div class="field">
+    <%= f.label :id_eq, "ID equals" %>
+    <%= f.text_field :id_eq %>
+  </div>
+  <div class="field">
+    <%= f.label :year_released_gteq, "Year released between" %>
+    <%= f.text_field :year_released_gteq %>
+    <%= f.label :year_released_lteq, "and" %>
+    <%= f.text_field :year_released_lteq %>    
+  </div>
+  <div class="field">
+    <%= f.label :year_ended_gteq, "Year ended between" %>
+    <%= f.text_field :year_ended_gteq %>
+    <%= f.label :year_ended_lteq, "and" %>
+    <%= f.text_field :year_ended_lteq %>    
+  </div>
+  <%= f.submit 'Search', :class => 'btn btn-primary'%>
+<% end %>
+<table cellpadding="0" cellspacing="0" border="0" id="tvshowsearch" class="datatable table table-striped table-bordered">
+<thead>
+  <tr>
+    <th>Title</th>
+    <th>Description</th>
+    <th class="year">Year Released</th>
+    <th class="year">Year Ended</th>
+  </tr>
+</thead>
+<tbody>
+  <% @tv_shows_result.each do |tv_show| %>
+    <tr>
+      <td><%= link_to(tv_show.title, tv_show_path(tv_show.title)) %></td>
+      <td><%= tv_show.description %></td>
+      <td><%= tv_show.year_released.strftime("%Y") %></td>
+      <td><%= tv_show.year_ended %></td>
+    </tr>
+  <% end %>
+</tbody>
+</table>
