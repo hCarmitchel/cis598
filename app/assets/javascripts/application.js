@@ -18,4 +18,5 @@
 //= require dataTables/jquery.dataTables.bootstrap
 //= require raphael
 //= require morris
+//= require bootstrap-datepicker
 //= require_tree .

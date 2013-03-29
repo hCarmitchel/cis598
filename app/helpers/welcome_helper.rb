@@ -1,13 +1,13 @@
 module WelcomeHelper
   def tv_shows_chart_data
     tv_shows_by_day = TvShow.total_grouped_by_day(73.years.ago) 
-    tv_episodes_by_day = TvEpisode.total_grouped_by_day(73.years.ago) 
+    tv_ratings_by_day = Rating.total_grouped_by_day("TvShow","tv_shows","year_released")
 
     (1940..2013).map do |date|
       {
         year_released: Date.new(date,1,1),
         count: tv_shows_by_day[date.to_s] || 0,
-        count_eps: tv_episodes_by_day[date.to_s] || 0
+        rating: tv_ratings_by_day[date.to_s] || 0
       }
     end
   end
@@ -40,22 +40,26 @@ module WelcomeHelper
     end
   end
   def ratings_chart_data
-    ratings_by_day = Rating.total_grouped_by_day
+    ep_ratings_by_day = Rating.total_grouped_by_day("TvEpisode","tv_episodes","air_date")
+    tv_episodes_by_day = TvEpisode.total_grouped_by_day(73.years.ago) 
 
     (1940..2013).map do |date|
       {
         year_released: Date.new(date,1,1),
-        count: ratings_by_day[date.to_s] || 0
+        count: tv_episodes_by_day[date.to_s] || 0,
+        rating: ep_ratings_by_day[date.to_s] || 0
       }
     end
   end
     def ratings_avg_data
-    ratings_by_day = Rating.avg_grouped_by_day
-    
+    tv_ratings_by_day = Rating.avg_grouped_by_day("TvShow","tv_shows","year_released")
+    ep_ratings_by_day = Rating.avg_grouped_by_day("TvEpisode","tv_episodes","air_date")
+
     (1940..2013).map do |date|
       {
-        year_released: Date.new(date,1,1),
-        average: ratings_by_day[date.to_s] || 0
+        year: Date.new(date,1,1),
+        average: tv_ratings_by_day[date.to_s] || 0,
+        epaverage: ep_ratings_by_day[date.to_s] || 0
       }
     end
   end

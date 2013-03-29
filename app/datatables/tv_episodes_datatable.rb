@@ -26,7 +26,7 @@ private
         link_to(tvepisode.tv_season.tv_show.title, tvepisode.tv_season.tv_show),
         link_to(tvepisode.tv_season.number, tvepisode.tv_season),
         link_to(tvepisode.number, tvepisode),
-        h(tvepisode.air_date),
+        tvepisode.air_date.try(:strftime, "%Y"),
         icon_link_to(tvepisode,{:icon => "eye-open",:enlarge => false},{ :method => :get })+icon_link_to("/tv_episodes/"+tvepisode.id.to_s+"/edit",{:icon =>"pencil",:enlarge => false},{:action => :edit})+icon_link_to(tvepisode,{:icon =>"trash",:enlarge => false},{confirm: 'Are you sure?',:method => :delete})
       ]
     end

@@ -24,15 +24,15 @@
   </div>
   <div class="field">
     <%= f.label :year_released_gteq, "Year released between" %>
-    <%= f.text_field :year_released_gteq %>
+    <%= f.text_field :year_released_gteq, :class => 'input-small'  %>
     <%= f.label :year_released_lteq, "and" %>
-    <%= f.text_field :year_released_lteq %>    
+    <%= f.text_field :year_released_lteq, :class => 'input-small'  %>    
   </div>
   <div class="field">
     <%= f.label :year_ended_gteq, "Year ended between" %>
-    <%= f.text_field :year_ended_gteq %>
+    <%= f.text_field :year_ended_gteq, :class => 'input-small'  %>
     <%= f.label :year_ended_lteq, "and" %>
-    <%= f.text_field :year_ended_lteq %>    
+    <%= f.text_field :year_ended_lteq, :class => 'input-small'  %>    
   </div>
   <%= f.submit 'Search', :class => 'btn btn-primary'%>
 <% end %>

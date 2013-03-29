@@ -9,4 +9,6 @@ class TvSeason < ActiveRecord::Base
 	
 	validates :tv_show_id, :number, :presence => { :message => "This field is required."}
 	validates :number, :numericality => { :only_integer => true, :message => "Number must be an integer."}
+
+	default_scope :order => "number ASC"
 end

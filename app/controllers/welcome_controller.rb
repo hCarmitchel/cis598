@@ -1,6 +1,7 @@
 class WelcomeController < ApplicationController
 	def index
-		@topIMDB = Rating.top_ten('IMDB')
+		@topIMDB = Rating.top_ten('IMDB','TvShow','tv_shows')
+		@topIMDBeps = Rating.top_ten('IMDB','TvEpisode','tv_episodes')
 	end
 	def stats
 		@genres = Genre.total_grouped_by_genre
@@ -15,5 +16,9 @@ class WelcomeController < ApplicationController
 		@q = TvEpisode.search(params[:q])
  		@tv_episodes_result = @q.result(:distinct => true)
         @tv_episodes_result = @tv_episodes_result.where(:id => nil) unless params[:q]
+	end
+	def search_results
+		@tv_result = TvShow.simple_search(params[:search]).paginate(:page => params[:page])
+		@ep_result = TvEpisode.simple_search(params[:search]).paginate(:page => params[:page])
 	end
 end

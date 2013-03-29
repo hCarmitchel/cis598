@@ -12,6 +12,7 @@
  *= require flexslider.css
  *= require dataTables/jquery.dataTables.bootstrap
  *= require morris
+ *= require bootstrap-datepicker
  *= require_tree .
 */
 
@@ -52,3 +53,9 @@ abbr[title], abbr[data-original-title] {
 	border: none !important;
 	color: #9d261d;
 }
+
+.badge-info { 
+  background-color: #006CCC !important;
+  background-image: linear-gradient(to bottom, #0088CC, #0044CC) !important; }
+
+ul { list-style:none !important; }

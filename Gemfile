@@ -24,6 +24,7 @@ gem 'raphael-rails'
 gem 'morrisjs-rails'
 
 gem "ransack", :git => "git://github.com/ernie/ransack.git"
+gem 'bootstrap-datepicker-rails'
 
 gem 'bundler', '~> 1.3.2' 
 

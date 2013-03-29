@@ -18,4 +18,14 @@ class TvShow < ActiveRecord::Base
 	    counts[tv_show.year_released.to_date.strftime("%Y")] = tv_show.count
 	end
   end
+  def self.IMDB_rating(title,year)
+    show = unscoped.where('title = \''+title+'\' and year_released = \''+year+'\'')
+  end
+  def self.simple_search(search)
+	  if search
+	    where 'title LIKE ? or description LIKE ?', "%#{search}%", "%#{search}%"
+	  else
+	    scoped
+	  end
+  end
 end

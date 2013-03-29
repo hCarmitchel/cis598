@@ -1,0 +1,47 @@
+<% content_for :javascript do %>
+<script>
+  $('#searchresults').dataTable({    
+    "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
+    "sPaginationType": "bootstrap"
+  });
+</script>
+<% end %>
+
+<h3>Search Results</h3>
+<table cellpadding="0" cellspacing="0" border="0" id="searchresults" class="datatable table table-striped table-bordered">
+<thead>
+  <tr>
+    <th class="year">Type</th>
+    <th>TV Show Title</th>
+    <th>Episode Title</th>
+    <th class="year">Season #</th>
+    <th class="year">Episode #</th>
+    <th class="year">Year</th>
+    <th>Description</th>
+  </tr>
+</thead>
+<tbody>
+  <% @tv_result.each do |r| %>
+    <tr>
+      <th>TV Show</th>
+      <td><%= r.title %></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><%= r.year_released.try(:strftime, "%Y") %></td>
+      <td><%= r.description %></td>
+    </tr>
+  <% end %>
+  <% @ep_result.each do |r| %>
+    <tr>
+      <th>Episode</th>
+      <td><%= r.tv_season.tv_show.title %></td>
+      <td><%= r.title %></td>
+      <td><%= r.tv_season.number %></td>
+      <td><%= r.number %></td>
+      <td><%= r.air_date.try(:strftime, "%Y") %></td>
+      <td></td>
+    </tr>
+  <% end %>
+</tbody>
+</table>

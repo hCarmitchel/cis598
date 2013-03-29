@@ -46,13 +46,26 @@
 			</select>
 		</form> 
 	</h4>
+  <div class="row-fluid">
+  <div class="span8">
 	<ol style="font-size:14px; margin-left:50px;">
     <% @topIMDB.each do |show| %>
 		<li>
-      <%= link_to(show.title, tv_show_path(show.title)) %> <span class="badge badge-info"><%= show.total_rating %></span>
+      <%= link_to(show.title, tv_show_path(show.title)) %>
     </li>
     <% end %>
 	</ol>
+</div>
+  <div class="span1">
+  <ul style="font-size:14px;list-style:none">
+    <% @topIMDB.each do |show| %>
+    <li>
+      <span class="badge badge-info"><%= show.total_rating %></span>
+    </li>
+    <% end %>
+  </ul>
+</div>
+</div>
 </div>
 </div>
 <div class="row-fluid">

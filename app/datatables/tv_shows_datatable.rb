@@ -24,8 +24,8 @@ private
       [
         link_to(tvshow.title, tvshow),
         tvshow.description,
-        tvshow.year_released.strftime("%Y"),
-        tvshow.year_ended,
+        tvshow.year_released.try(:strftime, "%Y"),
+        tvshow.year_ended.try(:strftime, "%Y"),
         icon_link_to(tvshow,{:icon => "eye-open",:enlarge => false},{ :method => :get })+icon_link_to("/tv_shows/"+tvshow.id.to_s+"/edit",{:icon =>"pencil",:enlarge => false},{:action => :edit})+icon_link_to(tvshow,{:icon =>"trash",:enlarge => false},{confirm: 'Are you sure?',:method => :delete})
       ]
     end

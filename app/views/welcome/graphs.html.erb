@@ -1,13 +1,12 @@
 <% content_for :javascript do %>
 <script>
-
 $(function() {
-  Morris.Line({
+  Morris.Area({
     element: 'tv_shows_chart',
     data: $('#tv_shows_chart').data('tv-shows'),
     xkey: 'year_released',
-    ykeys: ['count', 'count_eps'],
-    labels: ['TV shows', 'TV episodes']
+    ykeys: ['count', 'rating'],
+    labels: ['TV shows', 'Ratings']
   });
   Morris.Donut({
     element: 'genres_pie_chart',
@@ -23,16 +22,16 @@ $(function() {
   Morris.Line({
     element: 'ratings_avg_chart',
     data: $('#ratings_avg_chart').data('ratings'),
-    xkey: 'year_released',
-    ykeys: ['average'],
-    labels: ['Average']
+    xkey: 'year',
+    ykeys: ['average','epaverage'],
+    labels: ['Average TV show rating','Average episode rating']
   });
   Morris.Area({
     element: 'ratings_chart',
     data: $('#ratings_chart').data('ratings'),
     xkey: 'year_released',
-    ykeys: ['count'],
-    labels: ['count']
+    ykeys: ['count','rating'],
+    labels: ['Tv episodes','Ratings']
   });
 });
 </script>

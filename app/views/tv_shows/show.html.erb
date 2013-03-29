@@ -7,17 +7,35 @@
 
 <p>
   <b>Year released:</b>
-  <%= @tv_show.year_released.strftime("%Y") %>
+  <%= @tv_show.year_released.try(:strftime, "%Y") %>
 </p>
 
 <p>
   <b>Year ended:</b>
-  <%= @tv_show.year_ended %>
+  <%= @tv_show.year_ended.try(:strftime, "%Y") %>
 </p>
 
 <p>
   <b>Description:</b>
   <%= @tv_show.description %>
+</p>
+
+<p>
+  <b>Genres:</b>
+  <% @tv_show.genres.each do |genre| %>
+  	<span class="badge badge-info"><%= genre.name %></span>
+  <% end %>
+</p>
+
+<p>
+  <b>Seasons and Episodes:</b>
+  <ul>
+  <% @tv_show.tv_seasons.each do |season| %>
+  	<li><%= link_to 'Season '+ season.number.to_s, tv_season_path(season.id) %></li>
+	  <% season.tv_episodes.each do |episode| %>
+	  	<li><%= link_to 'Episode '+ episode.number.to_s+': '+episode.title, tv_episode_path(episode.id) %></li>
+	  <% end %>
+  <% end %>
 </p>
 
 

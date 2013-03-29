@@ -5,6 +5,7 @@
     "sPaginationType": "bootstrap",
     "bFilter": false
   });
+  $('[data-behaviour~=datepicker]').datepicker()
 </script>
 <% end %>
 
@@ -24,21 +25,21 @@
   </div>
   <div class="field">
     <%= f.label :air_date_gteq, "Air date between" %>
-    <%= f.text_field :air_date_gteq %>
+    <%= f.text_field :air_date_gteq, :class => 'input-small'  %>
     <%= f.label :air_date_lteq, "and" %>
-    <%= f.text_field :air_date_lteq %>    
+    <%= f.text_field :air_date_lteq, :class => 'input-small'  %>    
   </div>
   <div class="field">
     <%= f.label :tv_season_number_gteq, "Season # between" %>
-    <%= f.text_field :tv_season_number_gteq %>
+    <%= f.text_field :tv_season_number_gteq, :class => 'input-small'  %>
     <%= f.label :tv_season_number_lteq, "and" %>
-    <%= f.text_field :tv_season_number_lteq %>    
+    <%= f.text_field :tv_season_number_lteq, :class => 'input-small'  %>    
   </div>
   <div class="field">
     <%= f.label :number_gteq, "Episode # between" %>
-    <%= f.text_field :number_gteq %>
+    <%= f.text_field :number_gteq, :class => 'input-small' %>
     <%= f.label :number_lteq, "and" %>
-    <%= f.text_field :number_lteq %>    
+    <%= f.text_field :number_lteq, :class => 'input-small'  %>    
   </div>
   <%= f.submit 'Search', :class => 'btn btn-primary'%>
 <% end %>

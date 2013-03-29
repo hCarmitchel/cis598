@@ -1,36 +1,48 @@
+<% content_for :javascript do %>
+<script>
+</script>
+<% end %>
+
 <p id="notice"><%= notice %></p>
 
-<ul class="nav nav-tabs" id="myTab">
-<li class="active"><a href="#about">About</a></li>
-<li><a href="#profile">Stats</a></li>
-</ul>
+<div class="tabbable">
+  <ul class="nav nav-tabs" id="myTab">
+    <li class="active"><a data-toggle="tab" href="#about">About</a></li>
+    <li><a data-toggle="tab" href="#stats">Stats</a></li>
+  </ul>
  
-<div class="tab-content">
-<div class="tab-pane active" id="about">
-<p>
-  <b>Tv Show:</b>
-  <%= link_to @tv_episode.tv_season.tv_show.title, @tv_episode.tv_season.tv_show, :method => "get" %>
-</p>
-<p>
-  <b>Number:</b>
-  <%= link_to @tv_episode.number, @tv_episode, :method => "get" %>
-</p>
+  <div class="tab-content">
+    <div class="tab-pane active" id="about">
+    <p>
+      <b>Tv Show:</b>
+      <%= link_to @tv_episode.tv_season.tv_show.title, @tv_episode.tv_season.tv_show, :method => "get" %>
+    </p>
+    <p>
+      <b>Number:</b>
+      <%= link_to @tv_episode.number, @tv_episode, :method => "get" %>
+    </p>
 
-<p>
-  <b>Season:</b>
-  <%= link_to @tv_episode.tv_season.number, @tv_episode.tv_season, :method => "get" %>
-</p>
+    <p>
+      <b>Season:</b>
+      <%= link_to @tv_episode.tv_season.number, @tv_episode.tv_season, :method => "get" %>
+    </p>
 
-<p>
-  <b>Title:</b>
-  <%= @tv_episode.title %>
-</p>
+    <p>
+      <b>Title:</b>
+      <%= @tv_episode.title %>
+    </p>
 
-<p>
-  <b>Air Date:</b>
-  <%= @tv_episode.air_date %>
-</p></div>
-<div class="tab-pane" id="stats">...</div>
+    <p>
+      <b>Air Date:</b>
+      <%= @tv_episode.air_date.try(:strftime, "%Y") %>
+    </p>
+    </div>
+
+    <div class="tab-pane" id="stats">
+      Average rating for show:
+      Average rating for season: 
+    </div>
+  </div>
 </div>
 
 <br>
