@@ -27,7 +27,10 @@ width: 230px;
 .brand, .flex-caption, .navbar .nav > li > a, h4, h3, h5 { font-family: Tauri; }
 hr { margin-top:-5px; }
 .table th, .table td { padding: 5px 10px !important; }
-.year { width:90px; }
+.medium { width:110px; }
+.short { width:80px; }
 .actions { width:65px; }
 .relativeImage { position:relative !important; }
 input.search-query { padding: 4px 10px !important; }
+.control-group input { margin-left:10px; }
+.control-group { margin-bottom:5px !important; }

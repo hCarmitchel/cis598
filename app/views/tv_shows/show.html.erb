@@ -1,43 +1,70 @@
-<p id="notice"><%= notice %></p>
+<div class="page-header" style="margin:0px">
+  <h1>
+    <%= link_to @tv_show.title, @tv_show%>
+    <small>
+      (<%= @tv_show.year_released.try(:strftime, "%Y") %>
+      -
+      <%= @tv_show.year_ended.try(:strftime, "%Y") %>)</small>
+    <span class="badge badge-warning rating-badge pull-right">
+      IMDB <%= @IMDBrating %>
+      <span>
+  </h1>
+</div>
+    <div class="row-fluid">
+      <div class="span7">
+        <div class="tabbable">
+          <ul class="nav nav-tabs" id="myTab">
+            <li class="active">
+              <a data-toggle="tab" href="#about">About</a>
+            </li>
+            <li>
+              <a data-toggle="tab" href="#stats">Stats</a>
+            </li>
+          </ul>
 
-<p>
-  <b>Title:</b>
-  <%= @tv_show.title %>
-</p>
+          <div class="tab-content">
+            <div class="tab-pane active" id="about">
+              <p>
+                <p> <b>Description:</b>
+                  <%= @tv_show.description %></p>
 
-<p>
-  <b>Year released:</b>
-  <%= @tv_show.year_released.try(:strftime, "%Y") %>
-</p>
+                <p> <b>Genres:</b>
+                  <% @tv_show.genres.each do |genre| %>
+                  <span class="badge badge-info">
+                    <%= genre.name %></span>
+                  <% end %></p>
+            </div>
+            <div class="tab-pane" id="stats">
+              Average rating for show:
+              Average rating for season:
+            </div>
+            <%= link_to 'Edit', edit_tv_show_path(@tv_show) %>
+            |
+            <%= link_to 'TV Show Index', tv_shows_path %>
+          </div>
+        </div>
+      </div>
 
-<p>
-  <b>Year ended:</b>
-  <%= @tv_show.year_ended.try(:strftime, "%Y") %>
-</p>
-
-<p>
-  <b>Description:</b>
-  <%= @tv_show.description %>
-</p>
-
-<p>
-  <b>Genres:</b>
-  <% @tv_show.genres.each do |genre| %>
-  	<span class="badge badge-info"><%= genre.name %></span>
-  <% end %>
-</p>
-
-<p>
-  <b>Seasons and Episodes:</b>
-  <ul>
-  <% @tv_show.tv_seasons.each do |season| %>
-  	<li><%= link_to 'Season '+ season.number.to_s, tv_season_path(season.id) %></li>
-	  <% season.tv_episodes.each do |episode| %>
-	  	<li><%= link_to 'Episode '+ episode.number.to_s+': '+episode.title, tv_episode_path(episode.id) %></li>
-	  <% end %>
-  <% end %>
-</p>
-
-
-<%= link_to 'Edit', edit_tv_show_path(@tv_show) %> |
-<%= link_to 'TV Show Index', tv_shows_path %>
+        <div class="span5">
+          <div class="accordion" id="accordion1">
+            <% @tv_show.tv_seasons.each do |season| %>
+            <div class="accordion-group">
+              <div class="accordion-heading">
+                <%= link_to '<i class="icon-plus"></i>'.html_safe, tv_season_path(season.id), :style => 'display:inline', :class =>
+                'accordion-toggle', :data => {:toggle=>"collapse",:parent=>"#accordian1"}, :href => '#'+season.id.to_s %>
+                <%= link_to 'Season '+ season.number.to_s, tv_season_path(season.id) %>
+              </div>
+              <div id=<%= season.id.to_s %>
+                class="accordion-body collapse">
+                <div class="accordion-inner">
+                  <ul>
+                    <% season.tv_episodes.each do |episode| %>
+                    <li>
+                      <%= link_to 'Episode '+ episode.number.to_s+': '+episode.title, tv_episode_path(episode.id) %></li>
+                    <% end %></ul>
+                </div>
+              </div>
+            </div>
+            <% end %></div>
+        </div>
+      </div>

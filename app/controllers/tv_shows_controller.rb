@@ -13,8 +13,11 @@ class TvShowsController < ApplicationController
   # GET /tv_shows/1
   # GET /tv_shows/1.json
   def show
-    @tv_show = TvShow.find_by_title!(params[:id])
-    @rating = Rating.find_by_rateable_id!(@tv_show.id)
+    @tv_show = TvShow.find(params[:id])
+    @IMDBrating = Rating.rating("TvShow","tv_shows",params[:id],'IMDB')[0].average || "N/A"
+    if @IMDBrating != "N/A"
+      @IMDBrating = @IMDBrating[0..2]
+    end
 
     respond_to do |format|
       format.html # show.html.erb

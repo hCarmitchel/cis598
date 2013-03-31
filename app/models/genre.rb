@@ -16,8 +16,8 @@ class Genre < ActiveRecord::Base
     	genres = unscoped.where('name = \''+genre+'\'').joins('LEFT JOIN tv_shows ON genres.tv_show_id=tv_shows.id')
 	    genres = genres.group("date(year_released), genres.name")
 	    genres = genres.select("name, date(year_released) as year_released, count(*) as count")
-		genres.each_with_object({}) do |genre, comedies|
-		    comedies[genre.year_released.to_date.strftime("%Y")] = genre.count
+		genres.each_with_object({}) do |genre, counts|
+		    counts[genre.year_released.to_date.strftime("%Y")] = genre.count
 		end
   	end
 end

@@ -1,5 +1,5 @@
 class TvShow < ActiveRecord::Base
-	attr_accessible :year_released, :year_ended, :title, :description
+	attr_accessible :year_released, :year_ended, :title, :description, :id
 
 	has_many :genres, :dependent => :destroy
 	has_many :ratings, :as => :rateable, :dependent => :destroy
@@ -18,12 +18,12 @@ class TvShow < ActiveRecord::Base
 	    counts[tv_show.year_released.to_date.strftime("%Y")] = tv_show.count
 	end
   end
-  def self.IMDB_rating(title,year)
-    show = unscoped.where('title = \''+title+'\' and year_released = \''+year+'\'')
+  def IMDB_rating(id)
+    show = Rating.where('rateable_type = \''+'TvShow'+'\' and rating_website = \''+'iMDB'+'\' and rateable_id = '+id.to_s)
   end
   def self.simple_search(search)
 	  if search
-	    where 'title LIKE ? or description LIKE ?', "%#{search}%", "%#{search}%"
+	    where 'UPPER(title) LIKE UPPER(?) or UPPER(description) LIKE UPPER(?)', "%#{search}%", "%#{search}%"
 	  else
 	    scoped
 	  end

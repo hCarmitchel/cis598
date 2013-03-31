@@ -26,9 +26,14 @@ class Rating < ActiveRecord::Base
         end
     end
   end
-  def self.top_ten(website,type,table)
-    ratings = unscoped.where('rateable_type = \''+type+'\' and rating_website = \''+website+'\' and votes > 100000')
+  def self.top_ten(website,type,table,votes)
+    ratings = unscoped.where('rateable_type = \''+type+'\' and rating_website = \''+website+'\' and votes > '+votes)
     ratings = ratings.joins('LEFT JOIN '+table+' ON ratings.rateable_id='+table+'.id')
-    ratings = ratings.order("total_rating desc").select("total_rating, title").limit(10)
+    ratings = ratings.order("total_rating desc").select('total_rating, title, '+table+'.id as id').limit(10)
+  end
+  def self.rating(type,table,id,website)
+    ratings = unscoped.where('rateable_type = \''+type+'\' and rating_website = \''+website+'\' and '+table+'.id = '+id)
+    ratings = ratings.joins('LEFT JOIN '+table+' ON ratings.rateable_id='+table+'.id')
+    ratings = ratings.select("avg(total_rating) as average")
   end
 end

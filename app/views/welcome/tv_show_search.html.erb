@@ -9,30 +9,34 @@
 <% end %>
 
 <h3>TV Show Advanced Search</h3>
-<%= search_form_for  @q, class: 'form-inline', url: tv_show_search_path do |f|%>
-  <div class="field">
-    <%= f.label :title_cont, "Title contains" %>
+<%= search_form_for  @q, class: 'form-horizontal', url: tv_show_search_path do |f|%>
+  <div class="field control-group">
+    <%= f.label :title_cont, "Title contains", :class => 'control-label' %>
     <%= f.text_field :title_cont %>
   </div>
-  <div class="field">
-    <%= f.label :description_cont, "Description contains" %>
+  <div class="field control-group">
+    <%= f.label :description_cont, "Description contains", :class => 'control-label' %>
     <%= f.text_field :description_cont %>
   </div>
-  <div class="field">
-    <%= f.label :id_eq, "ID equals" %>
+  <div class="field control-group">
+    <%= f.label :genres_name_cont, "Genre", :class => 'control-label' %>
+    <%= f.text_field :genres_name_cont %>
+  </div>
+  <div class="field control-group">
+    <%= f.label :id_eq, "ID equals", :class => 'control-label' %>
     <%= f.text_field :id_eq %>
   </div>
-  <div class="field">
-    <%= f.label :year_released_gteq, "Year released between" %>
-    <%= f.text_field :year_released_gteq, :class => 'input-small'  %>
-    <%= f.label :year_released_lteq, "and" %>
-    <%= f.text_field :year_released_lteq, :class => 'input-small'  %>    
+  <div class="field control-group">
+    <%= f.label :year_released_gteq, "Year released between", :class => 'control-label' %>
+    <%= f.text_field :year_released_gteq, :class => 'input-small' %>
+    <%= f.label :year_released_lteq, "and", :style => 'display:inline;' %>
+    <%= f.text_field :year_released_lteq, :class => 'input-small', :style => 'margin-left:0' %>    
   </div>
-  <div class="field">
-    <%= f.label :year_ended_gteq, "Year ended between" %>
+  <div class="field control-group">
+    <%= f.label :year_ended_gteq, "Year ended between", :class => 'control-label' %>
     <%= f.text_field :year_ended_gteq, :class => 'input-small'  %>
-    <%= f.label :year_ended_lteq, "and" %>
-    <%= f.text_field :year_ended_lteq, :class => 'input-small'  %>    
+    <%= f.label :year_ended_lteq, "and", :style => 'display:inline;' %>
+    <%= f.text_field :year_ended_lteq, :class => 'input-small', :style => 'margin-left:0' %>    
   </div>
   <%= f.submit 'Search', :class => 'btn btn-primary'%>
 <% end %>
@@ -41,17 +45,17 @@
   <tr>
     <th>Title</th>
     <th>Description</th>
-    <th class="year">Year Released</th>
-    <th class="year">Year Ended</th>
+    <th class="medium">Year Released</th>
+    <th class="medium">Year Ended</th>
   </tr>
 </thead>
 <tbody>
   <% @tv_shows_result.each do |tv_show| %>
     <tr>
-      <td><%= link_to(tv_show.title, tv_show_path(tv_show.title)) %></td>
+      <td><%= link_to(tv_show.title, tv_show_path(tv_show)) %></td>
       <td><%= tv_show.description %></td>
-      <td><%= tv_show.year_released.strftime("%Y") %></td>
-      <td><%= tv_show.year_ended %></td>
+      <td><%= tv_show.year_released.try(:strftime, "%Y") %></td>
+      <td><%= tv_show.year_ended.try(:strftime, "%Y") %></td>
     </tr>
   <% end %>
 </tbody>

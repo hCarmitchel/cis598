@@ -4,6 +4,7 @@
     animation: "slide",
     controlNav: "thumbnails"
   });
+  $(".select_change").change(function(){ $(this).parent('form').submit(); });
 </script>
 <% end %>
 
@@ -12,19 +13,19 @@
 <div class="flexslider" style="margin-bottom:20px;" class="clearfix">
   <ul class="slides">
     <li data-thumb="/assets/breaking_bad.jpg">
-     <%= link_to image_tag("/assets/breaking_bad.jpg", :style => "position:relative"), tv_show_path("Breaking Bad") %>
+     <%= link_to image_tag("/assets/breaking_bad.jpg", :style => "position:relative"), tv_show_path(@breaking_bad) %>
         <p class="flex-caption">Featured Show: Breaking Bad</p>
     </li>
     <li data-thumb="/assets/archer.png">
-     <%= link_to image_tag("/assets/archer.png", :style => "position:relative"), tv_show_path("Archer") %>
+     <%= link_to image_tag("/assets/archer.png", :style => "position:relative"), tv_show_path(@archer) %>
         <p class="flex-caption">Featured Show: Archer</p>
     </li>   
     <li data-thumb="/assets/game_of_thrones.png">
-     <%= link_to image_tag("/assets/game_of_thrones.png", :style => "position:relative"), tv_show_path("Game of Thrones") %>
+     <%= link_to image_tag("/assets/game_of_thrones.png", :style => "position:relative"), tv_show_path(@game_of_thrones) %>
          <p class="flex-caption">Featured Show: Game of Thrones</p>
     </li>  
     <li data-thumb="/assets/the_americans.png">
-     <%= link_to image_tag("/assets/the_americans.png", :style => "position:relative"), tv_show_path("The Americans") %>
+     <%= link_to image_tag("/assets/the_americans.png", :style => "position:relative"), tv_show_path(@the_americans) %>
          <p class="flex-caption">Featured Show: The Americans</p>
     </li>
   </ul>
@@ -32,35 +33,37 @@
   </div>
   <div class="span4 offset1">  	
   	<h4>
-  		<form action="" class="display:inline; float:left;">
-  			<select name="cars" class="" >
-				<option value="volvo">Top TV Shows</option>
-				<option value="saab">Top Episodes</option>
-				<option value="fiat">Top Seasons</option>
-			</select>
+  		<form action="index" class="display:inline; float:left;">
+  			<%= select( "type", "select", { "Top TV Shows" => "1", "Top TV Seasons" => "2", "Top TV Episodes" => "3"}, {}, :class => 'select_change') %>
 		on
-			<select name="cars" class="input-small" >
-				<option value="volvo">IMDB</option>
-				<option value="saab">Metacritic</option>
-				<option value="fiat">Netflix</option>
-			</select>
+        <%= select( "website", "select", { "IMDB" => "IMDB", "Metacritic" => "Metacritic", "Netflix" => "Netflix"}, {}, :class => 'input-small select_change') %>
 		</form> 
 	</h4>
   <div class="row-fluid">
   <div class="span8">
 	<ol style="font-size:14px; margin-left:50px;">
-    <% @topIMDB.each do |show| %>
-		<li>
-      <%= link_to(show.title, tv_show_path(show.title)) %>
-    </li>
+    <% if @shows %>aa
+      <% @top.each do |tv_show| %>
+  		<li><%= link_to(tv_show.title, tv_show_path(tv_show)) %></li>
+      <% end %>
+    <% end %>
+    <% if @seasons %>ff
+      <% @top.each do |tv_season| %>
+      <li><%= link_to(tv_season.tv_show.title +" "+ tv_season.number.to_s, tv_season_path(tv_season)) %></li>
+      <% end %>
+    <% end %>
+    <% if @eps %>sdfsdf
+      <% @top.each do |tv_episode| %>
+      <li><%= link_to(tv_episode.tv_season.tv_show.title+" S"+tv_episode.tv_season.number.to_s+"xE"+tv_episode.number.to_s, tv_episode_path(tv_episode)) %></li>
+      <% end %>
     <% end %>
 	</ol>
 </div>
   <div class="span1">
   <ul style="font-size:14px;list-style:none">
-    <% @topIMDB.each do |show| %>
+    <% @top.each do |tv_show| %>
     <li>
-      <span class="badge badge-info"><%= show.total_rating %></span>
+      <span class="badge badge-info"><%= tv_show.total_rating %></span>
     </li>
     <% end %>
   </ul>

@@ -14,6 +14,7 @@ class TvEpisodesController < ApplicationController
   # GET /tv_episodes/1.json
   def show
     @tv_episode = TvEpisode.find(params[:id])
+    @IMDBrating = Rating.rating("TvEpisode","tv_episodes",params[:id],'IMDB').to_a[0].average[0..2]
 
     respond_to do |format|
       format.html # show.html.erb

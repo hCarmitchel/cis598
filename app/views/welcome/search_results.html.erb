@@ -11,20 +11,20 @@
 <table cellpadding="0" cellspacing="0" border="0" id="searchresults" class="datatable table table-striped table-bordered">
 <thead>
   <tr>
-    <th class="year">Type</th>
+    <th class="short">Type</th>
     <th>TV Show Title</th>
     <th>Episode Title</th>
-    <th class="year">Season #</th>
-    <th class="year">Episode #</th>
-    <th class="year">Year</th>
+    <th class="short">Season #</th>
+    <th class="short">Episode #</th>
+    <th class="short">Year</th>
     <th>Description</th>
   </tr>
 </thead>
 <tbody>
-  <% @tv_result.each do |r| %>
+  <% @tv_result.find_each do |r| %>
     <tr>
       <th>TV Show</th>
-      <td><%= r.title %></td>
+      <td><%= link_to r.title, tv_show_path(r) %></td>
       <td></td>
       <td></td>
       <td></td>
@@ -32,13 +32,13 @@
       <td><%= r.description %></td>
     </tr>
   <% end %>
-  <% @ep_result.each do |r| %>
+  <% @ep_result.find_each do |r| %>
     <tr>
       <th>Episode</th>
-      <td><%= r.tv_season.tv_show.title %></td>
-      <td><%= r.title %></td>
-      <td><%= r.tv_season.number %></td>
-      <td><%= r.number %></td>
+      <td><%= link_to(r.tv_season.tv_show.title, r.tv_season.tv_show) %></td>
+      <td><%= link_to(r.title, r) %></td>
+      <td><%= link_to(r.tv_season.number, r.tv_season )%></td>
+      <td><%= link_to(r.number, r) %></td>
       <td><%= r.air_date.try(:strftime, "%Y") %></td>
       <td></td>
     </tr>

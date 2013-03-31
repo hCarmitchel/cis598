@@ -16,6 +16,10 @@
  *= require_tree .
 */
 
+a {
+  outline: 0 !important;
+}
+
 .content {
   background-image: url('/assets/bg.png');
   padding: 20px 45px; 
@@ -27,7 +31,8 @@ a:hover, a:visited, a:focus, a:active {
 }
 
 a:hover {
-  color:#049cdb !important;
+  color:#006CCC !important;
+  text_decoration:none !important;
 }
 
 .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus, .dropdown-submenu:hover > a, .dropdown-submenu:focus > a {
@@ -59,3 +64,17 @@ abbr[title], abbr[data-original-title] {
   background-image: linear-gradient(to bottom, #0088CC, #0044CC) !important; }
 
 ul { list-style:none !important; }
+
+.accordion-heading { background-color:#fff; border-radius:5px; padding-top:9px; padding-bottom:9px; }
+
+.accordion-heading a:hover, .accordion-heading a:active {
+  color:#006CCC !important;
+  text-decoration:none !important; }
+
+.accordion-heading a:visited, .accordion-heading a:focus, .accordion-heading a { text-decoration:none !important; }
+
+.accordion-group { border:none !important; background-color:white; }
+
+.rating-badge { padding:10px 9px !important; }
+
+.badge-warning { color:black; }

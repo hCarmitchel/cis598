@@ -22,7 +22,7 @@ class TvEpisode < ActiveRecord::Base
     end
     def self.simple_search(search)
 	  if search
-	    where 'title LIKE ?', "%#{search}%"
+	    where 'UPPER(title) LIKE UPPER(?)', "%#{search}%"
 	  else
 	    scoped
 	  end
