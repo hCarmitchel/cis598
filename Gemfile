@@ -34,6 +34,8 @@ end
 gem "eventmachine", ">= 1.0.0.beta"
 gem 'thin'
 
+gem 'newrelic_rpm'
+
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
