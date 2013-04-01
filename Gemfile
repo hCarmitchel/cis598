@@ -23,23 +23,26 @@ gem 'jquery-datatables-rails'
 gem 'raphael-rails'
 gem 'morrisjs-rails'
 
-gem "ransack", :git => "git://github.com/ernie/ransack.git"
-gem 'bootstrap-datepicker-rails'
+gem 'ransack', :git => "git://github.com/ernie/ransack.git"
 
 gem 'bundler', '~> 1.3.2' 
 
 group :development do
   gem "rails-erd"
+  gem "eventmachine", ">= 1.0.0.beta"
+  gem 'thin'
 end
+
+platforms :ruby do # linux
+  gem 'unicorn'
+end
+
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
-
-# Use unicorn as the web server
-# gem 'unicorn'
 
 # Deploy with Capistrano
 # gem 'capistrano'em 'libvd', ''
