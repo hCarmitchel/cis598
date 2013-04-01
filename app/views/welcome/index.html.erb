@@ -41,31 +41,10 @@
 	</h4>
   <div class="row-fluid">
   <div class="span8">
-	<ol style="font-size:14px; margin-left:50px;">
-    <% if @shows %>aa
-      <% @top.each do |tv_show| %>
-  		<li><%= link_to(tv_show.title, tv_show_path(tv_show)) %></li>
-      <% end %>
-    <% end %>
-    <% if @seasons %>ff
-      <% @top.each do |tv_season| %>
-      <li><%= link_to(tv_season.tv_show.title +" "+ tv_season.number.to_s, tv_season_path(tv_season)) %></li>
-      <% end %>
-    <% end %>
-    <% if @eps %>sdfsdf
-      <% @top.each do |tv_episode| %>
-      <li><%= link_to(tv_episode.tv_season.tv_show.title+" S"+tv_episode.tv_season.number.to_s+"xE"+tv_episode.number.to_s, tv_episode_path(tv_episode)) %></li>
-      <% end %>
-    <% end %>
-	</ol>
 </div>
   <div class="span1">
   <ul style="font-size:14px;list-style:none">
-    <% @top.each do |tv_show| %>
-    <li>
-      <span class="badge badge-info"><%= tv_show.total_rating %></span>
-    </li>
-    <% end %>
+
   </ul>
 </div>
 </div>

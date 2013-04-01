@@ -1,0 +1,90 @@
+#!/usr/bin/env ruby.exe
+require 'pg'
+require 'date'
+conn = PGconn.open(:dbname => 'production')
+tvratingsreport = false
+
+File.open('db/ratings.list', 'r') do |f|
+  while (not f.eof?)
+  	a = f.readline
+   	if !tvratingsreport && /^MOVIE RATINGS REPORT$/ =~ a #in movie ratings report
+   		tvratingsreport = true
+   	end
+	if tvratingsreport && !(/{.{1,}/ =~ a) && /".{1,}" \(.{1,}\)$/ =~ a #if not an episode
+		#puts "NOT EPISODE"
+		#puts "TV SHOW: "+a
+
+		#get tv title
+	  	tString = /".{1,}"/.match(a)[0]
+	  	valid_title = (tString[1,tString.length-2].gsub("'","\'\'")).unpack('C*').pack('U*')
+
+   		if (/\((\d{1,})\)/) =~ a #has tv year 
+	    	tvYearMatch = /\((\d{1,})\)/.match(a)[0]
+	    	tvYear = Date::strptime(tvYearMatch[1,tvYearMatch.length-2], "%Y").to_s
+
+			ratingString = /\s\d{1,2}\.\d\s/.match(a)[0]
+			total_rating = ratingString[1,ratingString.length-2]
+			puts "Rating "+total_rating
+
+			votesString = /\d{1,}\s{2,3}\d{1,}\./.match(a)[0]
+			votes = votesString[0,votesString.length-5]
+			puts "Votes "+votes
+
+	    	puts "A: "+a
+	    	rateables = conn.exec('SELECT id FROM tv_shows where title = \''+valid_title+'\' and year_released = \''+tvYear+'\';')
+
+		    if rateables.num_tuples > 0
+			    rateable_id = rateables.getvalue(0,0)
+		    	conn.exec('INSERT INTO ratings (id,votes,total_rating,rating_website,rateable_id,rateable_type) VALUES (DEFAULT,$1,$2,$3,$4,$5)',[votes,total_rating,'IMDB',rateable_id,"TvShow"])
+			end
+	    end
+	elsif tvratingsreport && /{.{0,}\(.{1,}\..{1,}\)}/ =~ a #is an episode
+  		#puts "EPISODE"
+		#puts a
+
+		#get tv title
+	  	tString = /".{1,}"/.match(a)[0]
+	  	valid_title = (tString[1,tString.length-2].gsub("'","\'\'")).unpack('C*').pack('U*')
+
+   		if (/\((\d{1,})\)/) =~ a #has tv year 
+	    	tvYearMatch = /\((\d{1,})\)/.match(a)[0]
+	    	tvYear = Date::strptime(tvYearMatch[1,tvYearMatch.length-2], "%Y").to_s
+
+			ratingString = /\s\d{1,2}\.\d\s/.match(a)[0]
+			total_rating = ratingString[1,ratingString.length-2]
+			puts "Rating "+total_rating
+
+			votesString = /\d{1,}\s{2,3}\d{1,}\./.match(a)[0]
+			votes = votesString[0,votesString.length-5]
+			puts "Votes "+votes
+
+	    	seasonNumber = /\d{1,}\.\d{1,}\)/.match(a)[0].split(".").first
+	    	epString = /\d{1,}\.\d{1,}\)/.match(a)[0].split(".").last
+			episodeNumber = epString[0,epString.length-1]
+			puts episodeNumber
+
+	    	puts "TV EPISODE: "+a
+	    	#puts "QUERY: "+valid_title 
+	    	query = 'SELECT tv_episodes.id '+
+				 'FROM tv_shows, tv_seasons, tv_episodes '+
+				 'WHERE tv_shows.id = tv_seasons.tv_show_id '+
+				 'AND tv_seasons.id = tv_episodes.tv_season_id '+
+				 'and tv_shows.title = \''+valid_title+'\' '+
+				 'and tv_shows.year_released = \''+tvYear+'\' '+
+				 'and tv_seasons.number = \''+seasonNumber+'\' '+
+				 'and tv_episodes.number = \''+episodeNumber+'\';'
+
+			puts " QUERY: "+query
+	    	episodes = conn.exec(query)
+
+		    if episodes.num_tuples > 0
+			    rateable_id = episodes.getvalue(0,0)
+		    	conn.exec('INSERT INTO ratings (id,votes,total_rating,rating_website,rateable_id,rateable_type) VALUES (DEFAULT,$1,$2,$3,$4,$5)',[votes,total_rating,'IMDB',rateable_id,"TvEpisode"])
+			end
+	    end
+	  end
+  end 
+end 
+	
+conn.close()
+puts "end of file!"
