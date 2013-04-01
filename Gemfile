@@ -29,13 +29,10 @@ gem 'bundler', '~> 1.3.2'
 
 group :development do
   gem "rails-erd"
-  gem "eventmachine", ">= 1.0.0.beta"
-  gem 'thin'
 end
 
-platforms :ruby do # linux
-  gem 'unicorn'
-end
+gem "eventmachine", ">= 1.0.0.beta"
+gem 'thin'
 
 
 # To use ActiveModel has_secure_password
