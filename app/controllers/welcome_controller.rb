@@ -5,7 +5,7 @@ class WelcomeController < ApplicationController
 		@game_of_thrones = TvShow.where(:title=>'Game of Thrones').where(:year_released=>'01-01-2011').first
 		@the_americans = TvShow.where(:title=>'The Americans').where(:year_released=>'01-01-2013').first
 
-		put @archer
+		puts @archer
 
 		@shows = false
 		@seasons = false
