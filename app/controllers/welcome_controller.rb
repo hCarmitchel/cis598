@@ -5,10 +5,13 @@ class WelcomeController < ApplicationController
 		@game_of_thrones = TvShow.where(:title=>'Game of Thrones').where(:year_released=>'01-01-2011').first
 		@the_americans = TvShow.where(:title=>'The Americans').where(:year_released=>'01-01-2013').first
 
+		put @archer
+
 		@shows = false
 		@seasons = false
 		@eps = false
 
+		@top = Rating.top_ten('IMDB','TvSeason','tv_seasons')
 	end
 	def stats
 		@genres = Genre.total_grouped_by_genre

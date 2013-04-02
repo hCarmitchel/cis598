@@ -41,6 +41,11 @@
 	</h4>
   <div class="row-fluid">
   <div class="span8">
+    <ol style="font-size:14px; margin-left:50px;">
+      <% @top.each do |tv_show| %>
+      <li><%= link_to(tv_show.title, tv_show_path(tv_show)) %></li>
+      <% end %>
+    </ol>
 </div>
   <div class="span1">
   <ul style="font-size:14px;list-style:none">

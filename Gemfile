@@ -31,10 +31,12 @@ group :development do
   gem "rails-erd"
 end
 
+group :production do
+  gem 'newrelic_rpm'
+end
+
 gem "eventmachine", ">= 1.0.0.beta"
 gem 'thin'
-
-gem 'newrelic_rpm'
 
 
 # To use ActiveModel has_secure_password
