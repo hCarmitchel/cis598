@@ -11,7 +11,7 @@ class WelcomeController < ApplicationController
 		@seasons = false
 		@eps = false
 
-		@top = Rating.top_ten('IMDB','TvSeason','tv_seasons')
+		@top = Rating.top_ten('IMDB','TvShow','tv_shows','100000')
 	end
 	def stats
 		@genres = Genre.total_grouped_by_genre
