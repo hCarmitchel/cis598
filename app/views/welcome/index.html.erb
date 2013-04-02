@@ -42,8 +42,10 @@
   <div class="row-fluid">
   <div class="span8">
     <ol style="font-size:14px; margin-left:50px;">
-      <% @top.each do |tv_show| %>
-      <li><%= link_to(tv_show.title, tv_show_path(tv_show)) %></li>
+      <% if @top.count > 0 %>
+        <% @top.each do |tv_show| %>
+          <li><%= link_to(tv_show.title, tv_show_path(tv_show)) %></li>
+        <% end %>
       <% end %>
     </ol>
 </div>
