@@ -1,7 +1,7 @@
 RailsinstallerDemo::Application.routes.draw do
 
   
-  resources :tv_episodes, :tv_seasons, :genres, :ratings, :tv_shows
+  resources :tv_episodes, :tv_seasons, :genres, :ratings, :tv_shows, :reviews
 
   get "welcome/graphs"
 

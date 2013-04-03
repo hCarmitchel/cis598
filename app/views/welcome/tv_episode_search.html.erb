@@ -23,6 +23,10 @@
     <%= f.text_field :id_eq %>
   </div>
   <div class="field control-group">
+    <%= f.label :genres_name_cont, "Genre", :class => 'control-label' %>
+    <%= f.text_field :genres_name_cont %>
+  </div>
+  <div class="field control-group">
     <%= f.label :air_date_gteq, "Air date between", :class => 'control-label' %>
     <%= f.text_field :air_date_gteq, :class => 'input-small' %>
     <%= f.label :air_date_lteq, "and", :style => 'display:inline;' %>

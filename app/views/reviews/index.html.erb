@@ -1,0 +1,25 @@
+<% content_for :javascript do %>
+<script>
+</script>
+<% end %>
+
+<h3>Review Index</h3>
+
+<table cellpadding="0" cellspacing="0" border="0" id="reviews" class="datatable table table-striped table-bordered" data-source="<%= reviews_url(format: "json") %>">
+<thead>
+  <tr>
+    <th>Title</th>
+    <th>Content</th>
+    <th>Author</th>
+    <th>Website</th>
+    <th>Actions</th>
+  </tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+
+<br />
+
+<%= button_to "Add Review", new_review_path, :method => "get", :class=> "btn btn-primary"%>
+

@@ -3,12 +3,12 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 jQuery ->
-  $('#tvseasons').dataTable
+  $('#reviews').dataTable
     sDom: "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>"
     sPaginationType: "bootstrap"
     bSortClasses: false
     bProcessing: true
     bServerSide: true
     bRetrieve: true
-    sAjaxSource: $('#tvseasons').data('source')
+    sAjaxSource: $('#reviews').data('source')
     oLanguage: { sProcessing: "<img src='/assets/loading.gif'>" }

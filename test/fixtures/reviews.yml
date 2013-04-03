@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  content: MyText
+  year_reviewed: 2013-04-02
+  title: MyString
+  author: MyString
+  link: MyString
+  rating: 9.99
+  website: MyString
+
+two:
+  content: MyText
+  year_reviewed: 2013-04-02
+  title: MyString
+  author: MyString
+  link: MyString
+  rating: 9.99
+  website: MyString

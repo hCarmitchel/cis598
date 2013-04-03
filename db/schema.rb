@@ -11,19 +11,31 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130313202008) do
+ActiveRecord::Schema.define(:version => 20130402225959) do
 
   create_table "genres", :force => true do |t|
-    t.string   "name"
-    t.integer  "tv_show_id"
+    t.string  "name"
+    t.integer "tv_show_id"
   end
 
   create_table "ratings", :force => true do |t|
-    t.integer  "votes"
-    t.decimal  "total_rating"
-    t.string   "rating_website"
-    t.integer  "rateable_id"
-    t.string   "rateable_type"
+    t.integer "votes"
+    t.decimal "total_rating"
+    t.string  "rating_website"
+    t.integer "rateable_id"
+    t.string  "rateable_type"
+  end
+
+  create_table "reviews", :force => true do |t|
+    t.text    "content"
+    t.date    "year_reviewed"
+    t.string  "title"
+    t.string  "author"
+    t.string  "link"
+    t.decimal "rating"
+    t.string  "website"
+    t.integer "reviewable_id"
+    t.string  "reviewable_type"
   end
 
   create_table "tv_episodes", :force => true do |t|

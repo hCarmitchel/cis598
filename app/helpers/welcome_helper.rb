@@ -51,7 +51,7 @@ module WelcomeHelper
       }
     end
   end
-    def ratings_avg_data
+  def ratings_avg_data
     tv_ratings_by_day = Rating.avg_grouped_by_day("TvShow","tv_shows","year_released")
     ep_ratings_by_day = Rating.avg_grouped_by_day("TvEpisode","tv_episodes","air_date")
 

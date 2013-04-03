@@ -34,5 +34,8 @@
       </div> <!--! end of .container -->
     </div> <!--! end of #main -->
     <%= yield :javascript %>
+    <script type="text/javascript">
+      $('.dropdown-toggle').dropdown();
+    </script>
   </body>
 </html>

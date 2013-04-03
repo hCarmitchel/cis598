@@ -42,12 +42,11 @@
   <div class="row-fluid">
   <div class="span8">
     <ol style="font-size:14px; margin-left:50px;">
-              <% if !@top.nil? %>
-
+      <% if !@top.nil? %>
         <% @top.each do |tv_show| %>
           <li><%= link_to(tv_show.title, tv_show_path(tv_show)) %></li>
         <% end %>
-        <% end %>
+      <% end %>
     </ol>
 </div>
   <div class="span1">

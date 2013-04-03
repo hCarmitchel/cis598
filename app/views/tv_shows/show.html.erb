@@ -1,3 +1,17 @@
+<% content_for :javascript do %>
+<script>
+$(function() {
+  Morris.Bar({
+    element: 'season_ratings',
+    data: $('#season_ratings').data('tv-shows'),
+    xkey: 'year',
+    ykeys: ['average'],
+    labels: ['Average Episode Rating']
+  });
+});
+</script>
+<% end %>
+
 <div class="page-header" style="margin:0px">
   <h1>
     <%= link_to @tv_show.title, @tv_show%>
@@ -11,7 +25,7 @@
   </h1>
 </div>
     <div class="row-fluid">
-      <div class="span7">
+      <div class="span8">
         <div class="tabbable">
           <ul class="nav nav-tabs" id="myTab">
             <li class="active">
@@ -33,10 +47,10 @@
                   <span class="badge badge-info">
                     <%= genre.name %></span>
                   <% end %></p>
+                  <%= content_tag :div, "", id: "season_ratings", style: "height:150px", data: {tv_shows: season_ratings_data(@tv_show.id)} %>
             </div>
             <div class="tab-pane" id="stats">
-              Average rating for show:
-              Average rating for season:
+
             </div>
             <%= link_to 'Edit', edit_tv_show_path(@tv_show) %>
             |
@@ -45,13 +59,12 @@
         </div>
       </div>
 
-        <div class="span5">
+        <div class="span4">
           <div class="accordion" id="accordion1">
             <% @tv_show.tv_seasons.each do |season| %>
             <div class="accordion-group">
               <div class="accordion-heading">
-                <%= link_to '<i class="icon-plus"></i>'.html_safe, tv_season_path(season.id), :style => 'display:inline', :class =>
-                'accordion-toggle', :data => {:toggle=>"collapse",:parent=>"#accordian1"}, :href => '#'+season.id.to_s %>
+                <%= link_to '<i class="icon-plus"></i>'.html_safe, tv_season_path(season.id), :style => 'display:inline', :class => 'accordion-toggle', :data => {:toggle=>"collapse",:parent=>"#accordian1"}, :href => '#'+season.id.to_s %>
                 <%= link_to 'Season '+ season.number.to_s, tv_season_path(season.id) %>
               </div>
               <div id=<%= season.id.to_s %>

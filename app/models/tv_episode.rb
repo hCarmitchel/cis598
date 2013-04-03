@@ -2,6 +2,7 @@ class TvEpisode < ActiveRecord::Base
 	attr_accessible :air_date, :tv_season_id, :number, :title
 
 	has_many :ratings, :as => :rateable, :dependent => :destroy
+	has_many :reviews, :as => :reviewable, :dependent => :destroy
 	has_many :genres, :through => :tv_season
 	
 	belongs_to :tv_season

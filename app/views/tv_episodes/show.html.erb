@@ -39,8 +39,7 @@
             <% @tv_episode.tv_season.tv_show.tv_seasons.each do |season| %>
             <div class="accordion-group">
               <div class="accordion-heading">
-                <%= link_to '<i class="icon-plus"></i>'.html_safe, tv_season_path(season.id), :style => 'display:inline', :class =>
-                'accordion-toggle', :data => {:toggle=>"collapse",:parent=>"#accordian1"}, :href => '#'+season.id.to_s %>
+                <%= link_to '<i class="icon-plus"></i>'.html_safe, tv_season_path(season.id), :style => 'display:inline', :class => 'accordion-toggle', :data => {:toggle=>"collapse",:parent=>"#accordian1"}, :href => '#'+season.id.to_s %>
                 <%= link_to 'Season '+ season.number.to_s, tv_season_path(season.id) %>
               </div>
               <div id=<%= season.id.to_s %>

@@ -3,6 +3,7 @@ class TvShow < ActiveRecord::Base
 
 	has_many :genres, :dependent => :destroy
 	has_many :ratings, :as => :rateable, :dependent => :destroy
+	has_many :reviews, :as => :reviewable, :dependent => :destroy
 	has_many :tv_seasons, :dependent => :destroy
 	has_many :tv_episodes, :through => :tv_seasons, :dependent => :destroy
 
@@ -20,6 +21,9 @@ class TvShow < ActiveRecord::Base
   end
   def IMDB_rating(id)
     show = Rating.where('rateable_type = \''+'TvShow'+'\' and rating_website = \''+'iMDB'+'\' and rateable_id = '+id.to_s)
+  end
+  def self.seasons(id)
+    TvSeason.where('tv_show_id = '+id.to_s).order("number asc").select('id as tv_season_id, number')
   end
   def self.simple_search(search)
 	  if search

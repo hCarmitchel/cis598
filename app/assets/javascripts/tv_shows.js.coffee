@@ -9,5 +9,6 @@ jQuery ->
     bSortClasses: false
     bProcessing: true
     bServerSide: true
+    bRetrieve: true
     sAjaxSource: $('#tvshows').data('source')
     oLanguage: { sProcessing: "<img src='/assets/loading.gif'>" }

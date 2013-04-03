@@ -1,0 +1,38 @@
+<p>
+  <b>Content:</b>
+  <%= @review.content %>
+</p>
+
+<p>
+  <b>Year reviewed:</b>
+  <%= @review.year_reviewed %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%= @review.title %>
+</p>
+
+<p>
+  <b>Author:</b>
+  <%= @review.author %>
+</p>
+
+<p>
+  <b>Link:</b>
+  <%= @review.link %>
+</p>
+
+<p>
+  <b>Rating:</b>
+  <%= @review.rating %>
+</p>
+
+<p>
+  <b>Website:</b>
+  <%= @review.website %>
+</p>
+
+
+<%= link_to 'Edit', edit_review_path(@review) %> |
+<%= link_to 'Back', reviews_path %>
