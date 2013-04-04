@@ -15,5 +15,8 @@ class TvSeason < ActiveRecord::Base
 	def self.episodes(id)
       TvEpisode.where('tv_season_id = '+id.to_s).order("number asc").select('id as tv_episode_id, number, air_date')
     end
+	def self.top_episodes(id)
+      TvEpisode.where('tv_season_id = '+id.to_s).order("number asc").select('id as tv_episode_id, title').limit(3)
+    end
 end
 

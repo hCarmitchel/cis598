@@ -23,7 +23,7 @@ private
     reviews.map do |review|
       [
         review.title,
-        review.content,
+        review.content[0..100]+"...",
         review.author,
         review.website,
         icon_link_to(review,{:icon => "eye-open",:enlarge => false},{ :method => :get })+icon_link_to("/reviews/"+review.id.to_s+"/edit",{:icon =>"pencil",:enlarge => false},{:action => :edit})+icon_link_to(review,{:icon =>"trash",:enlarge => false},{confirm: 'Are you sure?',:method => :delete})

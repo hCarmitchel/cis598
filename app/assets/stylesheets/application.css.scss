@@ -38,9 +38,11 @@ a:hover {
   color: white !important;
 }
 
-h4,h3 { text-align:center; text-shadow:1px 2px 0 white; font-weight:normal !important; }
+h4,h3 { text-align:center; }
 
 h3 { margin:0; }
+
+h3,h4,h5 { text-shadow:1px 2px 0 white; font-weight:normal !important; }
 
 .tablesorter-bootstrap .tablesorter-header, .tablesorter-bootstrap tfoot th, .tablesorter-bootstrap tfoot td {
   padding:0 !important; 

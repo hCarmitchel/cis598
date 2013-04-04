@@ -10,6 +10,7 @@ class WelcomeController < ApplicationController
 		@eps = false
 
 		@top = Rating.top_ten('IMDB','TvShow','tv_shows','100000')
+		@recentReviews = Review.recent(12).page(params[:page])
 	end
 	def stats
 		@genres = Genre.total_grouped_by_genre

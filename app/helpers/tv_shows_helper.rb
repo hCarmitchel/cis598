@@ -1,5 +1,5 @@
 module TvShowsHelper
-  def season_ratings_data(id)
+  def shows_ratings_data(id)
   	arr = Array.new 
     seasons = TvShow.seasons(id)
     seasons.each do |season|

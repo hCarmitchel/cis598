@@ -1,3 +1,17 @@
+<% content_for :javascript do %>
+<script>
+$(function() {
+  Morris.Bar({
+    element: 'seasons_ratings',
+    data: $('#seasons_ratings').data('tv-seasons'),
+    xkey: 'year',
+    ykeys: ['average'],
+    labels: ['Average Episode Rating']
+  });
+});
+</script>
+<% end %>
+
 <div class="page-header" style="margin:0px">
 	<h1>
 		<%= link_to @tv_season.tv_show.title, @tv_season.tv_show, :method =>
@@ -8,39 +22,40 @@
 			<span></h1>
 		</div>
 
-		<div class="row-fluid">
-			<div class="span7">
-				<div class="tabbable">
-					<ul class="nav nav-tabs" id="myTab">
-						<li class="active">
-							<a data-toggle="tab" href="#about">About</a>
-						</li>
-						<li>
-							<a data-toggle="tab" href="#stats">Stats</a>
-						</li>
-					</ul>
+    <div class="row-fluid">
+      <div class="span8">
+        <div class="tabbable">
+          <ul class="nav nav-tabs" id="myTab">
+            <li class="active">
+              <a data-toggle="tab" href="#about">About</a>
+            </li>
+            <li>
+              <a data-toggle="tab" href="#stats">Stats</a>
+            </li>
+          </ul>
 
-					<div class="tab-content">
-						<div class="tab-pane active" id="about">
-							</div>
-							<div class="tab-pane" id="stats">
-								Average rating for show:
-              					Average rating for season:
-							</div>
+          <div class="tab-content">
+            <div class="tab-pane active" id="about">
+            <%= content_tag :div, "", id: "seasons_ratings", style: "height:150px", data: {tv_seasons: seasons_ratings_data(@tv_season.id)} %>
+              </div>
+              <div class="tab-pane" id="stats">
+                            <% @top_episodes.each do |ep| %>
+                            <%= link_to ep.title, tv_episode_path(ep.id) %>
+                            <% end %>
 
-							<%= link_to 'Edit', edit_tv_season_path(@tv_season) %>
-							|
-							<%= link_to 'TV Seasons Index', tv_seasons_path %></div>
-					</div>
-				</div>
-
-				<div class="span5">
-					<div class="accordion" id="accordion1">
-						<% @tv_season.tv_show.tv_seasons.each do |season| %>
+              </div>
+            <br>
+            <%= link_to 'Edit', edit_tv_season_path(@tv_season) %> |
+            <%= link_to 'TV Episodes Index', tv_seasons_path %>
+          </div>
+        </div>
+      </div>
+        <div class="span4">
+          <div class="accordion" id="accordion1">
+            <% @tv_season.tv_show.tv_seasons.each do |season| %>
             <div class="accordion-group">
               <div class="accordion-heading">
-                <%= link_to '<i class="icon-plus"></i>'.html_safe, tv_season_path(season.id), :style => 'display:inline', :class =>
-                'accordion-toggle', :data => {:toggle=>"collapse",:parent=>"#accordian1"}, :href => '#'+season.id.to_s %>
+                <%= link_to '<i class="icon-plus"></i>'.html_safe, tv_season_path(season.id), :style => 'display:inline', :class => 'accordion-toggle', :data => {:toggle=>"collapse",:parent=>"#accordian1"}, :href => '#'+season.id.to_s %>
                 <%= link_to 'Season '+ season.number.to_s, tv_season_path(season.id) %>
               </div>
               <div id=<%= season.id.to_s %>
@@ -55,5 +70,6 @@
               </div>
             </div>
             <% end %></div>
-				</div>
-			</div>
+        </div>
+      </div>
+

@@ -1,0 +1,5 @@
+Create indexes for foreign keys
+Fix collapse functionality
+Clean up unused files
+Add seed data
+Fix links on index page

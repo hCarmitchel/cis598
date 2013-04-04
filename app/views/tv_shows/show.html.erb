@@ -2,8 +2,8 @@
 <script>
 $(function() {
   Morris.Bar({
-    element: 'season_ratings',
-    data: $('#season_ratings').data('tv-shows'),
+    element: 'shows_ratings',
+    data: $('#shows_ratings').data('tv-shows'),
     xkey: 'year',
     ykeys: ['average'],
     labels: ['Average Episode Rating']
@@ -47,7 +47,7 @@ $(function() {
                   <span class="badge badge-info">
                     <%= genre.name %></span>
                   <% end %></p>
-                  <%= content_tag :div, "", id: "season_ratings", style: "height:150px", data: {tv_shows: season_ratings_data(@tv_show.id)} %>
+                  <%= content_tag :div, "", id: "shows_ratings", style: "height:150px", data: {tv_shows: shows_ratings_data(@tv_show.id)} %>
             </div>
             <div class="tab-pane" id="stats">
 
