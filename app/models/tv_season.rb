@@ -13,10 +13,12 @@ class TvSeason < ActiveRecord::Base
 
 	default_scope :order => "number ASC"
 	def self.episodes(id)
-      TvEpisode.where('tv_season_id = '+id.to_s).order("number asc").select('id as tv_episode_id, number, air_date')
+      TvEpisode.where('tv_season_id = '+id.to_s).select("tv_episodes.id as tv_episode_id, number")
     end
-	def self.top_episodes(id)
-      TvEpisode.where('tv_season_id = '+id.to_s).order("number asc").select('id as tv_episode_id, title').limit(3)
+	def self.rated_episodes(id,order,limit)
+      eps = TvEpisode.unscoped.where('tv_season_id = '+id.to_s+' and total_rating > 0')
+      eps = eps.joins('LEFT JOIN ratings ON ratings.rateable_id = tv_episodes.id')
+      eps = eps.order("total_rating "+order).select('tv_episodes.id as tv_episode_id, title, total_rating, number').limit(limit)
     end
 end
 

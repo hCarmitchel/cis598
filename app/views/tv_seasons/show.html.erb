@@ -1,12 +1,14 @@
 <% content_for :javascript do %>
 <script>
 $(function() {
-  Morris.Bar({
+  Morris.Line({
     element: 'seasons_ratings',
     data: $('#seasons_ratings').data('tv-seasons'),
     xkey: 'year',
     ykeys: ['average'],
-    labels: ['Average Episode Rating']
+    labels: ['Average Episode Rating'],
+    parseTime: false,
+    pointSize: 0
   });
 });
 </script>
@@ -18,7 +20,7 @@ $(function() {
 		"get" %>
 		<small>
 			<%= link_to 'Season '+@tv_season.number.to_s, @tv_season, :method =>"get" %></small>
-		<span class="badge badge-info pull-right">IMDB N/A
+		<span class="badge badge-info pull-right">IMDB
 			<span></h1>
 		</div>
 
@@ -30,19 +32,37 @@ $(function() {
               <a data-toggle="tab" href="#about">About</a>
             </li>
             <li>
-              <a data-toggle="tab" href="#stats">Stats</a>
+              <a data-toggle="tab" href="#reviews">Reviews</a>
             </li>
           </ul>
 
           <div class="tab-content">
             <div class="tab-pane active" id="about">
-            <%= content_tag :div, "", id: "seasons_ratings", style: "height:150px", data: {tv_seasons: seasons_ratings_data(@tv_season.id)} %>
+              <div class="span5">
+            <h6>Best Episodes:</h6>
+                <ol>
+                  <% @top_episodes.each do |ep| %>
+                  <li>
+                    <%= link_to "S"+@tv_season.number.to_s+"xE"+ep.number.to_s+" "+ep.title, tv_episode_path(ep.tv_episode_id) %>
+                    <span class="badge badge-info pull-right"><%= ep.total_rating.to_s %></span>
+                  </li>
+                  <% end %>
+                </ol>
+                            <h6>Worst Episodes:</h6>
+                <ol>
+                  <% @bottom_episodes.each do |ep| %>
+                  <li>
+                    <%= link_to "S"+@tv_season.number.to_s+"xE"+ep.number.to_s+" "+ep.title, tv_episode_path(ep.id) %>
+                    <span class="badge badge-info pull-right"><%= ep.total_rating.to_s %></span>
+                  </li>
+                  <% end %>
+                </ol>
+              </div>
+              <div class="span6 offset1">
+            <%= content_tag :div, "", id: "seasons_ratings", style: "height:240px", data: {tv_seasons: seasons_ratings_data(@tv_season.id)} %>
+          </div>
               </div>
               <div class="tab-pane" id="stats">
-                            <% @top_episodes.each do |ep| %>
-                            <%= link_to ep.title, tv_episode_path(ep.id) %>
-                            <% end %>
-
               </div>
             <br>
             <%= link_to 'Edit', edit_tv_season_path(@tv_season) %> |
@@ -64,7 +84,7 @@ $(function() {
                   <ul>
                     <% season.tv_episodes.each do |episode| %>
                     <li>
-                      <%= link_to 'Episode '+ episode.number.to_s+': '+episode.title, tv_episode_path(episode.id) %></li>
+                      <%= link_to '#'+ episode.number.to_s+': '+episode.title, tv_episode_path(episode.id) %></li>
                     <% end %></ul>
                 </div>
               </div>

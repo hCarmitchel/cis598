@@ -17,7 +17,7 @@
               <a data-toggle="tab" href="#about">About</a>
             </li>
             <li>
-              <a data-toggle="tab" href="#stats">Stats</a>
+              <a data-toggle="tab" href="#reviews">Reviews</a>
             </li>
           </ul>
 
@@ -48,7 +48,7 @@
                   <ul>
                     <% season.tv_episodes.each do |episode| %>
                     <li>
-                      <%= link_to 'Episode '+ episode.number.to_s+': '+episode.title, tv_episode_path(episode.id) %></li>
+                      <%= link_to '#'+ episode.number.to_s+': '+episode.title, tv_episode_path(episode.id) %></li>
                     <% end %></ul>
                 </div>
               </div>

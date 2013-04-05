@@ -23,7 +23,12 @@ class TvShow < ActiveRecord::Base
     show = Rating.where('rateable_type = \''+'TvShow'+'\' and rating_website = \''+'iMDB'+'\' and rateable_id = '+id.to_s)
   end
   def self.seasons(id)
+  	puts id
     TvSeason.where('tv_show_id = '+id.to_s).order("number asc").select('id as tv_season_id, number')
+  end
+  def self.rated_episodes(eps,order,limit)
+      eps = eps.joins('LEFT JOIN ratings ON ratings.rateable_id = tv_episodes.id')
+      eps = eps.order("total_rating "+order).select('tv_episodes.id as tv_episode_id, title, total_rating, number').limit(limit)
   end
   def self.simple_search(search)
 	  if search

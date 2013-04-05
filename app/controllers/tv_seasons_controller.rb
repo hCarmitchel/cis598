@@ -14,7 +14,8 @@ class TvSeasonsController < ApplicationController
   # GET /tv_seasons/1.json
   def show
     @tv_season = TvSeason.find(params[:id])
-    @top_episodes = TvSeason.top_episodes(params[:id])
+    @top_episodes = TvSeason.rated_episodes(params[:id],'desc',3)
+    @bottom_episodes = TvSeason.rated_episodes(params[:id],'asc',3)
 
     respond_to do |format|
       format.html # show.html.erb

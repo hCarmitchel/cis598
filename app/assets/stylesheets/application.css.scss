@@ -76,6 +76,10 @@ ul { list-style:none !important; }
 
 .accordion-group { border:none !important; background-color:white; }
 
+.accordion-inner ul { margin-left:15px; }
+
+.accordion-inner ul li { font-size:11px; }
+
 .rating-badge { padding:10px 9px !important; }
 
 .badge-warning { color:black; }

@@ -1,12 +1,15 @@
 <% content_for :javascript do %>
 <script>
 $(function() {
-  Morris.Bar({
+  Morris.Line({
     element: 'shows_ratings',
     data: $('#shows_ratings').data('tv-shows'),
     xkey: 'year',
     ykeys: ['average'],
-    labels: ['Average Episode Rating']
+    labels: ['Average Episode Rating'],
+    parseTime: false,
+    pointSize: 0,
+    continuousLine: true
   });
 });
 </script>
@@ -32,7 +35,7 @@ $(function() {
               <a data-toggle="tab" href="#about">About</a>
             </li>
             <li>
-              <a data-toggle="tab" href="#stats">Stats</a>
+              <a data-toggle="tab" href="#reviews">Reviews</a>
             </li>
           </ul>
 
@@ -47,7 +50,7 @@ $(function() {
                   <span class="badge badge-info">
                     <%= genre.name %></span>
                   <% end %></p>
-                  <%= content_tag :div, "", id: "shows_ratings", style: "height:150px", data: {tv_shows: shows_ratings_data(@tv_show.id)} %>
+                  <%= content_tag :div, "", id: "shows_ratings", style: "height:190px", data: {tv_shows: shows_ratings_data(@tv_show.id)} %>
             </div>
             <div class="tab-pane" id="stats">
 
@@ -73,7 +76,7 @@ $(function() {
                   <ul>
                     <% season.tv_episodes.each do |episode| %>
                     <li>
-                      <%= link_to 'Episode '+ episode.number.to_s+': '+episode.title, tv_episode_path(episode.id) %></li>
+                      <%= link_to '#'+ episode.number.to_s+': '+episode.title, tv_episode_path(episode.id) %></li>
                     <% end %></ul>
                 </div>
               </div>
