@@ -1,6 +1,7 @@
 $(function () {  
     $('.pagination a').live("click", function () {
-                $.get(this.href, null, null, 'script');
-                return false;
+    	$('.pagination').html('Page is loading...');
+        $.get(this.href, null, null, 'script');
+        return false;
     });
 }); 

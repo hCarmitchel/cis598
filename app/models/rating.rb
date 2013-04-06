@@ -7,7 +7,7 @@ class Rating < ActiveRecord::Base
   validates :rateable_id, :numericality => { :only_integer => true, :message => "Item_id must be an integer."}
 
   def self.total_grouped_by_day(type,table,year)
-  	ratings = unscoped.where('rateable_type = \''+type+'\'')
+  	ratings = unscoped.where(:rateable_type=>type)
     ratings = ratings.joins('LEFT JOIN '+table+' ON ratings.rateable_id='+table+'.id')
     ratings = ratings.group("date("+year+")").select("date("+year+") as year, count(*) as count")
 		ratings.each_with_object({}) do |rating, counts|
@@ -17,7 +17,7 @@ class Rating < ActiveRecord::Base
 		end
   end
   def self.avg_grouped_by_day(type,table,year)
-    ratings = unscoped.where('rateable_type = \''+type+'\'')
+    ratings = unscoped.where(:rateable_type=>type)
     ratings = ratings.joins('LEFT JOIN '+table+' ON ratings.rateable_id='+table+'.id')
     ratings = ratings.group("date("+year+")").select("date("+year+") as year, avg(total_rating) as average")
     ratings.each_with_object({}) do |rating, averages|
@@ -27,7 +27,7 @@ class Rating < ActiveRecord::Base
     end
   end
   def self.top(website,type,table,votes,limit)
-    ratings = unscoped.where('rateable_type = \''+type+'\' and rating_website = \''+website+'\' and votes > '+votes)
+    ratings = unscoped.where('rateable_type = ? and rating_website = ? and votes > ?',type,website,votes)
     ratings = ratings.joins('LEFT JOIN '+table+' ON ratings.rateable_id='+table+'.id')
     ratings = ratings.order("total_rating desc").select('total_rating, title, '+table+'.id as id').limit(limit)
   end

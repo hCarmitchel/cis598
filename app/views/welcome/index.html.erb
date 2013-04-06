@@ -13,7 +13,7 @@
 <div class="flexslider" style="margin-bottom:20px;" class="clearfix">
   <ul class="slides">
     <li data-thumb="/assets/breaking_bad.jpg">
-     <%= link_to image_tag("/assets/breaking_bad.jpg", :style => "position:relative"), tv_show_path(TvShow.find_title("Breaking Bad",'01-01-2008').first.id) %>
+     <%= link_to image_tag("/assets/breaking_bad.jpg", :style => "position:relative"), tv_show_path(TvShow.find_title("Breaking Bad").first.id) %>
         <p class="flex-caption">Featured Show: Breaking Bad</p>
     </li>
     <li data-thumb="/assets/archer.png">

@@ -14,7 +14,7 @@ class TvSeason < ActiveRecord::Base
 	default_scope :order => "number ASC"
 	
 	def self.episodes(id)
-      TvEpisode.where('tv_season_id = '+id.to_s).select("tv_episodes.id as tv_episode_id, number")
+      TvEpisode.where(:tv_season_id=>id).select("tv_episodes.id as tv_episode_id, number")
     end
 	def self.rated_episodes(id,order,limit)
       eps = TvEpisode.unscoped.where('tv_season_id = '+id.to_s+' and total_rating > 0')

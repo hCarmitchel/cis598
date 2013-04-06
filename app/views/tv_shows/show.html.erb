@@ -34,13 +34,12 @@ $(function() {
               <a data-toggle="tab" href="#about">About</a>
             </li>
             <li>
-              <a data-toggle="tab" href="#reviews">Reviews</a>
+              <a data-toggle="tab" href="#tvreviews">Reviews</a>
             </li>
           </ul>
 
           <div class="tab-content">
             <div class="tab-pane active" id="about">
-              <p>
                 <p> <b>Description:</b>
                   <%= @tv_show.description %></p>
 
@@ -51,7 +50,7 @@ $(function() {
                   <% end %></p>
                   <%= content_tag :div, "", id: "shows_ratings", style: "height:190px", data: {tv_shows: shows_ratings_data(@tv_show.id)} %>
             </div>
-            <div class="tab-pane" id="stats">
+            <div class="tab-pane" id="tvreviews">
 
             </div>
             <%= link_to 'Edit', edit_tv_show_path(@tv_show) %>

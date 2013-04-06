@@ -20,13 +20,13 @@ class TvShow < ActiveRecord::Base
   	end
   end
   def IMDB_rating(id)
-    show = Rating.where('rateable_type = \''+'TvShow'+'\' and rating_website = \''+'iMDB'+'\' and rateable_id = '+id.to_s)
+    show = Rating.where(:rateable_type=>'TvShow',:rating_website=>'iMDB',:rateable_id=>id)
   end
-  def self.find_title(title,year)
-    TvShow.where(:title=>title, :year_released=>year)
+  def self.find_title(title)
+    TvShow.where(:title=>title)
   end
   def self.seasons(id)
-    TvSeason.where('tv_show_id = '+id.to_s).order("number asc").select('id as tv_season_id, number')
+    TvSeason.where(:tv_show_id=>id).order("number asc").select('id as tv_season_id, number')
   end
   def self.episodes(id,order,limit)
 
