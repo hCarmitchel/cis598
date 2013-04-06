@@ -1,0 +1,70 @@
+<% content_for :javascript do %>
+<script>
+  $('#reviewsearch').dataTable({    
+  	"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
+    "sPaginationType": "bootstrap",
+    "bFilter": false
+  });
+</script>
+<% end %>
+
+<h3>Review Advanced Search</h3>
+<%= search_form_for  @q, class: 'form-horizontal', url: review_search_path do |f|%>
+  <div class="field control-group">
+    <%= f.label :title_cont, "Title contains", :class => 'control-label' %>
+    <%= f.text_field :title_cont %>
+  </div>
+  <div class="field control-group">
+    <%= f.label :content_cont, "Review contains", :class => 'control-label' %>
+    <%= f.text_field :content_cont %>
+  </div>
+  <div class="field control-group">
+    <%= f.label :author_cont, "Author contains", :class => 'control-label' %>
+    <%= f.text_field :author_cont %>
+  </div>
+  <div class="field control-group">
+    <%= f.label :website_cont, "Website contains", :class => 'control-label' %>
+    <%= f.text_field :website_cont %>
+  </div>
+  <div class="field control-group">
+    <%= f.label :id_eq, "ID equals", :class => 'control-label'  %>
+    <%= f.text_field :id_eq %>
+  </div>
+  <div class="field control-group">
+    <%= f.label :rating_gteq, "Rating between", :class => 'control-label' %>
+    <%= f.text_field :rating_gteq, :class => 'input-small' %>
+    <%= f.label :rating_lteq, "and", :style => 'display:inline;' %>
+    <%= f.text_field :rating_lteq, :class => 'input-small', :style => 'margin-left:0' %>    
+  </div>
+  <div class="field control-group">
+    <%= f.label :year_reviewed_gteq, "Reviewed between", :class => 'control-label' %>
+    <%= f.text_field :year_reviewed_gteq, :class => 'input-small' %>
+    <%= f.label :year_reviewed_lteq, "and", :style => 'display:inline;' %>
+    <%= f.text_field :year_reviewed_lteq, :class => 'input-small', :style => 'margin-left:0' %>    
+  </div>
+  <%= f.submit 'Search', :class => 'btn btn-primary'%>
+<% end %>
+<table cellpadding="0" cellspacing="0" border="0" id="reviewsearch" class="datatable table table-striped table-bordered">
+<thead>
+  <tr>
+    <th>Title</th>
+    <th>Content</th>
+    <th>Author</th>
+    <th>Website</th>
+    <th>Rating</th>
+    <th>Date</th>
+  </tr>
+</thead>
+<tbody>
+  <% @reviews_result.each do |review| %>
+    <tr>
+      <td><%= link_to(review.title, review) %></td>
+      <td><%= review.content[0..100]+"..." %></td>
+      <td><%= review.author %></td>
+      <td><%= review.website %></td>
+      <td class="short"><%= review.rating %></td>
+      <td class="medium"><%= review.year_reviewed %></td>
+    </tr>
+  <% end %>
+</tbody>
+</table>

@@ -48,6 +48,8 @@ GEM
     arel (3.0.2)
     bootstrap-sass (2.3.1.0)
       sass (~> 3.2)
+    bootstrap-will_paginate (0.0.9)
+      will_paginate
     builder (3.0.4)
     choice (0.1.6)
     coffee-rails (3.2.2)
@@ -77,8 +79,6 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.22)
-    morrisjs-rails (0.4.1)
-      railties (~> 3.1)
     multi_json (1.7.2)
     newrelic_rpm (3.6.0.78)
     pg (0.15.0)
@@ -152,13 +152,13 @@ PLATFORMS
 DEPENDENCIES
   activerecord-postgresql-adapter
   bootstrap-sass
+  bootstrap-will_paginate
   bundler (~> 1.3.2)
   coffee-rails (= 3.2.2)
   eventmachine (>= 1.0.0.beta)
   flexslider!
   jquery-datatables-rails
   jquery-rails (= 2.0.2)
-  morrisjs-rails
   newrelic_rpm
   pg
   rails (= 3.2.1)
@@ -169,4 +169,3 @@ DEPENDENCIES
   simple_form
   thin
   uglifier (= 1.2.3)
-  will_paginate

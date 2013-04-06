@@ -10,6 +10,7 @@ RailsinstallerDemo::Application.routes.draw do
   match "stats" => "welcome#stats"
   match "tv_show_search" => "welcome#tv_show_search"
   match "tv_episode_search" => "welcome#tv_episode_search"
+  match "review_search" => "welcome#review_search"
   match "search_results" => "welcome#search_results"
   match "graphs" => "welcome#graphs"
 

@@ -15,20 +15,21 @@ class TvShow < ActiveRecord::Base
     tv_shows = tv_shows.group("date(year_released)")
     tv_shows = tv_shows.order("date(year_released)")
     tv_shows = tv_shows.select("date(year_released) as year_released, count(*) as count")
-	tv_shows.each_with_object({}) do |tv_show, counts|
-	    counts[tv_show.year_released.to_date.strftime("%Y")] = tv_show.count
-	end
+  	tv_shows.each_with_object({}) do |tv_show, counts|
+  	    counts[tv_show.year_released.to_date.strftime("%Y")] = tv_show.count
+  	end
   end
   def IMDB_rating(id)
     show = Rating.where('rateable_type = \''+'TvShow'+'\' and rating_website = \''+'iMDB'+'\' and rateable_id = '+id.to_s)
   end
+  def self.find_title(title,year)
+    TvShow.where(:title=>title, :year_released=>year)
+  end
   def self.seasons(id)
-  	puts id
     TvSeason.where('tv_show_id = '+id.to_s).order("number asc").select('id as tv_season_id, number')
   end
-  def self.rated_episodes(eps,order,limit)
-      eps = eps.joins('LEFT JOIN ratings ON ratings.rateable_id = tv_episodes.id')
-      eps = eps.order("total_rating "+order).select('tv_episodes.id as tv_episode_id, title, total_rating, number').limit(limit)
+  def self.episodes(id,order,limit)
+
   end
   def self.simple_search(search)
 	  if search

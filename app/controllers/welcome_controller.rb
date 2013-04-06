@@ -5,12 +5,14 @@ class WelcomeController < ApplicationController
 		@game_of_thrones = TvShow.where(:title=>'Game of Thrones').where(:year_released=>'01-01-2011').first
 		@the_americans = TvShow.where(:title=>'The Americans').where(:year_released=>'01-01-2013').first
 
+
+
 		@shows = false
 		@seasons = false
 		@eps = false
 
-		@top = Rating.top_ten('IMDB','TvShow','tv_shows','100000')
-		@recentReviews = Review.recent(12).page(params[:page])
+		@top = Rating.top('IMDB','TvShow','tv_shows','100000',15)
+		@recentReviews = Review.recent(12).page(params[:page]).per_page(3)
 	end
 	def stats
 		@genres = Genre.total_grouped_by_genre
@@ -25,6 +27,11 @@ class WelcomeController < ApplicationController
 		@q = TvEpisode.search(params[:q])
  		@tv_episodes_result = @q.result(:distinct => true)
         @tv_episodes_result = @tv_episodes_result.where(:id => nil) unless params[:q]
+	end
+	def review_search
+		@q = Review.search(params[:q])
+ 		@reviews_result = @q.result(:distinct => true)
+        @reviews_result = @reviews_result.where(:year_reviewed => nil) unless params[:q]
 	end
 	def search_results
 		@tv_result = TvShow.simple_search(params[:search]).paginate(:page => params[:page])

@@ -8,12 +8,12 @@
 </script>
 <% end %>
 
-<div class="row-fluid" style="margin-top:30px">
+<div class="row-fluid" style="margin-top:0px">
   <div class="span7">
 <div class="flexslider" style="margin-bottom:20px;" class="clearfix">
   <ul class="slides">
     <li data-thumb="/assets/breaking_bad.jpg">
-     <%= link_to image_tag("/assets/breaking_bad.jpg", :style => "position:relative"), tv_shows_path %>
+     <%= link_to image_tag("/assets/breaking_bad.jpg", :style => "position:relative"), tv_show_path(TvShow.find_title("Breaking Bad",'01-01-2008').first.id) %>
         <p class="flex-caption">Featured Show: Breaking Bad</p>
     </li>
     <li data-thumb="/assets/archer.png">
@@ -51,7 +51,11 @@
 </div>
   <div class="span1">
   <ul style="font-size:14px;list-style:none">
-
+      <% if !@top.nil? %>
+        <% @top.each do |tv_show| %>
+          <li><span class="badge badge-info"><%= tv_show.total_rating %><span></li>
+        <% end %>
+      <% end %>
   </ul>
 </div>
 </div>
@@ -59,12 +63,11 @@
 </div>
 <div class="row-fluid">
   <div class="span7">
-  	<h3>Recent reviews</h3>
-  <hr>
+    <h3>Recent reviews</h3>
+    <div id="recentReviews"><%= render 'layouts/reviews' %></div>  
   </div>
   <div class="span4 offset1">
   	<h3>News and Updates</h3>
-  <hr>
   </div>
 </div>
 

@@ -1,6 +1,5 @@
 <% content_for :javascript do %>
-<script>
-$(function() {
+<script type="text/javascript">
   Morris.Area({
     element: 'tv_shows_chart',
     data: $('#tv_shows_chart').data('tv-shows'),
@@ -33,7 +32,6 @@ $(function() {
     ykeys: ['count','rating'],
     labels: ['Tv episodes','Ratings']
   });
-});
 </script>
 <% end %>
 

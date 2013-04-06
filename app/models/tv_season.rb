@@ -12,6 +12,7 @@ class TvSeason < ActiveRecord::Base
 	validates :number, :numericality => { :only_integer => true, :message => "Number must be an integer."}
 
 	default_scope :order => "number ASC"
+	
 	def self.episodes(id)
       TvEpisode.where('tv_season_id = '+id.to_s).select("tv_episodes.id as tv_episode_id, number")
     end

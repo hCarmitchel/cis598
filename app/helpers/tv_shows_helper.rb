@@ -5,9 +5,16 @@ module TvShowsHelper
     seasons.each do |season|
       episodes = TvSeason.episodes(season.tv_season_id)
       episodes.each do |episode|
-        r = Rating.where("rateable_type = 'TvEpisode' and rateable_id = ?", episode.tv_episode_id).average("total_rating")
-        arr.push("S"+season.number.to_s+"xE"+episode.number.to_s)
-        arr.push(r)
+        r = Rating.where("rateable_type = 'TvEpisode' and rateable_id = ?", episode.tv_episode_id).average("total_rating") || nil
+        if r.nil?
+                    arr.push("S"+season.number.to_s+"xE"+episode.number.to_s)  
+
+          arr << nil
+        else
+          arr.push("S"+season.number.to_s+"xE"+episode.number.to_s)  
+                arr.push(r)
+
+        end
       end
     end
 

@@ -15,7 +15,8 @@ class TvEpisodesController < ApplicationController
   def show
     @tv_episode = TvEpisode.find(params[:id])
     @IMDBrating = Rating.rating("TvEpisode","tv_episodes",params[:id],'IMDB').to_a[0]
-    if @IMDBrating 
+
+    if !@IMDBrating.average.nil?
       @IMDBrating = @IMDBrating.average[0..2]
     else
       @IMDBrating = "N/A"

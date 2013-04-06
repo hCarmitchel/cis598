@@ -7,7 +7,7 @@ module TvSeasonsHelper
   	  r = Rating.where("rateable_type = 'TvEpisode' and rateable_id = ?", episode.tv_episode_id).average("total_rating") || 0
   	  arr.push("S"+season.number.to_s+"xE"+episode.number.to_s)
   	  arr.push(r)
-	end
+	  end
 
     arr.each_slice(2).map do |num,rating|
       {
