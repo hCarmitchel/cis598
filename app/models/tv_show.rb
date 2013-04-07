@@ -11,9 +11,7 @@ class TvShow < ActiveRecord::Base
 	validates :title, :length => { :minimum => 2 }
 
   def self.total_grouped_by_day(start)
-    tv_shows = unscoped.where(year_released: start.beginning_of_day..Time.zone.now)
-    tv_shows = tv_shows.group("date(year_released)")
-    tv_shows = tv_shows.order("date(year_released)")
+    tv_shows = unscoped.where(year_released: start.beginning_of_day..Time.zone.now).group("date(year_released)")
     tv_shows = tv_shows.select("date(year_released) as year_released, count(*) as count")
   	tv_shows.each_with_object({}) do |tv_show, counts|
   	    counts[tv_show.year_released.to_date.strftime("%Y")] = tv_show.count
@@ -26,7 +24,7 @@ class TvShow < ActiveRecord::Base
     TvShow.where(:title=>title)
   end
   def self.seasons(id)
-    TvSeason.where(:tv_show_id=>id).order("number asc").select('id as tv_season_id, number')
+    TvSeason.where(:tv_show_id=>id).select('id as tv_season_id, number')
   end
   def self.episodes(id,order,limit)
 

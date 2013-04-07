@@ -83,3 +83,9 @@ ul { list-style:none !important; }
 .rating-badge { padding:10px 9px !important; }
 
 .badge-warning { color:black; }
+
+.button_to, .button_to div { display:inline; }
+
+#myTab > li > a:hover, .nav > li > a:focus { background-color:white !important; border-color:#DDDDDD #DDDDDD transparent !important; }
+
+#myTab > .active > a, .nav-tabs > .active > a:hover, .nav-tabs > .active > a:focus { color:#111 !important; }

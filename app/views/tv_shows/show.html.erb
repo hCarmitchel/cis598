@@ -24,11 +24,17 @@ $(function() {
       <%= @tv_show.year_ended.try(:strftime, "%Y") %>)</small>
     <span class="badge badge-warning rating-badge pull-right">
       IMDB <%= @IMDBrating %>
-      <span>
+      </span>
   </h1>
 </div>
     <div class="row-fluid">
-      <div class="span8">
+      <div class="span3" style="width:17%">
+        <img src=<%= @poster %> style="margin-bottom:20px"/>
+        <%= button_to "Edit", edit_tv_show_path(@tv_show), :method => "get",:class=> "btn btn-primary inline"%>
+        <%= button_to "TV Show Index", tv_shows_path, :method => "get",:class=> "btn btn-primary inline"%>
+        <a href=<%= @IMDBurl %>>IMDB</a>
+      </div>
+      <div class="span6">
         <div class="tabbable">
           <ul class="nav nav-tabs" id="myTab">
             <li class="active">
@@ -39,11 +45,10 @@ $(function() {
             </li>
           </ul>
 
-          <div class="tab-content">
+          <div class="tab-content" style="overflow:hidden">
             <div class="tab-pane active" id="about">
                 <p> <b>Description:</b>
-                  <%= @tv_show.description %></p>
-
+                  <%= @description %></p>
                 <p> <b>Genres:</b>
                   <% @tv_show.genres.each do |genre| %>
                   <span class="badge badge-info">
@@ -52,16 +57,13 @@ $(function() {
                   <%= content_tag :div, "", id: "shows_ratings", style: "height:190px", data: {tv_shows: shows_ratings_data(@tv_show.id)} %>
             </div>
             <div class="tab-pane" id="tvreviews">
-
             </div>
-            <%= link_to 'Edit', edit_tv_show_path(@tv_show) %>
-            |
-            <%= link_to 'TV Show Index', tv_shows_path %>
           </div>
+
         </div>
       </div>
 
-        <div class="span4">
+        <div class="span4" style="width:29%">
           <div class="accordion" id="accordion1">
             <% @tv_show.tv_seasons.each do |season| %>
             <div class="accordion-group">

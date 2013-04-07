@@ -22,6 +22,15 @@ class TvShowsController < ApplicationController
       @IMDBrating = "N/A"
     end
 
+    require 'open-uri'
+    require 'uri'
+    require 'json'
+    result = JSON.parse(open("http://imdbapi.org/?title="+URI.escape(@tv_show.title.to_s)+"&type=json&plot=full&episode=0&limit=1&year="+@tv_show.year_released.try(:strftime, "%Y")+"&yg=1&mt=TVS&lang=en-US&offset=&aka=simple&release=simple&business=0&tech=0").read)
+
+    @poster = result[0]["poster"]
+    @description = result[0]["plot"]
+    @IMDBurl = result[0]["imdb_url"]
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @tv_show }
