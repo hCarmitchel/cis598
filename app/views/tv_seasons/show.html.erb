@@ -8,7 +8,8 @@ $(function() {
     ykeys: ['average'],
     labels: ['Average Episode Rating'],
     parseTime: false,
-    pointSize: 0
+    pointSize: 0,
+    continuousLine: false
   });
 });
 </script>
@@ -20,7 +21,7 @@ $(function() {
 		"get" %>
 		<small>
 			<%= link_to 'Season '+@tv_season.number.to_s, @tv_season, :method =>"get" %></small>
-		<span class="badge badge-info pull-right">IMDB
+		<span class="badge badge-warning rating-badge pull-right">IMDB <%= @IMDBrating %>
 			<span></h1>
 		</div>
 

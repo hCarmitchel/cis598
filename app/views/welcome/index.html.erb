@@ -17,15 +17,15 @@
         <p class="flex-caption">Featured Show: Breaking Bad</p>
     </li>
     <li data-thumb="/assets/archer.png">
-     <%= link_to image_tag("/assets/archer.png", :style => "position:relative"), tv_shows_path %>
+     <%= link_to image_tag("/assets/archer.png", :style => "position:relative"), tv_show_path(TvShow.find_title("Archer").first.id) %>
         <p class="flex-caption">Featured Show: Archer</p>
     </li>   
     <li data-thumb="/assets/game_of_thrones.png">
-     <%= link_to image_tag("/assets/game_of_thrones.png", :style => "position:relative"), tv_shows_path %>
+     <%= link_to image_tag("/assets/game_of_thrones.png", :style => "position:relative"), tv_show_path(TvShow.find_title("Game of Thrones").first.id) %>
          <p class="flex-caption">Featured Show: Game of Thrones</p>
     </li>  
     <li data-thumb="/assets/the_americans.png">
-     <%= link_to image_tag("/assets/the_americans.png", :style => "position:relative"), tv_shows_path %>
+     <%= link_to image_tag("/assets/the_americans.png", :style => "position:relative"),  tv_show_path(TvShow.find_title("The Americans").first.id)  %>
          <p class="flex-caption">Featured Show: The Americans</p>
     </li>
   </ul>
@@ -40,7 +40,7 @@
 		</form> 
 	</h4>
   <div class="row-fluid">
-  <div class="span8">
+  <div class="span9">
     <ol style="font-size:14px; margin-left:50px;">
       <% if !@top.nil? %>
         <% @top.each do |tv_show| %>

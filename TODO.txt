@@ -1,15 +1,17 @@
-*Create indexes for foreign keys *done*
-*Fix collapse functionality *done*
 Clean up unused files
 Add seed data
-Fix links on index page
-Add season average data
-*Figure out how to get Morris.js to do a line chart with no year *done*
-Do noncontinuous graphs
 Netflix key
 Top/bottom episodes for show
-*Get will_paginate to work for reviews *done*
-*Add ajax pagination *done*
 Parse plots
 Clean up fixtures
 Add average rating for genre chart
+Make queries better
+
+*Get will_paginate to work for reviews *done*
+*Add ajax pagination *done*
+*Figure out how to get Morris.js to do a line chart with no year *done*
+*Create indexes for foreign keys *done*
+*Fix collapse functionality *done*
+*Add season average data *done*
+*Do noncontinuous graphs *done*
+*Fix links on index page *done*

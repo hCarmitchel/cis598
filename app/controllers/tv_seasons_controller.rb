@@ -17,6 +17,22 @@ class TvSeasonsController < ApplicationController
     @top_episodes = TvSeason.rated_episodes(params[:id],'desc',3)
     @bottom_episodes = TvSeason.rated_episodes(params[:id],'asc',3)
 
+
+    avg = Array.new
+    TvSeason.episodes(params[:id]).each do |episode|
+      a = episode.rating(episode.tv_episode_id).average("total_rating")
+      if !a.nil? && a > 0
+        avg.push(a)
+      end
+    end
+
+    @IMDBrating = avg.inject{ |sum, el| sum + el }.to_f / avg.size
+    if @IMDBrating.nil?
+      @IMDBrating = "N/A"
+    else
+      @IMDBrating = @IMDBrating.to_s[0..2]
+    end
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @tv_season }

@@ -21,6 +21,9 @@ class TvEpisode < ActiveRecord::Base
 		    counts[tv_episode.air_date.to_date.strftime("%Y")] = tv_episode.count
 		end
     end
+    def rating(id)
+    	Rating.where(:rateable_id=>id,:rateable_type=>'TvEpisode')
+    end
     def self.simple_search(search)
 	  if search
 	    where 'UPPER(title) LIKE UPPER(?)', "%#{search}%"

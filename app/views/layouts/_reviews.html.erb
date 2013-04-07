@@ -2,7 +2,7 @@
 <% for review in @recentReviews %>
   <div class="recentReviews">
         <div class="page-header" style="margin:0px">
-          <h6><%= review.title %> <small>by <%= review.author %></small>
+          <h6><%= review.title %> <small>by <%= review.author %> at <%= link_to review.website, review.link %></small>
           <span class="pull-right"><%= review.year_reviewed.try(:strftime, "%A, %b. %d %Y") %></span></h6>
         </div>
         <%= review.content[0..300]+"..." %>
