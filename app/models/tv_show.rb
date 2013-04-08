@@ -29,6 +29,9 @@ class TvShow < ActiveRecord::Base
   def self.episodes(id,order,limit)
 
   end
+  def self.reviews(id)
+    Review.where(:reviewable_id=>id,:reviewable_type=>'TvShow')
+  end
   def self.simple_search(search)
 	  if search
 	    where 'UPPER(title) LIKE UPPER(?) or UPPER(description) LIKE UPPER(?)', "%#{search}%", "%#{search}%"

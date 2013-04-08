@@ -6,6 +6,7 @@ Parse plots
 Clean up fixtures
 Add average rating for genre chart
 Make queries better
+Install feedzirra / make it work
 
 *Get will_paginate to work for reviews *done*
 *Add ajax pagination *done*

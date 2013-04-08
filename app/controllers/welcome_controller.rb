@@ -1,6 +1,7 @@
 class WelcomeController < ApplicationController
 	def index
-		@top = Rating.top('IMDB','TvShow','tv_shows','10000',15)
+		@top_shows = Rating.top('IMDB','TvShow','tv_shows','10000',15)
+		@top_episodes = Rating.top('IMDB','TvEpisode','tv_episodes','1000',15)
 		@recentReviews = Review.recent(12).page(params[:page]).per_page(3)
 	end
 	def stats

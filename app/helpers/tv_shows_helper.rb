@@ -7,13 +7,17 @@ module TvShowsHelper
       episodes.each do |episode|
         arr.push("S"+season.number.to_s+"xE"+episode.number.to_s)
         arr.push(Rating.where("rateable_type = 'TvEpisode' and rateable_id = ?", episode.tv_episode_id).average("total_rating") || nil)
+        arr.push(episode.title)
+        arr.push(episode.tv_episode_id)
       end
     end
 
-    arr.each_slice(2).map do |num,rating|
+    arr.each_slice(4).map do |num,rating,title,id|
       {
         year: num,
-        average: rating || nil
+        average: rating || nil,
+        title: title,
+        id: id
       }
     end
   end

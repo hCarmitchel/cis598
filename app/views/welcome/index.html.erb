@@ -4,7 +4,20 @@
     animation: "slide",
     controlNav: "thumbnails"
   });
-  $(".select_change").change(function(){ $(this).parent('form').submit(); });
+  $(".select_change").value = 1;
+  $(".select_change").change(function(){ 
+    $(".selected_items").hide();
+    if (this.value == 1) {
+      $("#shows_names").show();
+      $("#shows_ratings").show();
+    } else if (this.value == 2) {
+      $("#seasons_names").show();
+      $("#seasons_ratings").show();
+    } else {
+      $("#episodes_names").show();
+      $("#episodes_ratings").show();
+    }
+  });
 </script>
 <% end %>
 
@@ -31,7 +44,7 @@
   </ul>
 </div>
   </div>
-  <div class="span4 offset1">  	
+  <div class="span5">  	
   	<h4>
   		<form action="index" class="display:inline; float:left;">
   			<%= select( "type", "select", { "Top TV Shows" => "1", "Top TV Seasons" => "2", "Top TV Episodes" => "3"}, {}, :class => 'select_change') %>
@@ -40,25 +53,39 @@
 		</form> 
 	</h4>
   <div class="row-fluid">
-  <div class="span9">
-    <ol style="font-size:14px; margin-left:50px;">
-      <% if !@top.nil? %>
-        <% @top.each do |tv_show| %>
-          <li><%= link_to(tv_show.title, tv_show_path(tv_show)) %></li>
+    <div class="span9">
+      <ol id="shows_names" class="selected_items" style="font-size:14px; margin-left:50px;">
+        <% if !@top_shows.nil? and @top_shows.count > 0  %>
+          <% @top_shows.each do |tv_show| %>
+            <li><%= link_to(tv_show.title, tv_show_path(tv_show)) %></li>
+          <% end %>
         <% end %>
-      <% end %>
-    </ol>
-</div>
-  <div class="span1">
-  <ul style="font-size:14px;list-style:none">
-      <% if !@top.nil? %>
-        <% @top.each do |tv_show| %>
-          <li><span class="badge badge-info"><%= tv_show.total_rating %><span></li>
+      </ol>
+      <ol id="episodes_names" class="selected_items" style="font-size:14px; margin-left:50px; display:none;">
+        <% if !@top_episodes.nil? and @top_shows.count > 0  %>
+          <% @top_episodes.each do |tv_show| %>
+            <li><%= link_to(tv_show.title, tv_episode_path(tv_show)) %></li>
+          <% end %>
         <% end %>
-      <% end %>
-  </ul>
-</div>
-</div>
+      </ol>
+    </div>
+    <div class="span1">
+      <ul id="shows_ratings" class="selected_items" style="font-size:14px;list-style:none">
+        <% if !@top_shows.nil? and @top_shows.count > 0 %>
+          <% @top_shows.each do |tv_show| %>
+            <li><span class="badge badge-info"><%= tv_show.total_rating %><span></li>
+          <% end %>
+        <% end %>
+      </ul>
+      <ul id="episodes_ratings" class="selected_items" style="font-size:14px;list-style:none; display:none;">
+        <% if !@top_episodes.nil? and @top_shows.count > 0 %>
+          <% @top_episodes.each do |tv_show| %>
+            <li><span class="badge badge-info"><%= tv_show.total_rating %><span></li>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
 </div>
 </div>
 <div class="row-fluid">
@@ -68,7 +95,7 @@
       <div id="recentReviews"><%= render 'layouts/reviews' %></div> 
     <% end %> 
   </div>
-  <div class="span4 offset1">
+  <div class="span5">
   	<h3>News and Updates</h3>
     <ul>
       <li></li>
