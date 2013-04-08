@@ -23,7 +23,7 @@ $(function() {
       -
       <%= @tv_show.year_ended.try(:strftime, "%Y") %>)</small>
     <span class="badge badge-warning rating-badge pull-right">
-      IMDB <%= @IMDBrating %>
+      <a class="white_link" href=<%= @IMDBurl %>>IMDB <%= @IMDBrating %></a>
       </span>
   </h1>
 </div>
@@ -32,7 +32,6 @@ $(function() {
         <img src=<%= @poster %> style="margin-bottom:20px"/>
         <%= button_to "Edit", edit_tv_show_path(@tv_show), :method => "get",:class=> "btn btn-primary inline"%>
         <%= button_to "TV Show Index", tv_shows_path, :method => "get",:class=> "btn btn-primary inline"%>
-        <a href=<%= @IMDBurl %>>IMDB</a>
       </div>
       <div class="span6">
         <div class="tabbable">
@@ -47,14 +46,13 @@ $(function() {
 
           <div class="tab-content" style="overflow:hidden">
             <div class="tab-pane active" id="about">
-                <p> <b>Description:</b>
-                  <%= @description %></p>
-                <p> <b>Genres:</b>
+              <p><b>Genres:</b>
                   <% @tv_show.genres.each do |genre| %>
                   <span class="badge badge-info">
                     <%= genre.name %></span>
-                  <% end %></p>
-                  <%= content_tag :div, "", id: "shows_ratings", style: "height:190px", data: {tv_shows: shows_ratings_data(@tv_show.id)} %>
+              <% end %></p>
+              <p><b>Description:</b><%= @description %></p>
+              <%= content_tag :div, "", id: "shows_ratings", style: "height:190px", data: {tv_shows: shows_ratings_data(@tv_show.id)} %>
             </div>
             <div class="tab-pane" id="tvreviews">
             </div>

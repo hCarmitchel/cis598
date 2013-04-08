@@ -22,7 +22,7 @@ private
   def data
     reviews.map do |review|
       [
-        review.title,
+        link_to(review.title, review),
         review.content[0..100]+"...",
         review.author,
         review.website,

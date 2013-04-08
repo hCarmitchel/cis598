@@ -64,10 +64,15 @@
 <div class="row-fluid">
   <div class="span7">
     <h3>Recent reviews</h3>
-    <div id="recentReviews"><%= render 'layouts/reviews' %></div>  
+    <% if !@recentReviews.nil? %>
+      <div id="recentReviews"><%= render 'layouts/reviews' %></div> 
+    <% end %> 
   </div>
   <div class="span4 offset1">
   	<h3>News and Updates</h3>
+    <ul>
+      <li></li>
+    </ul>
   </div>
 </div>
 

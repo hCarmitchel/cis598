@@ -86,6 +86,15 @@ ul { list-style:none !important; }
 
 .button_to, .button_to div { display:inline; }
 
-#myTab > li > a:hover, .nav > li > a:focus { background-color:white !important; border-color:#DDDDDD #DDDDDD transparent !important; }
+#myTab > li > a:hover, #myTab > li > a:focus { background-color:white !important; border-color:#DDDDDD #DDDDDD transparent !important; }
 
-#myTab > .active > a, .nav-tabs > .active > a:hover, .nav-tabs > .active > a:focus { color:#111 !important; }
+#myTab > .active > a, #myTab > .active > a:hover, #myTab > .active > a:focus { color:#111 !important; }
+
+.white_link { color:white !important; }
+
+#review_content pre { 
+  border:none; 
+  color:black; 
+  font-family:verdana,arial,helvetica,sans-serif;
+  font-size:13px; 
+  padding:0; }

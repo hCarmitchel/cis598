@@ -1,26 +1,17 @@
-<p>
-  <b>Content:</b>
-  <%= @review.content %>
-</p>
+<div class="page-header" style="margin:0px">
+  <h1>
+    <%= link_to @review.title, @review %>
+    <small>
+      (<%= @review.year_reviewed.try(:strftime, "%B %d, %Y") %>) </small>
+  </h1>
+</div>
 
-<p>
-  <b>Year reviewed:</b>
-  <%= @review.year_reviewed %>
-</p>
-
-<p>
-  <b>Title:</b>
-  <%= @review.title %>
-</p>
+<div class="row-fluid">
+  <div class="span2">
 
 <p>
   <b>Author:</b>
   <%= @review.author %>
-</p>
-
-<p>
-  <b>Link:</b>
-  <%= @review.link %>
 </p>
 
 <p>
@@ -30,9 +21,14 @@
 
 <p>
   <b>Website:</b>
-  <%= @review.website %>
+  <a href=<%= @review.link %>><%= @review.website %></a>
 </p>
+<%= button_to "Edit", edit_review_path(@review), :method => "get",:class=> "btn btn-primary inline"%>
+<%= button_to "Review Index", reviews_path, :method => "get",:class=> "btn btn-primary inline"%>
+</div>
 
+<div class="span10" id="review_content">
+  <pre><%= @review.content %></pre>
+</div>
 
-<%= link_to 'Edit', edit_review_path(@review) %> |
-<%= link_to 'Back', reviews_path %>
+</div>

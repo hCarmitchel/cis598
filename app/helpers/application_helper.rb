@@ -11,5 +11,7 @@ module ApplicationHelper
     opts[:class] << " " << classes.join(" ")
     link_to content_tag(:i, "", opts), path, link_opts
   end
+
+
 end
 
