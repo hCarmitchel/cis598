@@ -35,7 +35,9 @@ $(function() {
 </div>
     <div class="row-fluid">
       <div class="span3" style="width:17%">
-        <img src=<%= @poster %> style="margin-bottom:20px"/>
+        <% if !@poster.nil? %>
+          <img src=<%= @poster %> style="margin-bottom:20px"/>
+        <% end %>
         <%= button_to "Edit", edit_tv_show_path(@tv_show), :method => "get",:class=> "btn btn-primary inline"%>
         <%= button_to "TV Show Index", tv_shows_path, :method => "get",:class=> "btn btn-primary inline"%>
       </div>

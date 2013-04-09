@@ -26,19 +26,19 @@
 <div class="flexslider" style="margin-bottom:20px;" class="clearfix">
   <ul class="slides">
     <li data-thumb="/assets/breaking_bad.jpg">
-     <%= link_to image_tag("/assets/breaking_bad.jpg", :style => "position:relative"), tv_show_path(TvShow.find_title("Breaking Bad").first.id) %>
+     <%= link_to image_tag("/assets/breaking_bad.jpg", :style => "position:relative"), tv_show_path(TvShow.find_title("Breaking Bad","01-01-2008").first.id) %>
         <p class="flex-caption">Featured Show: Breaking Bad</p>
     </li>
     <li data-thumb="/assets/archer.png">
-     <%= link_to image_tag("/assets/archer.png", :style => "position:relative"), tv_show_path(TvShow.find_title("Archer").first.id) %>
+     <%= link_to image_tag("/assets/archer.png", :style => "position:relative"), tv_show_path(TvShow.find_title("Archer","01-01-2009").first.id) %>
         <p class="flex-caption">Featured Show: Archer</p>
     </li>   
     <li data-thumb="/assets/game_of_thrones.png">
-     <%= link_to image_tag("/assets/game_of_thrones.png", :style => "position:relative"), tv_show_path(TvShow.find_title("Game of Thrones").first.id) %>
+     <%= link_to image_tag("/assets/game_of_thrones.png", :style => "position:relative"), tv_show_path(TvShow.find_title("Game of Thrones","01-01-2011").first.id) %>
          <p class="flex-caption">Featured Show: Game of Thrones</p>
     </li>  
     <li data-thumb="/assets/the_americans.png">
-     <%= link_to image_tag("/assets/the_americans.png", :style => "position:relative"),  tv_show_path(TvShow.find_title("The Americans").first.id)  %>
+     <%= link_to image_tag("/assets/the_americans.png", :style => "position:relative"),  tv_show_path(TvShow.find_title("The Americans","01-01-2013").first.id)  %>
          <p class="flex-caption">Featured Show: The Americans</p>
     </li>
   </ul>

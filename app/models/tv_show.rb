@@ -20,8 +20,8 @@ class TvShow < ActiveRecord::Base
   def IMDB_rating(id)
     show = Rating.where(:rateable_type=>'TvShow',:rating_website=>'iMDB',:rateable_id=>id)
   end
-  def self.find_title(title)
-    TvShow.where(:title=>title)
+  def self.find_title(title,year)
+    TvShow.where(:title=>title,:year_released=>year)
   end
   def self.seasons(id)
     TvSeason.where(:tv_show_id=>id).select('id as tv_season_id, number')
