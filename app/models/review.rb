@@ -9,4 +9,14 @@ class Review < ActiveRecord::Base
   def self.recent(number)
     Review.order("year_reviewed desc").limit(number)
   end
+  def download
+  	require 'zlib'
+  	require 'open-uri'
+
+  	uri = 'ftp://ftp.fu-berlin.de/pub/misc/movies/database/movies.list.gz'
+  	source = open(uri)
+  	gz = Zlib::GzipReader.new(source)
+  	result = gz.read
+  	puts result
+  end
 end

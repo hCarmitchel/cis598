@@ -36,4 +36,14 @@ class Rating < ActiveRecord::Base
     ratings = ratings.joins('LEFT JOIN '+table+' ON ratings.rateable_id='+table+'.id')
     ratings = ratings.select("avg(total_rating) as average")
   end
+  def self.parseIMDB
+    require 'zlib'
+    require 'open-uri'
+
+    uri = 'ftp://ftp.fu-berlin.de/pub/misc/movies/database/ratings.list.gz'
+    source = open(uri)
+    gz = Zlib::GzipReader.new(source)
+    result = gz.read
+    puts result
+  end
 end

@@ -20,4 +20,14 @@ class Genre < ActiveRecord::Base
 		    counts[genre.year_released.to_date.strftime("%Y")] = genre.count
 		end
   	end
+  	def self.parseIMDB
+	    require 'zlib'
+	    require 'open-uri'
+
+	    uri = 'ftp://ftp.fu-berlin.de/pub/misc/movies/database/genres.list.gz'
+	    source = open(uri)
+	    gz = Zlib::GzipReader.new(source)
+	    result = gz.read
+	    puts result
+	end
 end

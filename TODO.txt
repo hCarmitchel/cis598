@@ -6,7 +6,8 @@ Parse plots
 Clean up fixtures
 Add average rating for genre chart
 Make queries better
-Install feedzirra / make it work
+Testing with Shoulda
+Use Whenever to schedule download/parsing of IMDB files (movies.list,ratings.list,genres.list)
 
 *Get will_paginate to work for reviews *done*
 *Add ajax pagination *done*
@@ -16,3 +17,5 @@ Install feedzirra / make it work
 *Add season average data *done*
 *Do noncontinuous graphs *done*
 *Fix links on index page *done*
+*Install feedzirra / make it work *done*
+
