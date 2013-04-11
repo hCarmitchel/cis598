@@ -23,7 +23,7 @@ gem 'jquery-datatables-rails'
 gem 'raphael-rails'
 gem 'nokogiri'
 gem 'feedzirra'
-gem 'rufus/scheduler'
+gem 'rufus-scheduler'
 
 gem 'ransack', :git => "git://github.com/ernie/ransack.git"
 
