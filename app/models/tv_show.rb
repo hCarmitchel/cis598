@@ -32,6 +32,16 @@ class TvShow < ActiveRecord::Base
   def self.reviews(id)
     Review.where(:reviewable_id=>id,:reviewable_type=>'TvShow')
   end
+  def self.parseIMDB
+      require 'zlib'
+      require 'open-uri'
+
+      uri = 'ftp://ftp.fu-berlin.de/pub/misc/movies/database/movies.list.gz'
+      source = open(uri)
+      gz = Zlib::GzipReader.new(source)
+      result = gz.read
+      puts result
+  end
   def self.simple_search(search)
 	  if search
 	    where 'UPPER(title) LIKE UPPER(?) or UPPER(description) LIKE UPPER(?)', "%#{search}%", "%#{search}%"

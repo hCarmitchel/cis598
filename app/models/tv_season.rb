@@ -16,6 +16,26 @@ class TvSeason < ActiveRecord::Base
 	def self.episodes(id)
       TvEpisode.where(:tv_season_id=>id).select("tv_episodes.id as tv_episode_id, number, title")
     end
+    def self.rating(id)
+    	avg = Array.new
+	    TvSeason.episodes(id).each do |episode|
+	    a = episode.rating(episode.tv_episode_id).average("total_rating")
+	    if !a.nil? && a > 0
+	      avg.push(a)
+	    end
+
+	    @IMDBrating = avg.inject{ |sum, el| sum + el }.to_f / avg.size
+	    if @IMDBrating.nil?
+	      @IMDBrating = "N/A"
+	    else
+	      @IMDBrating = @IMDBrating.to_s[0..2]
+	    end
+	    
+	    return @IMDBrating
+    end
+
+    @IMDBrating = avg.inject{ |sum, el| sum + el }.to_f / avg.size
+    end
 	def self.rated_episodes(id,order,limit)
       eps = TvEpisode.unscoped.where('tv_season_id = '+id.to_s+' and total_rating > 0')
       eps = eps.joins('LEFT JOIN ratings ON ratings.rateable_id = tv_episodes.id')
