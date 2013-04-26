@@ -31,6 +31,7 @@ class TvShowsController < ApplicationController
       @poster = result[0]["poster"]
       @description = result[0]["plot_simple"]
       @IMDBurl = result[0]["imdb_url"]
+      @actors = result[0]["actors"]
     end
 
     @reviews = TvShow.reviews(@tv_show.id)

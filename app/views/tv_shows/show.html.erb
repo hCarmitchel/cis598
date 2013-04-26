@@ -60,6 +60,12 @@ $(function() {
                     <%= genre.name %></span>
               <% end %></p>
               <p><b>Description: </b><%= @description %></p>
+              <p><b>Actors: </b>             <% if !@actors.nil? and @actors.count > 0 %>
+              <% @actors.each do |actor| %>
+                <%= actor %>
+                <br>
+                <%= review.content[0..300]+"..." %>
+              <% end %>
               <%= content_tag :div, "", id: "shows_ratings", style: "height:190px", data: {tv_shows: shows_ratings_data(@tv_show.id)} %>
             </div>
             <div class="tab-pane" id="tvreviews">
@@ -68,7 +74,7 @@ $(function() {
                 <%= link_to(review.title, review_path(review)) %> by <%= review.author %> at <%= link_to(review.website, review.link) %>
                 <br>
                 <%= review.content[0..300]+"..." %>
-              <% end %>
+             <% end %>
             <% else %>
               There are no reviews yet.
             <% end %>
