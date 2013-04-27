@@ -60,11 +60,11 @@ $(function() {
                     <%= genre.name %></span>
               <% end %></p>
               <p><b>Description: </b><%= @description %></p>
-              <p><b>Actors: </b>             <% if !@actors.nil? and @actors.count > 0 %>
-              <% @actors.each do |actor| %>
-                <%= actor %>
-                <br>
-                <%= review.content[0..300]+"..." %>
+              <p><b>Actors: </b>            
+               <% if !@actors.nil? and @actors.count > 0 %>
+                <% @actors.each do |actor| %>
+                  <%= actor %> 
+                <% end %>
               <% end %>
               <%= content_tag :div, "", id: "shows_ratings", style: "height:190px", data: {tv_shows: shows_ratings_data(@tv_show.id)} %>
             </div>
