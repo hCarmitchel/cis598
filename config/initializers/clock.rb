@@ -1,5 +1,5 @@
-require_relative './boot'
-require_relative './environment'
+require_relative './config/boot.rb'
+require_relative './config/environment.rb'
 
 require 'clockwork'
 
