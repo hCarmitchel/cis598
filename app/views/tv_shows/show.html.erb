@@ -63,7 +63,7 @@ $(function() {
               <p><b>Actors: </b>            
                <% if !@actors.nil? and @actors.count > 0 %>
                 <% @actors.each do |actor| %>
-                  <%= actor %> 
+                  <%= actor %><% if actor != @actors.last %>, <% end %>
                 <% end %>
               <% end %>
               <%= content_tag :div, "", id: "shows_ratings", style: "height:190px", data: {tv_shows: shows_ratings_data(@tv_show.id)} %>
