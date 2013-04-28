@@ -33,14 +33,8 @@ class TvShow < ActiveRecord::Base
     Review.where(:reviewable_id=>id,:reviewable_type=>'TvShow')
   end
   def self.parseIMDB
-      require 'zlib'
-      require 'open-uri'
-
-      uri = 'ftp://ftp.fu-berlin.de/pub/misc/movies/database/movies.list.gz'
-      source = open(uri)
-      gz = Zlib::GzipReader.new(source)
-      result = gz.read
-      puts result
+      puts "parsing"
+      require_relative '../../script/parse_shows_prod'
   end
   def self.simple_search(search)
 	  if search

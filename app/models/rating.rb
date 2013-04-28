@@ -36,19 +36,6 @@ class Rating < ActiveRecord::Base
     ratings = ratings.joins('LEFT JOIN '+table+' ON ratings.rateable_id='+table+'.id')
     ratings = ratings.select("avg(total_rating) as average")
   end
-  def self.top_seasons
-    arr = Array.new
-    TvSeason.all.each do |tv_season|
-      a = Hash.new
-      a["id"] = tv_season.id
-      a["rating"] = TvSeason.rating(tv_season.id)
-      arr.push(a)
-    end
-    puts arr[0]
-    b = arr.sort_by { |k| k["rating"] }
-    puts b.take(10)
-    puts "done"
-  end
   def self.parseIMDB
     require 'zlib'
     require 'open-uri'
