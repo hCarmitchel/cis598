@@ -41,14 +41,10 @@ if conn
 			if tvshows.num_tuples == 0 #if we don't already have that tvshow
 			    if /\d{4,}\-\d{4,5}$/ =~ f
 			    	y2 = Date::strptime(/\d{4,}\-\d{4,5}$/.match(f)[0].split("-").last, "%Y").to_s
-			    	if !heroku
-			    		puts "TV SHOW 1: "+valid_title+" y1:"+y1
-			    	end
+			    	puts "TV SHOW 1: "+valid_title+" y1:"+y1
 				    conn.exec('INSERT INTO tv_shows (id,title,year_released,year_ended) VALUES (DEFAULT,$1,$2,$3)',[valid_title,y1,y2])
 			    else
-			    	if !heroku
-			    		puts "TV SHOW 2: "+valid_title+" y1:"+y1
-			    	end
+			    	puts "TV SHOW 2: "+valid_title+" y1:"+y1
 				    conn.exec('INSERT INTO tv_shows (id,title,year_released) VALUES (DEFAULT,$1,$2)',[valid_title,y1])
 			    end
 			end
@@ -114,15 +110,11 @@ if conn
 				if tvepisodes.num_tuples == 0
 			    	if (/\d{4,5}$/) =~ f #ep has year
 				    	epYear = Date::strptime(/\d{4,5}$/.match(f)[0], "%Y").to_s
-				    	if !heroku
-				    		puts "Ep "+f
-				    	end
+				    	puts "Ep "+f
 				    	conn.exec('INSERT INTO tv_episodes (id,number,title,tv_season_id,air_date) VALUES 
 			    			(DEFAULT,$1,$2,$3,$4)',[epNumber,valid_ep_title,tvseasonID,epYear])
 				    else #ep has no year
-				    	if !heroku
-				    		puts "Ep "+f
-				    	end
+				    	puts "Ep "+f
 				    	conn.exec('INSERT INTO tv_episodes (id,number,title,tv_season_id) VALUES 
 			    			(DEFAULT,$1,$2,$3)',[epNumber,valid_ep_title,tvseasonID])
 				    end
