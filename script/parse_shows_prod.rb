@@ -12,10 +12,15 @@ uri = 'ftp://ftp.fu-berlin.de/pub/misc/movies/database/movies.list.gz'
 source = open(uri)
 result = Zlib::GzipReader.new(source)
 
-conn = PGconn.open(:dbname => 'development', :port => 5432)
+begin
+	conn = PGconn.open(:dbname => 'development', :port => 5432)
+rescue
+	conn = PGconn.open("dbname=d9brbfi46siqi host=ec2-54-225-112-205.compute-1.amazonaws.com port=5432 user=ekyfschexohgiw password=Et0EzcB-nWkhrlIJaMhn1W_TIk sslmode=require")
+end
 
 if conn 
 	result.each do |f|
+		f = f.unpack('C*').pack('U*')
 		if /\d{4,}\-\d{4,5}$/ =~ f || /\d{4,}\-\?{4,5}$/ =~ f #if matches tv show
 			puts "Show= "+f
 		  	tString = /^".{1,}"/.match(f)[0]
