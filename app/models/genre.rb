@@ -21,13 +21,7 @@ class Genre < ActiveRecord::Base
 		end
   	end
   	def self.parseIMDB
-	    require 'zlib'
-	    require 'open-uri'
-
-	    uri = 'ftp://ftp.fu-berlin.de/pub/misc/movies/database/genres.list.gz'
-	    source = open(uri)
-	    gz = Zlib::GzipReader.new(source)
-	    result = gz.read
-	    puts result
+      puts "parsing tv shows"
+      require_relative '../../script/parse_genres_prod'
 	end
 end
