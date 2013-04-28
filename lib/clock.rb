@@ -5,7 +5,7 @@ require 'clockwork'
 include Clockwork
 
 Clockwork.configure do |config|
-  config[:tz] = 'CST'
+  config[:tz] = 'America/Indiana/Knox'
 end
 
 every(1.day, 'Parse TV shows', :at => '10:35') { Delayed::Job.enqueue TvShow.parseIMDB }
