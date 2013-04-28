@@ -33,7 +33,7 @@ class TvShow < ActiveRecord::Base
     Review.where(:reviewable_id=>id,:reviewable_type=>'TvShow')
   end
   def self.parseIMDB
-      puts "parsing"
+      puts "parsing tv shows"
       require_relative '../../script/parse_shows_prod'
   end
   def self.simple_search(search)
