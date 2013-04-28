@@ -8,5 +8,5 @@ Clockwork.configure do |config|
   config[:tz] = 'America/Indiana/Knox'
 end
 
-every(1.day, 'Parse TV shows', :at => '10:35') { Delayed::Job.enqueue TvShow.parseIMDB }
+every(1.day, 'Parse TV shows', :at => '11:10') { Delayed::Job.enqueue TvShow.parseIMDB }
 every(7.days, 'Weekly parse TV shows', :at => '01:11') { Delayed::Job.enqueue TvShow.parseIMDB }
