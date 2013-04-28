@@ -4,5 +4,9 @@ require 'clockwork'
 
 include Clockwork
 
-every(1.day, 'Parse TV shows', :at => '05:00') { Delayed::Job.enqueue TvShow.parseIMDB }
-every(17.days, 'Weekly parse TV shows', :at => '01:11') { Delayed::Job.enqueue TvShow.parseIMDB }
+Clockwork.configure do |config|
+  config[:tz] = 'CST'
+end
+
+every(1.day, 'Parse TV shows', :at => '10:35') { Delayed::Job.enqueue TvShow.parseIMDB }
+every(7.days, 'Weekly parse TV shows', :at => '01:11') { Delayed::Job.enqueue TvShow.parseIMDB }
