@@ -30,7 +30,7 @@ class TvShowsController < ApplicationController
     if !result[0].nil?
       @poster = result[0]["poster"]
       @description = result[0]["plot_simple"]
-      @IMDBurl = result[0]["imdb_url"]
+      @IMDBurl = result[0]["imdb_url"].strip
       @actors = result[0]["actors"]
     end
 
