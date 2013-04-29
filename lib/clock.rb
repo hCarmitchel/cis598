@@ -9,6 +9,6 @@ Clockwork.configure do |config|
 end
 
 #every(1.day, 'Parse TV shows', :at => '14:01') { Delayed::Job.enqueue TvShow.parseIMDB }
-every(1.day, 'Parse TV shows', :at => '14:01') { Delayed::Job.enqueue Genre.parseIMDB }
+every(1.day, 'Parse TV shows', :at => '19:45') { Delayed::Job.enqueue TvShow.parseIMDB }
 
 every(7.days, 'Weekly parse TV shows', :at => '01:11') { Delayed::Job.enqueue TvShow.parseIMDB }
