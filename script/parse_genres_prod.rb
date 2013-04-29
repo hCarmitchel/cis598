@@ -22,7 +22,8 @@ end
 if conn 
 	result.each do |f|
 		f = f.unpack('C*').pack('U*')
-		if !(/{.{1,}/ =~ f) && /^".{1,}".(.{1,})\s{1,}.{1,}$/ =~ f #if not an episode
+		puts f
+		if !(/{.{1,}/ =~ f) && (/^".{1,}".(.{1,})\s{1,}.{1,}$/ =~ f) #if not an episode
 			if !heroku 
 				puts "Show= "+f
 			end
@@ -46,7 +47,7 @@ if conn
 				    tvshowID = tvshows.getvalue(0,0)
 
 					genres = conn.exec('SELECT * from genres where tv_show_id',[tvshowID,epNumber])
-					genres.each |genre|
+					genres.each do |genre|
 						puts genre
 					end
 			    	#conn.exec('INSERT INTO genres (id,name,tv_show_id) VALUES (DEFAULT,$1,$2)',[genre,tvshowID])
