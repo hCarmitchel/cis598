@@ -22,7 +22,6 @@ end
 if conn 
 	result.each do |f|
 		f = f.unpack('C*').pack('U*')
-		puts f
 		if !(/{.{1,}/ =~ f) && (/^".{1,}".(.{1,})\s{1,}.{1,}$/ =~ f) #if not an episode
 			if !heroku 
 				puts "Show= "+f
@@ -40,7 +39,6 @@ if conn
 				#puts "Genre "+genre
 
 		    	query = 'SELECT id FROM tv_shows where title = \''+valid_title+'\' and year_released = \''+tvYear+'\';'
-		    	puts "A: "+genre+" QUERY: "+valid_title 
 		    	tvshows = conn.exec(query)
 
 			    if tvshows.num_tuples > 0
@@ -49,11 +47,13 @@ if conn
 
 					genres = conn.exec('SELECT * from genres where tv_show_id = $1',[tvshowID])
 					genres.each do |genre_old|
-						if genre_old == genre
+						puts "old genre "+genre_old["name"]
+						if genre_old.to_s == genre
 							foundgenre = true
 						end
 					end
 					if !foundgenre
+						puts "Inserting genre: "+genre+" QUERY: "+valid_title 
 			    		conn.exec('INSERT INTO genres (id,name,tv_show_id) VALUES (DEFAULT,$1,$2)',[genre,tvshowID])
 					end
 				end
