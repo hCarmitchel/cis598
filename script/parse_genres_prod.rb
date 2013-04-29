@@ -10,6 +10,7 @@ puts "getting ready to parse genres"
 uri = 'ftp://ftp.fu-berlin.de/pub/misc/movies/database/genres.list.gz'
 source = open(uri)
 result = Zlib::GzipReader.new(source)
+puts "Done downloading"
 
 begin
 	heroku = false

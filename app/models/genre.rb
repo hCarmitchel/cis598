@@ -21,7 +21,7 @@ class Genre < ActiveRecord::Base
 		end
   	end
   	def self.parseIMDB
-      puts "parsing tv shows"
+      puts "parsing genres"
       require_relative '../../script/parse_genres_prod'
 	end
 end
