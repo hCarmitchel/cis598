@@ -47,8 +47,7 @@ if conn
 
 					genres = conn.exec('SELECT * from genres where tv_show_id = $1',[tvshowID])
 					genres.each do |genre_old|
-						puts "old genre "+genre_old["name"]
-						if genre_old.to_s == genre
+						if genre_old["name"] == genre
 							foundgenre = true
 						end
 					end
