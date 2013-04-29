@@ -65,6 +65,11 @@ if conn
 			   	epNumber = /\d{1,}\.\d{1,}/.match(f)[0].split(".").last
 			   	epTitleString = /{.{1,}(#)/.match(f)[0]
 			   	hasNoNumber = false
+			elsif /{\(#\d{1,}\.\d{1,}\)}/ =~ f
+			   	epSeason = /\d{1,}\.\d{1,}/.match(f)[0].split(".").first
+			   	epNumber = /\d{1,}\.\d{1,}/.match(f)[0].split(".").last
+			   	epTitleString = ''
+			   	hasNoNumber = false
 		   	elsif /{.{1,}}/ =~ f && /{.{1,}}/.match(f) #has title braces and not {..(..)}
 		   		epTitleString = /{.{1,}}/.match(f)[0] 
 		   	end

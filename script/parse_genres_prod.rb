@@ -45,12 +45,17 @@ if conn
 
 			    if tvshows.num_tuples > 0
 				    tvshowID = tvshows.getvalue(0,0)
+				    foundgenre = false
 
-					genres = conn.exec('SELECT * from genres where tv_show_id',[tvshowID,epNumber])
-					genres.each do |genre|
-						puts genre
+					genres = conn.exec('SELECT * from genres where tv_show_id = $1',[tvshowID])
+					genres.each do |genre_old|
+						if genre_old == genre
+							foundgenre = true
+						end
 					end
-			    	#conn.exec('INSERT INTO genres (id,name,tv_show_id) VALUES (DEFAULT,$1,$2)',[genre,tvshowID])
+					if !foundgenre
+			    		conn.exec('INSERT INTO genres (id,name,tv_show_id) VALUES (DEFAULT,$1,$2)',[genre,tvshowID])
+					end
 				end
 		    end
 	    end 
