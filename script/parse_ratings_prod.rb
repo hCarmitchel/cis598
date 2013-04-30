@@ -64,7 +64,7 @@ if conn
 				    	conn.exec('UPDATE ratings set total_rating = $1, votes = $2 WHERE rateable_id = $3 and rateable_type = $4 and rating_website = $5',[total_rating,votes,rateable_id,"TvShow","IMDB"])
 				    elsif ratings_found.num_tuples == 0	
 				    	puts ratings_found["rateable_id"].to_s + " "+valid_title
-				    	puts "Inserting show total_rating "+total_rating+" "+valid_title
+				    	puts "Inserting show total_rating "+total_rating.to_s+" "+valid_title
 			    		conn.exec('INSERT INTO ratings (id,votes,total_rating,rating_website,rateable_id,rateable_type) VALUES (DEFAULT,$1,$2,$3,$4,$5)',[votes,total_rating,'IMDB',rateable_id,"TvShow"])
 					end
 				end

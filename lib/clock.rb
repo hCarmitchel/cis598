@@ -14,8 +14,8 @@ end
 #every(1.day, 'Parse genres', :at => '12:30') { Delayed::Job.enqueue Genre.parseIMDB }
 #every(1.minute, 'Parse genres') { Delayed::Job.enqueue Genre.parseIMDB }
 
-every(1.day, 'Parse ratings', :at => '20:59') { Delayed::Job.enqueue Rating.parseIMDB }
-#every(.minute, 'Parse ratings') { Delayed::Job.enqueue Rating.parseIMDB }
+every(1.day, 'Parse ratings', :at => '21:25') { Delayed::Job.enqueue Rating.parseIMDB }
+#every(1.minute, 'Parse ratings') { Delayed::Job.enqueue Rating.parseIMDB }
 
 #every(1.day, 'Parse Feeds', :at => '12:30') { Delayed::Job.enqueue Review.downloadFeeds }
 #every(1.minute, 'Parse Feeds') { Delayed::Job.enqueue Review.downloadFeeds }

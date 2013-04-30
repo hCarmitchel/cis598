@@ -9,7 +9,7 @@ class Review < ActiveRecord::Base
   def self.recent(number)
     Review.order("year_reviewed desc").limit(number)
   end
-  def downloadFeeds
+  def self.downloadFeeds
     require 'feedzirra'
 
     # fetching a single feed
