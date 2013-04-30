@@ -37,13 +37,7 @@ class Rating < ActiveRecord::Base
     ratings = ratings.select("avg(total_rating) as average")
   end
   def self.parseIMDB
-    require 'zlib'
-    require 'open-uri'
-
-    uri = 'ftp://ftp.fu-berlin.de/pub/misc/movies/database/ratings.list.gz'
-    source = open(uri)
-    gz = Zlib::GzipReader.new(source)
-    result = gz.read
-    puts result
+      puts "parsing ratings"
+      require_relative '../../script/parse_ratings_prod'
   end
 end

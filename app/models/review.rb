@@ -9,14 +9,21 @@ class Review < ActiveRecord::Base
   def self.recent(number)
     Review.order("year_reviewed desc").limit(number)
   end
-  def download
-  	require 'zlib'
-  	require 'open-uri'
+  def downloadFeeds
+    require 'feedzirra'
 
-  	uri = 'ftp://ftp.fu-berlin.de/pub/misc/movies/database/movies.list.gz'
-  	source = open(uri)
-  	gz = Zlib::GzipReader.new(source)
-  	result = gz.read
-  	puts result
+    # fetching a single feed
+    feed = Feedzirra::Feed.fetch_and_parse("http://feeds.feedburner.com/BillieDoux")
+    feed.sanitize_entries!  # => sanitizes all entries in place
+
+    feed.entries.each do |entry|
+      puts entry.title      # => "Ruby Http Client Library Performance"
+      puts entry.url        # => "http://www.pauldix.net/2009/01/ruby-http-client-library-performance.html"
+      puts entry.author     # => "Paul Dix"
+      puts entry.summary    # => "..."
+      puts entry.content    # => "..."
+      puts entry.published  # => Thu Jan 29 17:00:19 UTC 2009 # it's a Time object
+      puts entry.categories
+    end
   end
 end
