@@ -23,6 +23,17 @@
   <b>Website:</b>
   <a href=<%= @review.link %>><%= @review.website %></a>
 </p>
+
+<p>  
+  <b>Reviewed:</b>
+  <% if @review.reviewable_type == 'TvShow' %>
+    <%= link_to @review.reviewable.title, tv_show_path(@review.reviewable) %>
+  <% elsif @review.reviewable_type == 'TvSeason' %>
+    <%= link_to @review.reviewable.number, tv_season_path(@review.reviewable) %>
+  <% elsif @review.reviewable_type == 'TvEpisode' %>
+    <%= link_to @review.reviewable.title, tv_episode_path(@review.reviewable) %>
+  <% end %>
+</p>
 <%= button_to "Edit", edit_review_path(@review), :method => "get",:class=> "btn btn-primary inline"%>
 <%= button_to "Review Index", reviews_path, :method => "get",:class=> "btn btn-primary inline"%>
 </div>
