@@ -22,6 +22,8 @@ class TvEpisodesController < ApplicationController
       @IMDBrating = "N/A"
     end
 
+    @reviews = TvEpisode.reviews(@tv_episode.id)
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @tv_episode }

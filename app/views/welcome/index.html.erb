@@ -64,10 +64,15 @@
       <ol id="episodes_names" class="selected_items" style="font-size:14px; margin-left:50px; display:none;">
         <% if !@top_episodes.nil? and @top_shows.count > 0  %>
           <% @top_episodes.each do |tv_show| %>
-            <li><%= link_to(tv_show.title, tv_episode_path(tv_show)) %></li>
+            <% if !tv_show.title.nil? and tv_show.title.length > 0 %>
+              <li><%= link_to(tv_show.title, tv_episode_path(tv_show)) %></li>
+            <% else %>
+              <li><%= link_to("Episode", tv_episode_path(tv_show)) %></li>
+            <% end %>              
           <% end %>
         <% end %>
       </ol>
+      <div id="seasons_names" class="selected_items" style="display:none">This has not yet been implemented.</div>
     </div>
     <div class="span1">
       <ul id="shows_ratings" class="selected_items" style="font-size:14px;list-style:none">
@@ -98,7 +103,12 @@
   <div class="span5">
   	<h3>News and Updates</h3>
     <ul>
-      <li></li>
+      <li style="margin-bottom:10px;"><h6>Update #3<span class="pull-right">04/31/13</span></h6></li>
+      <li style="margin-bottom:12px;">Adding new fields to review advanced search for show and episode title</li>
+      <li style="margin-bottom:10px;"><h6>Update #2<span class="pull-right">04/30/13</span></h6></li>
+      <li style="margin-bottom:12px;">Now pulling in reviews from Doux Reviews</li>
+      <li style="margin-bottom:10px;"><h6>Update #1<span class="pull-right">04/28/13</span></h6></li>
+      <li style="margin-bottom:12px">Updating shows, episodes, genres, and ratings info every week</li>
     </ul>
   </div>
 </div>

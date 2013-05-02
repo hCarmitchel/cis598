@@ -73,7 +73,7 @@ $(function() {
               <% @reviews.each do |review| %>
                 <%= link_to(review.title, review_path(review)) %> by <%= review.author %> at <%= link_to(review.website, review.link) %>
                 <br>
-                <%= review.content[0..300]+"..." %>
+                <%= review.content[0..300]+"..." %><%= link_to 'Read full review', review_path(review) %>
              <% end %>
             <% else %>
               There are no reviews yet.

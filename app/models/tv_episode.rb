@@ -21,6 +21,9 @@ class TvEpisode < ActiveRecord::Base
 		    counts[tv_episode.air_date.to_date.strftime("%Y")] = tv_episode.count
 		end
     end
+    def self.reviews(id)
+  	  Review.where(:reviewable_id=>id,:reviewable_type=>'TvEpisode')
+ 	end
     def rating(id)
     	Rating.where(:rateable_id=>id,:rateable_type=>'TvEpisode')
     end

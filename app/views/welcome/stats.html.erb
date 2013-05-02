@@ -12,16 +12,23 @@
 </div>
 <div class="span3">
 	Genres
+		<ul>
+
 	<% @genres.each do |genre| %>
-  <ul>
     <li><%= genre[0] %>: <%= genre[1] %></li>
-  </ul>
-<% end %>
+	<% end %>
+</ul>
 </div>
 <div class="span3">
 	Ratings
 	<ul>
 		<li>Average Rating: <%= @average_rating %></li>
+	</ul>
+	Reviews
+	<ul>
+		<li>Number of Reviews: <%= Review.count %></li>
+		<li>Number of TV.com Reviews: <%= @DouxReviews %></li>
+		<li>Number of DouxReviews Reviews: <%= @TVReviews %></li>
 	</ul>
 </div>
 </div>

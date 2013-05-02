@@ -8,16 +8,16 @@ Clockwork.configure do |config|
   config[:tz] = 'America/Indiana/Knox'
 end
 
-#every(1.day, 'Parse TV shows', :at => '14:01') { Delayed::Job.enqueue TvShow.parseIMDB }
-#every(1.day, 'Parse TV shows', :at => '21:15') { Delayed::Job.enqueue TvShow.parseIMDB }
+every(1.day, 'Parse TV shows', :if => lambda { |t| t.thursday? }) { Delayed::Job.enqueue TvShow.parseIMDB }
+#every(1.minute, 'Parse TV shows') { TvShow.parseIMDB }
 
-#every(1.day, 'Parse genres', :at => '12:30') { Delayed::Job.enqueue Genre.parseIMDB }
-#every(1.minute, 'Parse genres') { Delayed::Job.enqueue Genre.parseIMDB }
+#every(1.day, 'Parse genres', :if => lambda { |t| t.monday? }) { Delayed::Job.enqueue Genre.parseIMDB }
+#every(2.minutes, 'Parse genres') { Genre.parseIMDB }
 
-every(1.day, 'Parse ratings', :at => '21:35') { Delayed::Job.enqueue Rating.parseIMDB }
-#every(1.minute, 'Parse ratings') { Delayed::Job.enqueue Rating.parseIMDB }
+#every(1.day, 'Parse ratings', :if => lambda { |t| t.tuesday? }) { Delayed::Job.enqueue Rating.parseIMDB }
+#every(3.minutes, 'Parse ratings') { Rating.parseIMDB }
 
 #every(1.day, 'Parse Feeds', :at => '12:30') { Delayed::Job.enqueue Review.downloadFeeds }
-#every(1.minute, 'Parse Feeds') { Delayed::Job.enqueue Review.downloadFeeds }
+#every(1.minute, 'Parse Feeds') { Review.downloadFeeds }
 
-every(7.days, 'Weekly parse TV shows', :at => '01:11') { Delayed::Job.enqueue TvShow.parseIMDB }
+#every(7.days, 'Weekly parse TV shows', :at => '01:11') { TvShow.delay.parseIMDB }

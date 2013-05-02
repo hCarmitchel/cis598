@@ -25,7 +25,7 @@ if conn
 		f = f.unpack('C*').pack('U*')
 		if !(/{.{1,}/ =~ f) && (/^".{1,}".(.{1,})\s{1,}.{1,}$/ =~ f) #if not an episode
 			if !heroku 
-				puts "Show= "+f
+				#puts "Show= "+f
 			end
 		  	tString = /^".{1,}"/.match(f)[0]
 		  	valid_title = (tString[1,tString.length-2].gsub("'","\'\'")).unpack('C*').pack('U*')

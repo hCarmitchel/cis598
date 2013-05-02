@@ -1,6 +1,7 @@
 <div class="page-header" style="margin:0px">
-    <h1><%= link_to @tv_episode.tv_season.tv_show.title, @tv_episode.tv_season.tv_show, :method => "get" %>
+    <h1>  <%= link_to @tv_episode.title, @tv_episode %>
       <small> 
+        <%= link_to @tv_episode.tv_season.tv_show.title, @tv_episode.tv_season.tv_show, :method => "get" %>
         <%= link_to 'S'+@tv_episode.tv_season.number.to_s, @tv_episode.tv_season %>x<%= link_to 'E'+@tv_episode.number.to_s, @tv_episode %> (<%= @tv_episode.air_date.try(:strftime, "%Y") %>)
       </small>
     <span class="badge badge-warning rating-badge pull-right">
@@ -25,8 +26,15 @@
             <div class="tab-pane active" id="about">
               </div>
               <div class="tab-pane" id="tvreviews">
-                Average rating for show:
-                Average rating for season:
+               <% if !@reviews.nil? and @reviews.count > 0 %>
+                <% @reviews.each do |review| %>
+                  <%= link_to(review.title, review_path(review)) %> by <%= review.author %> at <%= link_to(review.website, review.link) %>
+                  <br>
+                  <%= review.content[0..300]+"..." %><%= link_to 'Read full review', review_path(review) %>
+               <% end %>
+              <% else %>
+                There are no reviews yet.
+              <% end %>
               </div>
             <br>
             <%= link_to 'Edit', edit_tv_episode_path(@tv_episode) %> |

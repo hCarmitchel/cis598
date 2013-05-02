@@ -28,7 +28,7 @@ if conn
 		f = f.unpack('C*').pack('U*')
 		if /\d{4,}\-\d{4,5}$/ =~ f || /\d{4,}\-\?{4,5}$/ =~ f #if matches tv show
 			if !heroku 
-				puts "Show= "+f
+				#puts "Show= "+f
 			end
 		  	tString = /^".{1,}"/.match(f)[0]
 		  	title = (tString[1,tString.length-2].gsub("'","\'"))
@@ -51,7 +51,7 @@ if conn
 			end
 		elsif /\((\d{1,})\)\s{1,}{/ =~ f && !(/\d{4,}\-\d{4,5}$/ =~ f || /\d{4,}\-\?{4,5}$/ =~ f) #if episode
 			if !heroku
-				puts "Ep= "+f
+				#puts "Ep= "+f
 			end
 			tvString = /^".{1,}"/.match(f)[0]
 			valid_tv_title = (tvString[1,tvString.length-2].gsub("'","\'\'")).unpack('C*').pack('U*')
