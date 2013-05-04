@@ -1,13 +1,10 @@
-Clean up unused files
 Add seed data
 Netflix key
 Top/bottom episodes for show
-Parse plots
 Clean up fixtures
 Add average rating for genre chart
 Make queries better
 Testing with Shoulda
-Use Whenever to schedule download/parsing of IMDB files (movies.list,ratings.list,genres.list)
 
 *Get will_paginate to work for reviews *done*
 *Add ajax pagination *done*
@@ -18,4 +15,7 @@ Use Whenever to schedule download/parsing of IMDB files (movies.list,ratings.lis
 *Do noncontinuous graphs *done*
 *Fix links on index page *done*
 *Install feedzirra / make it work *done*
+*Clean up unused files
+*Use Whenever to schedule download/parsing of IMDB files (movies.list,ratings.list,genres.list)
+*Parse plots
 

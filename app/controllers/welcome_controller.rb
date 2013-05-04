@@ -2,13 +2,16 @@ class WelcomeController < ApplicationController
 	def index
 		@top_shows = Rating.top('IMDB','TvShow','tv_shows','10000',15)
 		@top_episodes = Rating.top('IMDB','TvEpisode','tv_episodes','1000',15)
-		@recentReviews = Review.limit(8).page(params[:page]).per_page(2)
+		@recentReviews = Review.limit(12).paginate(:page => params[:page], :per_page => 3)
+		@g = Genre.genres_ratings
 	end
 	def stats
 		@genres = Genre.total_grouped_by_genre
 		@average_rating = Rating.average('total_rating')
 		@DouxReviews = Review.where(:website => "DouxReviews.com").count
 		@TVReviews = Review.where(:website => "TV.com").count
+		@EqualsReviews = Review.where(:website => "TVEquals.com").count
+		@FanaticReviews = Review.where(:website => "TVFanatic.com").count
 	end
 	def tv_show_search
 		@q = TvShow.search(params[:q])

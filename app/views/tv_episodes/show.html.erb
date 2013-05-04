@@ -28,9 +28,13 @@
               <div class="tab-pane" id="tvreviews">
                <% if !@reviews.nil? and @reviews.count > 0 %>
                 <% @reviews.each do |review| %>
-                  <%= link_to(review.title, review_path(review)) %> by <%= review.author %> at <%= link_to(review.website, review.link) %>
-                  <br>
+                <h6>
+            <%= link_to review.reviewable.tv_season.tv_show.title.to_s+": "+review.title, review %> <small>
+             by <%= review.author %> at <%= link_to review.website, review.link %></small>
+          <span class="pull-right"><%= review.year_reviewed.try(:strftime, "%m/%d/%y") %>
+          &nbsp;<span class="badge badge-success">+2<span/></span></h6>
                   <%= review.content[0..300]+"..." %><%= link_to 'Read full review', review_path(review) %>
+                  <br><br>
                <% end %>
               <% else %>
                 There are no reviews yet.

@@ -20,6 +20,11 @@ class Genre < ActiveRecord::Base
 		    counts[genre.year_released.to_date.strftime("%Y")] = genre.count
 		end
   	end
+  	def self.genres_ratings
+  		genres = select('genres.name, avg(ratings.total_rating) as average')
+  		genres = where("genres.tv_show_id = ratings.rateable_id and ratings.rateable_type = 'TvShow'")
+  		genres = genres.group("genres.name")
+  	end
   	def self.parseIMDB
       puts "parsing genres"
       require_relative '../../script/parse_genres_prod'

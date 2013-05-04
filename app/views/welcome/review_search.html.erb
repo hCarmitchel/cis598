@@ -70,7 +70,7 @@
       <td><%= review.content[0..100]+"..." %></td>
       <td><%= review.author %></td>
       <td><%= review.website %></td>
-      <td class="short"><%= review.rating %></td>
+      <td class="short"><%= review.positives-review.negatives %></td>
       <td class="medium"><%= review.year_reviewed %></td>
     </tr>
   <% end %>

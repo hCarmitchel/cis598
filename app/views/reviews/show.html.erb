@@ -3,6 +3,19 @@
     <%= link_to @review.title, @review %>
     <small>
       (<%= @review.year_reviewed.try(:strftime, "%B %d, %Y") %>) </small>
+      <span class="pull-right" style="line-height:38px;font-size:18px;">
+      <span class="badge badge-success"><%= @review.positives %> positive words</span>
+      - <span class="badge badge-important"><%= @review.negatives %> negative words</span>
+          = <% if @review.positives-@review.negatives == 0 %>
+          <span class="badge badge-warning">
+          <% elsif @review.positives-@review.negatives > 0 %>
+           <span class="badge badge-success">+
+          <% else %>          
+          <span class="badge badge-important">
+          <% end %><%= @review.positives-@review.negatives %><span/></span>
+          </span>
+      <%= @IMDBrating %>
+      </span>
   </h1>
 </div>
 
@@ -10,28 +23,41 @@
   <div class="span2">
 
 <p>
-  <b>Author:</b>
+  <b>Author:</b><br>
   <%= @review.author %>
 </p>
 
 <p>
-  <b>Rating:</b>
+  <b>Rating:</b><br>
   <%= @review.rating %>
 </p>
 
 <p>
-  <b>Website:</b>
+  <b>Website:</b><br>
   <a href=<%= @review.link %>><%= @review.website %></a>
 </p>
 
+<p>
+  <b>Sentiments:</b><br>
+  <%= @positive %>% of the words are <span style="color:#468847">positive</span><br>
+  <%= @negative %>% of the words are <span style="color:#B94A48">negative</span>
+</p>
+
 <p>  
-  <b>Reviewed:</b>
+  <b>Reviewed:</b><br>
   <% if @review.reviewable_type == 'TvShow' %>
     <%= link_to @review.reviewable.title, tv_show_path(@review.reviewable) %>
   <% elsif @review.reviewable_type == 'TvSeason' %>
     <%= link_to @review.reviewable.number, tv_season_path(@review.reviewable) %>
   <% elsif @review.reviewable_type == 'TvEpisode' %>
     <%= link_to @review.reviewable.title, tv_episode_path(@review.reviewable) %>
+  <% end %>
+</p>
+<p>  
+  <b>Review type:</b><br>
+  <% if @review.reviewable_type == 'TvShow' %>TV Show
+  <% elsif @review.reviewable_type == 'TvSeason' %>TV Season
+  <% elsif @review.reviewable_type == 'TvEpisode' %>TV Episode
   <% end %>
 </p>
 <%= button_to "Edit", edit_review_path(@review), :method => "get",:class=> "btn btn-primary inline"%>

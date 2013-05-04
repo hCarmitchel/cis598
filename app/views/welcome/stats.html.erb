@@ -6,18 +6,22 @@
 		<li>TV season count: <%= TvSeason.count %></li>
 		<li>TV episode count: <%= TvEpisode.count %></li>
 		<li>Genre count: <%= Genre.count %></li>
-		<li>Rating count: <%= Rating.count %></li>
+		<li>Rating count: <%= Rating.count %></li>		
+		<li>Review count: <%= Review.count %></li>
+		<li> - TV.com Reviews: <%= @DouxReviews %></li>
+		<li> - DouxReviews Reviews: <%= @TVReviews %></li>
+		<li> - TVEquals Reviews: <%= @EqualsReviews %></li>
+		<li> - TV Fanatic Reviews: <%= @FanaticReviews %></li>
 	</ul>
 	<br>
 </div>
 <div class="span3">
 	Genres
-		<ul>
-
+	<ul>
 	<% @genres.each do |genre| %>
-    <li><%= genre[0] %>: <%= genre[1] %></li>
+    	<li><%= genre[0] %>: <%= genre[1] %></li>
 	<% end %>
-</ul>
+	</ul>
 </div>
 <div class="span3">
 	Ratings
@@ -26,9 +30,7 @@
 	</ul>
 	Reviews
 	<ul>
-		<li>Number of Reviews: <%= Review.count %></li>
-		<li>Number of TV.com Reviews: <%= @DouxReviews %></li>
-		<li>Number of DouxReviews Reviews: <%= @TVReviews %></li>
+
 	</ul>
 </div>
 </div>

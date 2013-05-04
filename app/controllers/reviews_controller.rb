@@ -14,6 +14,8 @@ class ReviewsController < ApplicationController
   # GET /reviews/1.json
   def show
     @review = Review.find(params[:id])
+    @positive = ((@review.positives / 1.0 / @review.content.split.size) * 100).round(2)
+    @negative = ((@review.negatives / 1.0 / @review.content.split.size) * 100).round(2)
 
     respond_to do |format|
       format.html # show.html.erb

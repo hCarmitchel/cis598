@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130426020415) do
+ActiveRecord::Schema.define(:version => 20130503231511) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -56,6 +56,8 @@ ActiveRecord::Schema.define(:version => 20130426020415) do
     t.string  "website"
     t.integer "reviewable_id"
     t.string  "reviewable_type"
+    t.integer "positives"
+    t.integer "negatives"
   end
 
   add_index "reviews", ["reviewable_id", "reviewable_type"], :name => "index_reviews_on_reviewable_id_and_reviewable_type"
