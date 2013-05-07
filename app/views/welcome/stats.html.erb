@@ -1,43 +1,45 @@
 <h3>Statistics</h3>
 <div class="row-fluid">
-<div class="span5">
+<div class="span4">
+	<h4>TV shows</h4>
 	<p>TV show count: <%= TvShow.count %><br>
-		- <%= @notYetTV %> of these shows have released dates after today</p>
+		&bull; <%= @notYetTV %> of these shows have released dates after today</p>
 	<p>TV season count: <%= TvSeason.count %></p>
 	<p>TV episode count: <%= TvEpisode.count %><br>
-		- <%= @notYet %> of these episodes have air dates after today</p>
-	<p>Genre count: <%= Genre.count %></p>
-	<p>Rating count: <%= Rating.count %></p>
-	<p>Review count: <%= Review.count %></p>
-	 <p>- TV.com Reviews: <%= @DouxReviews %>, <%= @TVReviews_size %> words<br>
-		<span style="color:#468847"><%= @TVPositive %>% are positive</span><br>
-		<span style="color:#B94A48"><%= @TVNegative%>% are negative</span></p>
-	 <p>- DouxReviews Reviews: <%= @TVReviews %>, <%= @DouxReviews_size %> words<br>
-		<span style="color:#468847"><%= @DouxPositive %>% are positive</span><br>
-		<span style="color:#B94A48"><%= @DouxNegative %>% are negative</span></p>
-	 <p>- TVEquals Reviews: <%= @EqualsReviews %>, <%= @EqualsReviews_size %> words<br>
-		<span style="color:#468847"><%= @EqualsPositive %>% are positive</span><br>
-		<span style="color:#B94A48"><%= @EqualsNegative %>% are negative</span></p>
-	 <p>- TV Fanatic Reviews: <%= @FanaticReviews %>, <%= @FanaticReviews_size %> words<br>
-		<span style="color:#468847"><%= @FanaticPositive %>% are positive</span><br>
-		<span style="color:#B94A48"><%= @FanaticNegative %>% are negative</span></p>
-	<p>TV.com has the most positive words/review</p>
-	<p>TVFanatic.com has the most negative words/review</p>
+		&bull; <%= @notYet %> of these episodes have air dates after today</p>
+
 	<br>
 </div>
-<div class="span3">
-	Genres
+<div class="span4">
+	<h4>Genres</h4>
 	<ul>
+	<p>Genre count: <%= Genre.count %></p>
 	<% @genres.each do |genre| %>
     	<li><%= genre[0] %>: <%= genre[1] %></li>
 	<% end %>
 	</ul>
 </div>
-<div class="span3">
+<div class="span4">
 	<h4>Ratings</h4>
+		<p>Rating count: <%= Rating.count %></p>
 		<p>Average Rating: <%= @average_rating %></p>
 		<p>Average Number of Votes: <%= @average_votes %></p>
 	<h4>Reviews</h4>
+		<p>Review count: <%= Review.count %></p>
+	 <p>&bull; TV.com Reviews: <%= @DouxReviews %>, <%= @TVReviews_size %> words<br>
+		<span style="color:#468847"><%= @TVPositive %>% are positive</span><br>
+		<span style="color:#B94A48"><%= @TVNegative%>% are negative</span></p>
+	 <p>&bull; DouxReviews Reviews: <%= @TVReviews %>, <%= @DouxReviews_size %> words<br>
+		<span style="color:#468847"><%= @DouxPositive %>% are positive</span><br>
+		<span style="color:#B94A48"><%= @DouxNegative %>% are negative</span></p>
+	 <p>&bull; TVEquals Reviews: <%= @EqualsReviews %>, <%= @EqualsReviews_size %> words<br>
+		<span style="color:#468847"><%= @EqualsPositive %>% are positive</span><br>
+		<span style="color:#B94A48"><%= @EqualsNegative %>% are negative</span></p>
+	 <p>&bull; TV Fanatic Reviews: <%= @FanaticReviews %>, <%= @FanaticReviews_size %> words<br>
+		<span style="color:#468847"><%= @FanaticPositive %>% are positive</span><br>
+		<span style="color:#B94A48"><%= @FanaticNegative %>% are negative</span></p>
+	<p>TV.com has the most positive words/review</p>
+	<p>TVFanatic.com has the most negative words/review</p>
 
 </div>
 </div>

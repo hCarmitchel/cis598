@@ -19,6 +19,14 @@
     labels: ['Average rating'],
     parseTime: false
   });
+  Morris.Bar({
+    element: 'sentiments_chart',
+    data: $('#sentiments_chart').data('reviews'),
+    xkey: 'website',
+    ykeys: ['positives','negatives'],
+    labels: ['Positives', 'Negatives'],
+    parseTime: false
+  });
   Morris.Area({
     element: 'genres_chart',
     data: $('#genres_chart').data('genres'),
@@ -44,6 +52,7 @@
 </script>
 <% end %>
 
+<%= content_tag :div, "", id: "sentiments_chart", style: "height:540px", data: {reviews: sentiments_chart_data} %>
 <div class="row-fluid">
 <div class="span6">
 <h3>Average Ratings By Genre</h3>

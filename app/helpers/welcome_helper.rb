@@ -61,6 +61,17 @@ module WelcomeHelper
       }
     end
   end
+  def sentiments_chart_data
+    sentiments = Review.grouped
+
+    sentiments.map do |sentiment|
+      {
+      website: sentiment.website,
+      positives: sentiment.positives.to_i,
+      negatives: sentiment.negatives.to_i
+      }
+    end
+  end
   def ratings_avg_data
     tv_ratings_by_day = Rating.avg_grouped_by_day("TvShow","tv_shows","year_released")
     ep_ratings_by_day = Rating.avg_grouped_by_day("TvEpisode","tv_episodes","air_date")
