@@ -1,0 +1,38 @@
+<% content_for :javascript do %>
+<script type="text/javascript">
+  Morris.Donut({
+    element: 'genres_pie_chart',
+    data: $('#genres_pie_chart').data('genres')
+  });
+  Morris.Bar({
+    element: 'genres_pie_ratings_chart',
+    data: $('#genres_pie_ratings_chart').data('genres'),
+    xkey: 'name',
+    ykeys: ['value'],
+    labels: ['Average rating'],
+    parseTime: false
+  });
+  Morris.Area({
+    element: 'genres_chart',
+    data: $('#genres_chart').data('genres'),
+    xkey: 'year_released',
+    ykeys: ['comedy', 'drama', 'documentary', 'realitytv', 'talkshow'],
+    labels: ['Comedy', 'Drama', 'Documentary', 'Reality TV', 'Talk Show']
+  });
+</script>
+<% end %>
+
+<div class="row-fluid">
+<div class="span12">
+<h3>Average Ratings By Genre</h3>
+<%= content_tag :div, "", id: "genres_pie_ratings_chart", style: "height:540px", data: {genres: genres_pie_ratings_data} %>
+</div>
+<h3>Genres</h3>
+<div class="row-fluid">
+<div class="span4">
+<%= content_tag :div, "", id: "genres_pie_chart", style: "height:540px", data: {genres: genres_pie_data} %>
+</div>
+<div class="span8">
+<%= content_tag :div, "", id: "genres_chart", style: "height:540px", data: {genres: genres_chart_data} %>
+</div>
+</div>

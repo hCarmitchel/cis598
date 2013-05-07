@@ -13,6 +13,7 @@ RailsinstallerDemo::Application.routes.draw do
   match "review_search" => "welcome#review_search"
   match "search_results" => "welcome#search_results"
   match "graphs" => "welcome#graphs"
+  match "genres_graphs" => "welcome#genres_graphs"
 
 
   # The priority is based upon order of creation:

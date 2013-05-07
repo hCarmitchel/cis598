@@ -17,8 +17,6 @@ class Review < ActiveRecord::Base
   	Review.where(:website => website).sum(:negatives)
   end
   def self.grouped
-    reviews = unscoped.group("website").select("website, sum(positives) as positives, sum(negatives) as negatives")
-    puts reviews.explain
-    return reviews
+    reviews = unscoped.group("website").select("website, count(*) as reviews, sum(positives) as positives, sum(negatives) as negatives")
   end
 end

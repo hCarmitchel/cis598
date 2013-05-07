@@ -67,6 +67,7 @@ module WelcomeHelper
     sentiments.map do |sentiment|
       {
       website: sentiment.website,
+      reviews: sentiment.reviews,
       positives: sentiment.positives.to_i,
       negatives: sentiment.negatives.to_i
       }
