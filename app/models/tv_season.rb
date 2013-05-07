@@ -41,5 +41,8 @@ class TvSeason < ActiveRecord::Base
       eps = eps.joins('LEFT JOIN ratings ON ratings.rateable_id = tv_episodes.id')
       eps = eps.order("total_rating "+order).select('tv_episodes.id as tv_episode_id, title, total_rating, number').limit(limit)
     end
+    def reviews(id)
+    	reviews = Review.where(:reviewable_id=>id,:reviewable_type=>'TvSeason')
+    end
 end
 

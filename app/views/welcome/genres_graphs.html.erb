@@ -24,15 +24,15 @@
 
 <div class="row-fluid">
 <div class="span12">
-<h3>Average Ratings By Genre</h3>
-<%= content_tag :div, "", id: "genres_pie_ratings_chart", style: "height:540px", data: {genres: genres_pie_ratings_data} %>
-</div>
 <h3>Genres</h3>
+<%= content_tag :div, "", id: "genres_chart", style: "height:540px", data: {genres: genres_chart_data} %>
+</div>
 <div class="row-fluid">
 <div class="span4">
 <%= content_tag :div, "", id: "genres_pie_chart", style: "height:540px", data: {genres: genres_pie_data} %>
 </div>
 <div class="span8">
-<%= content_tag :div, "", id: "genres_chart", style: "height:540px", data: {genres: genres_chart_data} %>
+  <%= content_tag :div, "", id: "genres_pie_ratings_chart", style: "height:540px", data: {genres: genres_pie_ratings_data} %>
+
 </div>
 </div>

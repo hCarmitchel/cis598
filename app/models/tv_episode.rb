@@ -27,6 +27,9 @@ class TvEpisode < ActiveRecord::Base
     def rating(id)
     	Rating.where(:rateable_id=>id,:rateable_type=>'TvEpisode')
     end
+    def reviews(id)
+    	reviews = Review.where(:reviewable_id=>id,:reviewable_type=>'TvEpisode')
+    end
     def self.simple_search(search)
 	  if search
 	    where 'UPPER(title) LIKE UPPER(?)', "%#{search}%"

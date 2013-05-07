@@ -2,7 +2,6 @@ Add seed data
 Netflix key
 Top/bottom episodes for show
 Clean up fixtures
-Add average rating for genre chart
 Make queries better
 Testing with Shoulda
 
@@ -15,7 +14,8 @@ Testing with Shoulda
 *Do noncontinuous graphs *done*
 *Fix links on index page *done*
 *Install feedzirra / make it work *done*
-*Clean up unused files
-*Use Whenever to schedule download/parsing of IMDB files (movies.list,ratings.list,genres.list)
-*Parse plots
-
+*Clean up unused files *done*
+*Use Whenever to schedule download/parsing of IMDB files (movies.list,ratings.list,genres.list) *done*
+*Parse plots *done*
+*Add average rating for genre chart *done*
+ 

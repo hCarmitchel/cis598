@@ -75,7 +75,15 @@ $(function() {
                 <h6><%= link_to review.reviewable.tv_season.tv_show.title.to_s+": "+review.title, review %> <small>
              by <%= review.author %> at <%= link_to review.website, review.link %></small>
           <span class="pull-right"><%= review.year_reviewed.try(:strftime, "%m/%d/%y") %>
-          &nbsp;<span class="badge badge-success">+2<span/></span></h6>
+          &nbsp;          <% if review.positives-review.negatives == 0 %>
+            <span class="badge badge-warning">
+          <% elsif review.positives-review.negatives > 0 %>
+            <span class="badge badge-success">+
+          <% else %>          
+            <span class="badge badge-important">
+          <% end %><%= review.positives-review.negatives %><span/>
+          </span></h6>
+        </span></h6>
                 <br>
                 <%= review.content[0..300]+"..." %><%= link_to 'Read full review', review_path(review) %>
              <% end %>
@@ -85,9 +93,8 @@ $(function() {
             </div>
           </div>
 
-        </div>
-      </div>
-
+            </div>
+          </div>
         <div class="span4" style="width:29%">
           <div class="accordion" id="accordion1">
             <% @tv_show.tv_seasons.each do |season| %>
@@ -107,6 +114,6 @@ $(function() {
                 </div>
               </div>
             </div>
-            <% end %></div>
+            <% end %>
         </div>
-      </div>
+      </div></div>
