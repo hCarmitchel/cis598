@@ -25,6 +25,10 @@ class WelcomeController < ApplicationController
 	    end
 
 	    @b = TvShow.find_title('Breaking Bad',DateTime.strptime('01/01/2008', '%m/%d/%Y').strftime('%m/%d/%Y').to_s).first.id
+	    @a = TvShow.find_title('Archer',DateTime.strptime('01/01/2009', '%m/%d/%Y').strftime('%m/%d/%Y').to_s).first.id
+	    @g = TvShow.find_title('Game of Thrones',DateTime.strptime('01/01/2011', '%m/%d/%Y').strftime('%m/%d/%Y').to_s).first.id
+	    @t = TvShow.find_title('The Americans',DateTime.strptime('01/01/2013', '%m/%d/%Y').strftime('%m/%d/%Y').to_s).first.id
+
 	end
 	def stats
 		@genres = Genre.total_grouped_by_genre
