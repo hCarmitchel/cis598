@@ -21,6 +21,16 @@ module WelcomeHelper
       }
     end
   end
+  def genres_pie_ratings_data
+    genres = Genre.genres_ratings
+
+    genres.map do |genre|
+      {
+      name: genre[0],
+      value: genre[1].to_f.round(2)
+      }
+    end
+  end
   def genres_chart_data
     comedy_by_day = Genre.genres_grouped_by_day("Comedy")
     drama_by_day = Genre.genres_grouped_by_day("Drama")

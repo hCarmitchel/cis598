@@ -95,23 +95,41 @@
 </div>
 <div class="row-fluid">
   <div class="span7">
-    <h3>Recent reviews</h3>
+    <h4>Recent reviews</h4>
     <% if !@recentReviews.nil? %>
       <div id="recentReviews"><%= render 'layouts/reviews' %></div> 
     <% end %> 
   </div>
   <div class="span5">
-  	<h3>News and Updates</h3>
-    <ul>
-      <li style="margin-bottom:10px;"><h6>Update #4<span class="pull-right">05/02/13</span></h6></li>
-      <li style="margin-bottom:12px;">Added reviews from TV.com and TVFanatic.com</li>
-      <li style="margin-bottom:10px;"><h6>Update #3<span class="pull-right">04/31/13</span></h6></li>
-      <li style="margin-bottom:12px;">Adding new fields to review advanced search for show and episode title</li>
-      <li style="margin-bottom:10px;"><h6>Update #2<span class="pull-right">04/30/13</span></h6></li>
-      <li style="margin-bottom:12px;">Now pulling in reviews from Doux Reviews</li>
-      <li style="margin-bottom:10px;"><h6>Update #1<span class="pull-right">04/28/13</span></h6></li>
-      <li style="margin-bottom:12px">Updating shows, episodes, genres, and ratings info every week</li>
-    </ul>
+  	<h4>Most Positive Recent Review</h4>
+    <div class="row-fluid">
+    <div class="span3">
+      <% if !@poster.nil? %>
+        <img src=<%= @poster %> style="margin-bottom:20px"/>
+      <% end %>
+    </div>
+    <div class="span9" style="width:70%">
+      <span class="pull-right"><h6 style="margin-top:0">
+      <%= link_to @d.reviewable.tv_season.tv_show.title.to_s+": "+@d.title, @d %> <br><small>
+      by <%= @d.author %> at <%= link_to @d.website, @d.link %></small></h6>
+      <%= @d.content[0..300]+"..." %><%= link_to 'Read full review', @d %>
+    </div>
+    </div>
+    <div class="row-fluid">
+          <h4>Most Negative Recent Review</h4>
+          <div class="span3" style="margin-left:0">
+      <% if !@poster2.nil? %>
+        <img src=<%= @poster2 %> style="margin-bottom:20px"/>
+      <% end %>
+    </div>
+    <div class="span9" style="width:70%">
+      <span class="pull-right"><h6 style="margin-top:0">
+      <%= link_to @e.reviewable.tv_season.tv_show.title.to_s+": "+@e.title, @e %> <br><small>
+      by <%= @e.author %> at <%= link_to @e.website, @e.link %></small></h6>
+      <%= @e.content[0..300]+"..." %><%= link_to 'Read full review', @e %>
+    </div>
+    </div>
+    </div>
   </div>
 </div>
 

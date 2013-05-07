@@ -39,8 +39,9 @@
 
 <p>
   <b>Sentiments:</b><br>
-  <%= @positive %>% of the words are <span style="color:#468847">positive</span><br>
-  <%= @negative %>% of the words are <span style="color:#B94A48">negative</span>
+  <%= @review.content.split.size %> words<br><br>
+  <span style="color:#468847"><%= @positive %>% of the words are positive</span><br><br>
+  <span style="color:#B94A48"><%= @negative %>% of the words are negative</span>
 </p>
 
 <p>  
@@ -50,6 +51,7 @@
   <% elsif @review.reviewable_type == 'TvSeason' %>
     <%= link_to @review.reviewable.number, tv_season_path(@review.reviewable) %>
   <% elsif @review.reviewable_type == 'TvEpisode' %>
+    <%= link_to @review.reviewable.tv_season.tv_show.title, tv_show_path(@review.reviewable.tv_season.tv_show) %>: 
     <%= link_to @review.reviewable.title, tv_episode_path(@review.reviewable) %>
   <% end %>
 </p>

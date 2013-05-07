@@ -21,9 +21,14 @@ class Genre < ActiveRecord::Base
 		end
   	end
   	def self.genres_ratings
-  		genres = select('genres.name, avg(ratings.total_rating) as average')
-  		genres = where("genres.tv_show_id = ratings.rateable_id and ratings.rateable_type = 'TvShow'")
+  		genres = unscoped.where("ratings.rateable_type = 'TvShow'")
+  		genres = genres.select('genres.name, avg(ratings.total_rating) as average')
   		genres = genres.group("genres.name")
+  		genres = genres.joins('LEFT OUTER JOIN ratings ON ratings.rateable_id = genres.tv_show_id')
+  		genres = genres.order("average asc")
+  		genres.each_with_object({}) do |genre, averages|
+		    averages[genre.name] = genre.average
+		end
   	end
   	def self.parseIMDB
       puts "parsing genres"

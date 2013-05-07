@@ -11,6 +11,14 @@
     element: 'genres_pie_chart',
     data: $('#genres_pie_chart').data('genres')
   });
+  Morris.Bar({
+    element: 'genres_pie_ratings_chart',
+    data: $('#genres_pie_ratings_chart').data('genres'),
+    xkey: 'name',
+    ykeys: ['value'],
+    labels: ['Average rating'],
+    parseTime: false
+  });
   Morris.Area({
     element: 'genres_chart',
     data: $('#genres_chart').data('genres'),
@@ -23,7 +31,8 @@
     data: $('#ratings_avg_chart').data('ratings'),
     xkey: 'year',
     ykeys: ['average','epaverage'],
-    labels: ['Average TV show rating','Average episode rating']
+    labels: ['Average TV show rating','Average episode rating'],
+    pointSize: 0
   });
   Morris.Area({
     element: 'ratings_chart',
@@ -36,9 +45,23 @@
 <% end %>
 
 <div class="row-fluid">
-<div class="span12">
+<div class="span6">
+<h3>Average Ratings By Genre</h3>
+<%= content_tag :div, "", id: "genres_pie_ratings_chart", style: "height:540px", data: {genres: genres_pie_ratings_data} %>
+</div>
+<div class="span6">
+<h3>Average Ratings By Year</h3>
+<%= content_tag :div, "", id: "ratings_avg_chart", style: "height:540px", data: {ratings: ratings_avg_data} %>
+</div>
+</div>
+<div class="row-fluid">
+<div class="span6">
 <h3>TV Shows By Year Released</h3>
 <%= content_tag :div, "", id: "tv_shows_chart", style: "height:540px", data: {tv_shows: tv_shows_chart_data} %>
+</div>
+<div class="span6">
+<h3>Ratings By Year Released</h3>
+<%= content_tag :div, "", id: "ratings_chart", style: "height:540px", data: {ratings: ratings_chart_data} %>
 </div>
 </div>
 <h3>Genres</h3>
@@ -48,17 +71,5 @@
 </div>
 <div class="span8">
 <%= content_tag :div, "", id: "genres_chart", style: "height:540px", data: {genres: genres_chart_data} %>
-</div>
-</div>
-<div class="row-fluid">
-<div class="span12">
-<h3>Ratings By Year</h3>
-<%= content_tag :div, "", id: "ratings_chart", style: "height:540px", data: {ratings: ratings_chart_data} %>
-</div>
-</div>
-<div class="row-fluid">
-<div class="span12">
-<h3>Average Ratings By Year</h3>
-<%= content_tag :div, "", id: "ratings_avg_chart", style: "height:540px", data: {ratings: ratings_avg_data} %>
 </div>
 </div>

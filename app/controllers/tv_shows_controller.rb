@@ -35,6 +35,11 @@ class TvShowsController < ApplicationController
     end
 
     @reviews = TvShow.reviews(@tv_show.id)
+    @seasonCount = TvSeason.where(:tv_show_id => @tv_show.id).count
+    @epCount = 0
+    @tv_show.tv_seasons.each do |s|
+      @epCount = @epCount + TvEpisode.where(:tv_season_id => s.id).count
+    end
 
     respond_to do |format|
       format.html # show.html.erb

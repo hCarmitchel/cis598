@@ -10,4 +10,10 @@ class Review < ActiveRecord::Base
       puts "parsing feeds"
       require_relative '../../script/parse_feeds'
   end
+  def self.positives_average(website)
+  	Review.where(:website => website).sum(:positives)
+  end
+  def self.negatives_average(website)
+  	Review.where(:website => website).sum(:negatives)
+  end
 end

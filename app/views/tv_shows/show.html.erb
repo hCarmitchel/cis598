@@ -54,6 +54,7 @@ $(function() {
 
           <div class="tab-content" style="overflow:hidden">
             <div class="tab-pane active" id="about">
+              <%= @seasonCount %> seasons, <%= @epCount %> episodes<br><br>
               <p><b>Genres:</b>
                   <% @tv_show.genres.each do |genre| %>
                   <span class="badge badge-info">

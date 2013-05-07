@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby.exe
+# encoding: utf-8
+
 require 'feedzirra'
 
 # fetching a single feed
@@ -17,7 +19,7 @@ end
 
 if conn 
   tvfeed.entries.each do |entry|
-    if (/Review/ =~ entry.title) # is Review
+    if (/Review:/ =~ entry.title) # is Review
 
       require 'nokogiri'
       require 'open-uri'
@@ -71,17 +73,17 @@ if conn
               File.open("lib/assets/sentimentwords.txt", "r") do |f|
                 f.each_line do |word|
                   if (/^POSITIVES$/ =~ word)
-                    puts "found positive"
+                    #puts "found positive"
                     sentiment = 1
                   elsif (/^NEGATIVES$/ =~ word)
-                    puts "found negative"
+                    #puts "found negative"
                     sentiment = -1
                   else
-                    if ((div.downcase.include?(' '+word.downcase.strip+' ')) && (sentiment == 1) && !(/^POSITIVES$/ =~ word))
-                      puts ep_title+" Positive: "+word
+                    if ((div.downcase.include?(' '+word.downcase.strip)) && (sentiment == 1) && !(/^POSITIVES$/ =~ word))
+                      #puts ep_title+" Positive: "+word
                       positives = positives + 1
-                    elsif ((div.downcase.include?(' '+word.downcase.strip+' ')) && (sentiment == -1) && !(/^NEGATIVES$/ =~ word))
-                      puts ep_title+" Negative: "+word
+                    elsif ((div.downcase.include?(' '+word.downcase.strip)) && (sentiment == -1) && !(/^NEGATIVES$/ =~ word))
+                      #puts ep_title+" Negative: "+word
                       negatives = negatives + 1
                     end
                   end 
@@ -89,15 +91,19 @@ if conn
               end
               conn.exec('INSERT INTO reviews (id,content,year_reviewed,title,author,link,website,reviewable_id,reviewable_type,positives,negatives) VALUES 
               (DEFAULT,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10)',[div,year,ep_title,author,entry.url,"TV.com",eps[0]["id"],"TvEpisode",positives,negatives])
+            else
+              puts "already inserted: "+ show_title+"." + ep_title+ " "+season_number.to_s+ " "+episode_number.to_s
+              puts " "
             end
           end
         end
       end
+    else
+      puts "no eps: "+show_title.to_s+"."+ep_title.to_s+"."
     end
   end
   bdfeed.entries.each do |entry|
     if (/^.{1,}: .{1,}$/ =~ entry.title)
-      #puts "Found review"
       require 'nokogiri'
       require 'open-uri'
       doc = Nokogiri::HTML(open(entry.url))
@@ -105,14 +111,11 @@ if conn
       div = doc.css('div.post-body')
       div.at_css("div.separator")
       div = div.inner_text
-      #puts "there"
-      #puts div.inner_text
+
       show_title = entry.title.split(":").first.strip
       ep_title = entry.title.split(":").last.strip
-      #puts show_title
-      #puts ep_title
+
       shows = conn.exec('SELECT id FROM tv_shows where title = $1;',[show_title])
-      #puts "NUM shows: "+shows.num_tuples.to_s
       shows.each do |show|
         seasons = conn.exec('SELECT id FROM tv_seasons where tv_show_id = $1;',[show["id"]])
         seasons.each do |season|
@@ -128,17 +131,17 @@ if conn
               File.open("lib/assets/sentimentwords.txt", "r") do |f|
                 f.each_line do |word|
                   if (/^POSITIVES$/ =~ word)
-                    puts "found positive"
+                    #puts "found positive"
                     sentiment = 1
                   elsif (/^NEGATIVES$/ =~ word)
-                    puts "found negative"
+                    #puts "found negative"
                     sentiment = -1
                   else
-                    if ((div.downcase.include?(' '+word.downcase.strip+' ')) && (sentiment == 1) && !(/^POSITIVES$/ =~ word))
-                      puts ep_title+" Positive: "+word
+                    if ((div.downcase.include?(' '+word.downcase.strip)) && (sentiment == 1) && !(/^POSITIVES$/ =~ word))
+                      #puts ep_title+" Positive: "+word
                       positives = positives + 1
-                    elsif ((div.downcase.include?(' '+word.downcase.strip+' ')) && (sentiment == -1) && !(/^NEGATIVES$/ =~ word))
-                      puts ep_title+" Negative: "+word
+                    elsif ((div.downcase.include?(' '+word.downcase.strip)) && (sentiment == -1) && !(/^NEGATIVES$/ =~ word))
+                      #puts ep_title+" Negative: "+word
                       negatives = negatives + 1
                     end
                   end 
@@ -148,10 +151,11 @@ if conn
               (DEFAULT,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10)',[div,year,ep_title,entry.author,entry.url,"DouxReviews.com",eps[0]["id"],"TvEpisode",positives,negatives])
               #puts "Found correct episode"
             else
-              #puts "Already inserted episode"
+              puts "Already inserted: "+show_title+"." + ep_title+"."
+              puts " "
             end
           else
-            #puts "Couldn't find any eps"
+            puts "No eps "+show_title+"."+ep_title+"."
           end
         end
       end
@@ -160,7 +164,7 @@ if conn
   fanaticfeed.entries.each do |entry|
     if (/Season \d{1,2}, Episode \d{1,2}/ =~ entry.title)
 
-      #puts " "
+      puts "fanatic feed"
       require 'nokogiri'
       require 'open-uri'
       breakNow = false
@@ -169,22 +173,25 @@ if conn
       div = doc.css('div.description').inner_text
       author = doc.css('span.reviewer').inner_text.strip
       show_title = /^.{1,} Season/.match(entry.title)[0].split(' Season').first.strip
-      puts show_title
       ep_title = /".{1,}$/.match(entry.title)[0].sub('"','').strip
-      puts ep_title
       season_number = /Season \d{1,2}, Episode \d{1,2}/.match(entry.title)[0].split(', ').first.sub('Season ','')
-      puts season_number
       episode_number = /Season \d{1,2}, Episode \d{1,2}/.match(entry.title)[0].split(', ').last.sub('Episode ','')
-      puts episode_number
+
+      puts show_title+"." + ep_title+ " "+season_number.to_s+ " "+episode_number.to_s
+      puts " "
 
       shows = conn.exec('SELECT id FROM tv_shows where title = $1;',[show_title])
       shows.each do |show|
-        seasons = conn.exec('SELECT id FROM tv_seasons where tv_show_id = $1;',[show["id"]])
+        seasons = conn.exec('SELECT id FROM tv_seasons where tv_show_id = $1 and number = $2;',[show["id"],season_number])
         seasons.each do |season|
-          eps = conn.exec('SELECT id FROM tv_episodes where tv_season_id = $1 and number = $2 and upper(title) like upper($3);',[season["id"],episode_number,ep_title])
+          if (shows.num_tuples == 1)
+            eps = conn.exec('SELECT id FROM tv_episodes where tv_season_id = $1 and number = $2 and upper(title) like upper($3);',[season["id"],episode_number,ep_title])
+          else
+            eps = conn.exec('SELECT id FROM tv_episodes where tv_season_id = $1 and number = $2;',[season["id"],episode_number])
+          end
           if eps.num_tuples > 0
             year = Date.parse(Time.now.strftime('%Y/%m/%d')).to_s
-            alreadyInserted = conn.exec('SELECT id FROM reviews where title = $1 and author = $2 and website = $3 and reviewable_id = $4;',[ep_title,author,"TVFanatic.com",eps[0]["id"]])
+            alreadyInserted = conn.exec('SELECT id FROM reviews where title = $1 and author = $2 and website = $3',[ep_title,author,"TVFanatic.com"])
 
             if alreadyInserted.num_tuples == 0
               positives = 0
@@ -193,17 +200,17 @@ if conn
               File.open("lib/assets/sentimentwords.txt", "r") do |f|
                 f.each_line do |word|
                   if (/^POSITIVES$/ =~ word)
-                    puts "found positive"
+                    #puts "found positive"
                     sentiment = 1
                   elsif (/^NEGATIVES$/ =~ word)
-                    puts "found negative"
+                    #puts "found negative"
                     sentiment = -1
                   else
-                    if ((div.downcase.include?(' '+word.downcase.strip+' ')) && (sentiment == 1) && !(/^POSITIVES$/ =~ word))
-                      puts ep_title+" Positive: "+word
+                    if ((div.downcase.include?(' '+word.downcase.strip)) && (sentiment == 1) && !(/^POSITIVES$/ =~ word))
+                      #puts ep_title+" Positive: "+word
                       positives = positives + 1
-                    elsif ((div.downcase.include?(' '+word.downcase.strip+' ')) && (sentiment == -1) && !(/^NEGATIVES$/ =~ word))
-                      puts ep_title+" Negative: "+word
+                    elsif ((div.downcase.include?(' '+word.downcase.strip)) && (sentiment == -1) && !(/^NEGATIVES$/ =~ word))
+                      #puts ep_title+" Negative: "+word
                       negatives = negatives + 1
                     end
                   end 
@@ -213,11 +220,13 @@ if conn
               conn.exec('INSERT INTO reviews (id,content,year_reviewed,title,author,link,website,reviewable_id,reviewable_type,positives,negatives) VALUES 
               (DEFAULT,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10)',[div,year,ep_title,author,entry.url,"TVFanatic.com",eps[0]["id"],"TvEpisode",positives,negatives])
             else
-              puts "NOT INSERTING"
+              puts "already inserted: "+show_title+" "+ep_title
             end
           end
         end
       end
+    else
+      puts "No eps: "+show_title+"."+ep_title
     end
   end
   equalsfeed.entries.each do |entry|
@@ -229,21 +238,25 @@ if conn
       doc = Nokogiri::HTML(open(entry.url))
       doc.css('br').each{ |br| br.replace "\n" }
       div = doc.css('div.entry').inner_text
-      author = doc.css('link[rel=author]')[0]
-      puts "author " +author.to_s+"."
+      author = doc.css('div.pm-left').inner_text.strip
+      author = /By \w{1,20} \w{1,20}/.match(author)
+      if !author.nil? and author.length > 0
+        author = author[0][2,author[0].to_s.length-2].strip.chomp(',') 
+      else
+        author = ""
+      end
+
       show_title = /^.{1,} Season \d{1,2}/.match(entry.title)[0].gsub(/ Season \d{1,2}/,'').strip
-      puts show_title+"."
       ep_title = /^.{1,} Season \d{1,2} .{1,}$/.match(entry.title)[0].gsub(/^.{1,} Season \d{1,2} Review /,'')
-      ep_title.gsub!(8220.chr(Encoding::UTF_8), '"').gsub('" .{1,}','')
-      ep_title = ep_title[1..ep_title.length-2]
-      puts ep_title+"."
+      puts "Ep before: "+ep_title
+      ep_title.gsub('[\u201C\u201D\u201E\u201F\u2033\u2036]', '"').gsub(/[‘’]/, "'").strip
+      ep_title = ep_title[1..ep_title.length-2].strip
       season_number = /^.{1,} Season \d{1,2}/.match(entry.title)[0].gsub(/^.{1,} Season /,'').strip
-      puts season_number.to_s+"."
-      puts " "
+
 
       shows = conn.exec('SELECT id FROM tv_shows where title = $1;',[show_title])
       shows.each do |show|
-        seasons = conn.exec('SELECT id FROM tv_seasons where tv_show_id = $1;',[show["id"]])
+        seasons = conn.exec('SELECT id FROM tv_seasons where tv_show_id = $1 and number = $2;',[show["id"],season_number])
         seasons.each do |season|
           eps = conn.exec('SELECT id FROM tv_episodes where tv_season_id = $1 and upper(title) like upper($2);',[season["id"],ep_title]) 
           if eps.num_tuples > 0
@@ -251,10 +264,37 @@ if conn
             alreadyInserted = conn.exec('SELECT id FROM reviews where title = $1 and author = $2 and website = $3 and reviewable_id = $4;',[ep_title,author,"TVEquals.com",eps[0]["id"]])
 
             if alreadyInserted.num_tuples == 0
-              conn.exec('INSERT INTO reviews (id,content,year_reviewed,title,author,link,website,reviewable_id,reviewable_type) VALUES 
-              (DEFAULT,$1,$2,$3,$4,$5,$6,$7,$8)',[div,year,ep_title,author,entry.url,"TVEquals.com",eps[0]["id"],"TvEpisode"])
+              positives = 0
+              negatives = 0
+              sentiment = 0
+              File.open("lib/assets/sentimentwords.txt", "r") do |f|
+                f.each_line do |word|
+                  if (/^POSITIVES$/ =~ word)
+                    #puts "found positive"
+                    sentiment = 1
+                  elsif (/^NEGATIVES$/ =~ word)
+                    #puts "found negative"
+                    sentiment = -1
+                  else
+                    if ((div.downcase.include?(' '+word.downcase.strip)) && (sentiment == 1) && !(/^POSITIVES$/ =~ word))
+                      #puts ep_title+" Positive: "+word
+                      positives = positives + 1
+                    elsif ((div.downcase.include?(' '+word.downcase.strip)) && (sentiment == -1) && !(/^NEGATIVES$/ =~ word))
+                      #puts ep_title+" Negative: "+word
+                      negatives = negatives + 1
+                    end
+                  end 
+                end
+              end
+              conn.exec('INSERT INTO reviews (id,content,year_reviewed,title,author,link,website,reviewable_id,reviewable_type,positives,negatives) VALUES 
+              (DEFAULT,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10)',[div,year,ep_title,author,entry.url,"TVEquals.com",eps[0]["id"],"TvEpisode",positives,negatives])
               break
+            else
+              puts "alreadyInserted: "+show_title+"." + ep_title+ " "+season_number.to_s
+              puts "      "
             end
+          else
+            puts "no eps: "+show_title+"."+ep_title
           end
         end
       end
