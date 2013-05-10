@@ -2,6 +2,8 @@ class WelcomeController < ApplicationController
 	def index
 		@top_shows = Rating.top('IMDB','TvShow','tv_shows','10000',15)
 		@top_episodes = Rating.top('IMDB','TvEpisode','tv_episodes','1000',15)
+		@top_shows2 = Rating.top('TVDB','TvShow','tv_shows','100',15)
+		@top_episodes2 = Rating.top('TVDB','TvEpisode','tv_episodes','100',15)
 		@recentReviews = Review.limit(12).paginate(:page => params[:page], :per_page => 3)
 		@g = Genre.genres_ratings
 		@d = Review.unscoped.where("year_reviewed > :d", {:d => Time.now - 5.days }).order('positives desc').first

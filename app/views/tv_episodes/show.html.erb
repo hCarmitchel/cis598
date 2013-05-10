@@ -4,9 +4,12 @@
         <%= link_to @tv_episode.tv_season.tv_show.title, @tv_episode.tv_season.tv_show, :method => "get" %>
         <%= link_to 'S'+@tv_episode.tv_season.number.to_s, @tv_episode.tv_season %>x<%= link_to 'E'+@tv_episode.number.to_s, @tv_episode %> (<%= @tv_episode.air_date.try(:strftime, "%Y") %>)
       </small>
-    <span class="badge badge-warning rating-badge pull-right">
+    <span class="badge badge-warning rating-badge pull-right" style="margin-left:10px">
       IMDB <%= @IMDBrating %>
-      <span>
+      </span>
+      <span class="badge badge-success rating-badge pull-right" style="margin-left:10px">
+      TVDB <%= @TVDBrating %>
+      </span>
     </h1>
 </div>
 
@@ -23,7 +26,7 @@
           </ul>
 
           <div class="tab-content">
-            <div class="tab-pane active" id="about">
+            <div class="tab-pane active" id="about"><%= @tv_episode.description %>
               </div>
               <div class="tab-pane" id="tvreviews">
                <% if !@reviews.nil? and @reviews.count > 0 %>

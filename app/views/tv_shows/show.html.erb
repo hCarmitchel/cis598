@@ -5,17 +5,19 @@ $(function() {
     element: 'shows_ratings',
     data: $('#shows_ratings').data('tv-shows'),
     xkey: 'year',
-    ykeys: ['average'],
-    labels: ['Average Episode Rating'],
+    ykeys: ['average','average_TVDB'],
+    labels: ['Average Episode Rating', 'Average Ep rating TVDB'],
     pointSize: 0,
     parseTime: false,
     continuousLine:false,
     hideHover: true,
     hoverCallback: function (index, options) {
       var row = options.data[index];
-      return "<b>"+row.year + "</b><br> Average Rating: <span class='blue'>" 
-      + row.average + "</span><br>" + "<a href='../tv_episodes/"+row.id+"'>"+row.title+"</a>";
-    }
+      return "<b>"+row.year + "</b><br> IMDB Average: <span style='color:#F89406'>" 
+      + row.average + "</span><br>TVDB Average: <span style='color:#468847'>"+row.average_TVDB+"</span><br>" + "<a href='../tv_episodes/"+row.id+"'>"+row.title+"</a>";
+    },
+    lineColors: ['#F89406','#468847'],
+    lineWidth: 2
   });
 });
 </script>
@@ -28,8 +30,11 @@ $(function() {
       (<%= @tv_show.year_released.try(:strftime, "%Y") %>
       -
       <%= @tv_show.year_ended.try(:strftime, "%Y") %>)</small>
-    <span class="badge badge-warning rating-badge pull-right">
+    <span class="badge badge-warning rating-badge pull-right" style="margin-left:10px">
       <a class="white_link" href=<%= @IMDBurl %>>IMDB <%= @IMDBrating %></a>
+      </span>
+      <span class="badge badge-success rating-badge pull-right" style="margin-left:10px">
+      TVDB <%= @TVDBrating %>
       </span>
   </h1>
 </div>

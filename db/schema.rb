@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130503231511) do
+ActiveRecord::Schema.define(:version => 20130508015449) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -67,6 +67,8 @@ ActiveRecord::Schema.define(:version => 20130503231511) do
     t.string  "title"
     t.integer "tv_season_id"
     t.date    "air_date"
+    t.string  "image"
+    t.text    "description"
   end
 
   add_index "tv_episodes", ["tv_season_id"], :name => "index_tv_episodes_on_tv_season_id"

@@ -15,11 +15,18 @@ class TvShowsController < ApplicationController
   def show
     @tv_show = TvShow.find(params[:id])
     @IMDBrating = Rating.rating("TvShow","tv_shows",params[:id],'IMDB').to_a[0]
+    @TVDBrating = Rating.rating("TvShow","tv_shows",params[:id],'TVDB').to_a[0]
 
     if !@IMDBrating.average.nil?
       @IMDBrating = @IMDBrating.average[0..2]
     else
       @IMDBrating = "N/A"
+    end
+
+    if !@TVDBrating.average.nil?
+      @TVDBrating = @TVDBrating.average[0..2]
+    else
+      @TVDBrating = "N/A"
     end
 
     require 'open-uri'

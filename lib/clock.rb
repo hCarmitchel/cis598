@@ -16,6 +16,8 @@ end
 
 #every(1.day, 'Parse ratings', :if => lambda { |t| t.tuesday? }) { Delayed::Job.enqueue Rating.parseIMDB }
 #every(3.minutes, 'Parse ratings') { Rating.parseIMDB }
+#every(1.minute, 'Parse ratings') { Rating.parseTVDB }
+
 
 #every(1.day, 'Parse Feeds', :at => '12:30') { Delayed::Job.enqueue Review.downloadFeeds }
 every(1.minute, 'Parse Feeds') { Review.downloadFeeds }

@@ -5,11 +5,13 @@ $(function() {
     element: 'seasons_ratings',
     data: $('#seasons_ratings').data('tv-seasons'),
     xkey: 'year',
-    ykeys: ['average'],
-    labels: ['Average Episode Rating'],
+    ykeys: ['average','average_tvdb'],
+    labels: ['Average IMDB Rating','Average TVDB Rating'],
     parseTime: false,
     pointSize: 0,
-    continuousLine: false
+    continuousLine: false,
+    lineColors: ['#F89406','#468847'],
+    lineWidth: 2
   });
 });
 </script>
@@ -46,7 +48,7 @@ $(function() {
                   <% @top_episodes.each do |ep| %>
                   <li>
                     <%= link_to "S"+@tv_season.number.to_s+"xE"+ep.number.to_s+" "+ep.title, tv_episode_path(ep.tv_episode_id) %>
-                    <span class="badge badge-info pull-right"><%= ep.total_rating.to_s %></span>
+                    <span class="badge badge-info pull-right"><%= ep.total_rating.to_f.round(3) %></span>
                   </li>
                   <% end %>
                 </ol>
@@ -55,7 +57,7 @@ $(function() {
                   <% @bottom_episodes.each do |ep| %>
                   <li>
                     <%= link_to "S"+@tv_season.number.to_s+"xE"+ep.number.to_s+" "+ep.title, tv_episode_path(ep.id) %>
-                    <span class="badge badge-info pull-right"><%= ep.total_rating.to_s %></span>
+                    <span class="badge badge-info pull-right"><%= ep.total_rating.to_f.round(3) %></span>
                   </li>
                   <% end %>
                 </ol>

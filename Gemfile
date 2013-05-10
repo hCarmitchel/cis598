@@ -24,6 +24,7 @@ gem 'raphael-rails'
 gem 'nokogiri'
 gem 'feedzirra'
 gem 'clockwork'
+gem 'tvdbr'
 gem 'delayed_job_active_record'
 
 gem 'ransack', :git => "git://github.com/ernie/ransack.git"

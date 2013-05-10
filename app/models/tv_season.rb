@@ -38,8 +38,8 @@ class TvSeason < ActiveRecord::Base
     end
 	def self.rated_episodes(id,order,limit)
       eps = TvEpisode.unscoped.where('tv_season_id = '+id.to_s+' and total_rating > 0')
-      eps = eps.joins('LEFT JOIN ratings ON ratings.rateable_id = tv_episodes.id')
-      eps = eps.order("total_rating "+order).select('tv_episodes.id as tv_episode_id, title, total_rating, number').limit(limit)
+      eps = eps.joins('LEFT JOIN ratings ON ratings.rateable_id = tv_episodes.id').group('tv_episodes.id')
+      eps = eps.order("total_rating "+order).select('tv_episodes.id as tv_episode_id, title, avg(total_rating) as total_rating, number').limit(limit)
     end
     def reviews(id)
     	reviews = Review.where(:reviewable_id=>id,:reviewable_type=>'TvSeason')
